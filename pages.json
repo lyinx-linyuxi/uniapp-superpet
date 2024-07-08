@@ -31,15 +31,21 @@
 		"list":[
 			{
 				"pagePath": "pages/index/index",
-				"text": "首页"
+				"text": "首页",
+				"iconPath": "static/assets/images/home.png",
+				"selectedIconPath": "static/assets/images/home-select.png"
 			},
 			{
 				"pagePath": "pages/mine/mine",
-				"text": "我的"
+				"text": "我的",
+				"iconPath": "static/assets/images/userinfo.png",
+				"selectedIconPath": "static/assets/images/userinfo-select.png"
 			},
 			{
 				"pagePath": "pages/message/message",
-				"text": "消息"
+				"text": "消息",
+				"iconPath": "static/assets/images/news.png",
+				"selectedIconPath": "static/assets/images/news-select.png"
 			}
 		]
 	},
