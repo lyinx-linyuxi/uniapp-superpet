@@ -3,10 +3,12 @@
 		<uni-list>
 			<uni-list-item :show-extra-icon="true" :extra-icon="heart" :show-badge="true" showArrow title="收到的赞"
 				:clickable="true" @click="navigateTo('/pages/message/likes/likes')" />
-			<uni-list-item :show-extra-icon="true" :extra-icon="chat" :show-badge="true" showArrow title="收到的评论" 
-				link="navigateTo" to="/pages/message/comments/comments"/>
+			<uni-list-item :show-extra-icon="true" :extra-icon="chat" :show-badge="true" showArrow title="收到的评论"
+				link="navigateTo" to="/pages/message/comments/comments" />
 			<uni-list-item :show-extra-icon="true" :extra-icon="star" :show-badge="true" showArrow title="新的关注"
-				link="navigateTo" to="/pages/message/follow/follow"/>
+				link="navigateTo" to="/pages/message/follow/follow" />
+			<uni-list-item title="宠物卡" note="来聊一聊是什么让你决定养宠物的" :show-extra-icon="true" :extra-icon="chatbox"
+				:show-arrow="true" link="navigateTo" to="/pages/pet/card/card"></uni-list-item>
 		</uni-list>
 	</view>
 </template>
@@ -30,6 +32,11 @@
 					color: '#ffff00',
 					size: '20',
 					type: 'star-filled'
+				},
+				chatbox: {
+					color: '#aa55ff',
+					size: '20',
+					type: 'chatboxes-filled'
 				}
 			};
 		},
