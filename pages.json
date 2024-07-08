@@ -30,7 +30,24 @@
 			"path" : "pages/pet/pet",
 			"style" : 
 			{
-				"navigationBarTitleText" : "萌宠"
+				"navigationBarTitleText" : "我的萌宠",
+				"navigationBarBackgroundColor": "#FFD3D3",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/pet/card/card",
+			"style" : 
+			{
+				"navigationBarTitleText" : "萌宠卡片"
+				
+			}
+		},
+		{
+			"path" : "pages/weather/weather",
+			"style" : 
+			{
+				"navigationBarTitleText" : "天气"
 			}
 		},
 		{
@@ -58,7 +75,7 @@
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "uni-app",
-		"navigationBarBackgroundColor": "#27BA9B",
+		"navigationBarBackgroundColor": "#f0ad4e",
 		"backgroundColor": "#F8F8F8"
 	},
 	"tabBar": {
@@ -80,6 +97,12 @@
 				"text": "消息",
 				"iconPath": "static/assets/images/news.png",
 				"selectedIconPath": "static/assets/images/news-select.png"
+			},
+			{
+				"pagePath": "pages/weather/weather",
+				"text": "天气",
+				"iconPath": "static/assets/images/weather.png",
+				"selectedIconPath": "static/assets/images/weather_active.png"
 			},
 			{
 				"pagePath": "pages/mine/mine",
