@@ -26,6 +26,13 @@
 			{
 				"navigationBarTitleText" : "萌宠"
 			}
+		},
+		{
+			"path" : "pages/weather/weather",
+			"style" : 
+			{
+				"navigationBarTitleText" : "天气"
+			}
 		}
 	],
 	"globalStyle": {
@@ -53,6 +60,12 @@
 				"text": "消息",
 				"iconPath": "static/assets/images/news.png",
 				"selectedIconPath": "static/assets/images/news-select.png"
+			},
+			{
+				"pagePath": "pages/weather/weather",
+				"text": "天气",
+				"iconPath": "static/assets/images/weather.png",
+				"selectedIconPath": "static/assets/images/weather_active.png"
 			},
 			{
 				"pagePath": "pages/mine/mine",
