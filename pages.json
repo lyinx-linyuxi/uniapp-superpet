@@ -24,14 +24,24 @@
 			"path" : "pages/pet/pet",
 			"style" : 
 			{
-				"navigationBarTitleText" : "萌宠"
+				"navigationBarTitleText" : "我的萌宠",
+				"navigationBarBackgroundColor": "#FFD3D3",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/pet/card/card",
+			"style" : 
+			{
+				"navigationBarTitleText" : "萌宠卡片"
+				
 			}
 		}
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "uni-app",
-		"navigationBarBackgroundColor": "#27BA9B",
+		"navigationBarBackgroundColor": "#f0ad4e",
 		"backgroundColor": "#F8F8F8"
 	},
 	"tabBar": {
