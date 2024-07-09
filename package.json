@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "@dcloudio/uni-ui": "^1.5.5"
+    "@dcloudio/uni-ui": "^1.5.5",
+    "axios": "^1.7.2"
   }
 }
