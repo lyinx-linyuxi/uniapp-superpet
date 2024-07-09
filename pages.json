@@ -33,7 +33,8 @@
 			"path" : "pages/pet/card/card",
 			"style" : 
 			{
-				"navigationBarTitleText" : "萌宠卡片"
+				"navigationBarTitleText" : "",
+				"navigationBarBackgroundColor": "#FFD3D3"
 				
 			}
 		},
@@ -42,6 +43,21 @@
 			"style" : 
 			{
 				"navigationBarTitleText" : "天气"
+			}
+		},
+		{
+			"path" : "pages/pet/insert/insert",
+			"style" : 
+			{
+				"navigationBarTitleText" : "爱宠机密"
+				//"navigationBarBackgroundColor": "#fff"
+			}
+		},
+		{
+			"path" : "pages/pet/agreement/agreement",
+			"style" : 
+			{
+				"navigationBarTitleText" : "爱宠用户协议"
 			}
 		}
 	],

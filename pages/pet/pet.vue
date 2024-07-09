@@ -14,7 +14,7 @@
           <text class="detail">体重：1.5kg \n</text>
           <text class="detail">爱好：想吃什么就吃什么 \n</text>
         </view>
-        <image :src="pet.avatar" class="avatar"></image>
+        <image src="../../static/pages/index/home/images/greenpet.jpg" class="avatar"></image>
       </view>
     </view>
     <view class="section middle-section">
@@ -55,7 +55,7 @@ export default {
   data() {
     return {
       pet: {
-        avatar: '/static/pet-avatar.jpg',
+        avatar: '/static/pages/index/home/greenpet.jpg',
         name: '旺财',
         breed: '柯基'
       },
@@ -118,14 +118,15 @@ export default {
   width: 100%;
 }
 .top-section {
-  background-color: #fff;
+  background-color: #FFD3D3;
   padding: 15px;
+  justify-content: center;
 }
 .pet-info {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: flex-start;
-  background-color: #FFD3D3;
+  background-color: #fff;
   padding: 15px;
   border-radius: 10px;
 }
