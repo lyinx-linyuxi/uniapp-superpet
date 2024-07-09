@@ -44,46 +44,51 @@
 		methods: {
 			getAdcode() {
 				uni.request({
-					url: "https://restapi.amap.com/v3/ip?key=21bd3d58902f67974f972385282ad93b",
-					method: "GET",
-					success: (res) => {
-						console.log(res.data);
-						this.adcode = res.data.adcode;
-						this.province = res.data.province;
-						this.city = res.data.city;
-					}
+				    url: "https://restapi.amap.com/v3/ip?key=21bd3d58902f67974f972385282ad93b",
+				    method: "GET",
+				    success: (res) => {
+				        console.log(res.data);
+				        this.adcode = res.data.adcode;
+				        this.province = res.data.province;
+				        this.city = res.data.city;
+				        
+				        // 在第一个请求成功后，发送第二个请求
+				        uni.request({
+				            url: "https://restapi.amap.com/v3/weather/weatherInfo?city=" + this.adcode + "&key=21bd3d58902f67974f972385282ad93b",
+				            method: "GET",
+				            header: {
+				                "Content-Type": "application/json"
+				            },
+				            success: (ret) => {
+				                if (ret.data.status == '0') {
+				                    // uni.showToast({
+				                    //     title: '发生错误，请重试',
+				                    //     icon: 'error'
+				                    // })
+				                    setTimeout(function () {
+				                        uni.hideToast()
+				                    }, 2000);
+				                    // console.log("https://restapi.amap.com/v3/weather/weatherInfo?city=" + this.adcode + "&key=21bd3d58902f67974f972385282ad93b")
+				                }
+				                else {
+				                    this.weather = ret.data.lives[0].weather;
+				                    this.temperature = ret.data.lives[0].temperature;
+				                    this.winddirection = ret.data.lives[0].winddirection;
+				                    this.windpower = ret.data.lives[0].windpower;
+				                }
+				                // console.log("https://restapi.amap.com/v3/weather/weatherInfo?city=" + this.adcode + "&key=21bd3d58902f67974f972385282ad93b")
+				                // console.log(ret.data);
+				            },
+				            fail() {
+				                console.error("Weather request failed");
+				            }
+				        });
+				    },
+				    fail() {
+				        console.error("IP request failed");
+				    }
 				});
 				
-				uni.request({
-					url: "https://restapi.amap.com/v3/weather/weatherInfo?city=" + this.adcode + "&key=21bd3d58902f67974f972385282ad93b",
-					method: "GET",
-					header: {
-					  "Content-Type": "application/json"
-					},
-					success: (ret) => {
-						if (ret.data.status == '0') {
-							uni.showToast({
-								title: '发生错误，请重试',
-								icon: 'error'
-							})
-							setTimeout(function () {
-								uni.hideToast()
-							}, 2000);
-							// console.log("https://restapi.amap.com/v3/weather/weatherInfo?city=" + this.adcode + "&key=21bd3d58902f67974f972385282ad93b")
-						}
-						else {
-							this.weather = ret.data.lives[0].weather;
-							this.temperature = ret.data.lives[0].temperature;
-							this.winddirection = ret.data.lives[0].winddirection;
-							this.windpower = ret.data.lives[0].windpower;
-						}
-						// console.log("https://restapi.amap.com/v3/weather/weatherInfo?city=" + this.adcode + "&key=21bd3d58902f67974f972385282ad93b")
-						// console.log(ret.data);
-					},
-					fail() {
-						console.log(url);
-					}
-				});
 			},
 		},
 	}
