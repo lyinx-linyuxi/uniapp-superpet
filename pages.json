@@ -1,4 +1,10 @@
 {
+	"easycom": { 
+		"autoscan": true, 
+		"custom": { 
+			"^uni-(.*)": "@dcloudio/uni-ui/lib/uni-$1/uni-$1.vue"
+		}
+	},
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
 			"path": "pages/index/index",
@@ -46,6 +52,7 @@
 			}
 		},
 		{
+<<<<<<< HEAD
 			"path" : "pages/pet/insert/insert",
 			"style" : 
 			{
@@ -58,6 +65,26 @@
 			"style" : 
 			{
 				"navigationBarTitleText" : "爱宠用户协议"
+=======
+			"path" : "pages/message/likes/likes",
+			"style" : 
+			{
+				"navigationBarTitleText" : "收到的赞"
+			}
+		},
+		{
+			"path" : "pages/message/comments/comments",
+			"style" : 
+			{
+				"navigationBarTitleText" : "收到的评论"
+			}
+		},
+		{
+			"path" : "pages/message/follow/follow",
+			"style" : 
+			{
+				"navigationBarTitleText" : "新的关注"
+>>>>>>> 21304ae036a3e30464769180c01f135653015195
 			}
 		}
 	],
