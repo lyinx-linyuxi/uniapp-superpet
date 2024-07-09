@@ -86,6 +86,13 @@
 			{
 				"navigationBarTitleText" : "新的关注"
 			}
+		},
+		{
+			"path" : "pages/pet/add/add",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
+			}
 		}
 	],
 	"globalStyle": {
