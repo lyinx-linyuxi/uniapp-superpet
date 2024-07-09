@@ -91,7 +91,14 @@
 			"path" : "pages/pet/add/add",
 			"style" : 
 			{
-				"navigationBarTitleText" : ""
+				"navigationBarTitleText" : "添加卡片"
+			}
+		},
+		{
+			"path" : "pages/mine/about/about",
+			"style" : 
+			{
+				"navigationBarTitleText" : "关于"
 			}
 		}
 	],

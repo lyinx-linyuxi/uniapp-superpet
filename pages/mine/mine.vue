@@ -24,7 +24,7 @@
 		<view class="list">
 			<uni-list>
 				<uni-list-item :showExtraIcon="true" :extra-icon="flag" :show-badge="true" showArrow title="关于"
-					link="navigateTo" to="/pages/message/follow/follow"></uni-list-item>
+					link="navigateTo" to="/pages/mine/about/about"></uni-list-item>
 			</uni-list>
 		</view>
 	</view>
