@@ -17,7 +17,7 @@
 				<uni-list-item :show-extra-icon="true" :extra-icon="star" :show-badge="true" showArrow title="我的关注"
 					link="navigateTo" to="/pages/message/follow/follow" />
 				<uni-list-item :show-extra-icon="true" :extra-icon="heart" :show-badge="true" showArrow title="我赞过的"
-					:clickable="true" @click="navigateTo('/pages/message/likes/likes')" />
+					:clickable="true" @click="navigateTo('/pages/mine/favours/favours')" />
 			</uni-list>
 		</view>
 
