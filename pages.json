@@ -52,7 +52,6 @@
 			}
 		},
 		{
-<<<<<<< HEAD
 			"path" : "pages/pet/insert/insert",
 			"style" : 
 			{
@@ -65,7 +64,9 @@
 			"style" : 
 			{
 				"navigationBarTitleText" : "爱宠用户协议"
-=======
+				}
+		},
+		{
 			"path" : "pages/message/likes/likes",
 			"style" : 
 			{
@@ -84,7 +85,6 @@
 			"style" : 
 			{
 				"navigationBarTitleText" : "新的关注"
->>>>>>> 21304ae036a3e30464769180c01f135653015195
 			}
 		}
 	],
