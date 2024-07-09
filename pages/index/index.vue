@@ -29,7 +29,6 @@
 							<uni-icons type="pyq" size="14" color="#999"></uni-icons>
 							<text> {{ post.shares }}</text>
 						</view>
-						
 					</view>
 				</view>
 			</view>
@@ -45,9 +44,18 @@
 					<text class="content">{{ post.content }}</text>
 					<image :src="post.image" class="post-image"></image>
 					<view class="actions">
-						<text class="action">点赞 {{ post.likes }}</text>
-						<text class="action">评论 {{ post.comments }}</text>
-						<text class="action">转发 {{ post.shares }}</text>
+						<view class="action" @click="likePost">
+							<uni-icons :type="liked ? 'heart-filled' : 'heart'" size="14" color="#999"></uni-icons>
+							<text> {{ post.likes }}</text>
+						</view>
+						<view class="action" @click="toggleComments">
+							<uni-icons type="chat" size="14" color="#999"></uni-icons>
+							<text >{{ post.comments }}</text>
+						</view>
+						<view class="action" @click="sharePost">
+							<uni-icons type="pyq" size="14" color="#999"></uni-icons>
+							<text> {{ post.shares }}</text>
+						</view>
 					</view>
 				</view>
 			</view>
@@ -149,6 +157,8 @@
 
 	.content {
 		flex: 1;
+		height: 100vh;
+		width: 100%;
 	}
 
 	.post {
