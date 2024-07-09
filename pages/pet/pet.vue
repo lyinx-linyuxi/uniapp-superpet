@@ -1,18 +1,17 @@
 <template>
   <view class="container">
     <view class="header">
-      <navigator url="/pages/pet/card/card" >
-      		<text class="centered-bottom-text">我的萌宠</text>
-          </navigator>
-      
+      <navigator url="/pages/pet/card/card">
+        <text class="centered-bottom-text">我的萌宠</text>
+      </navigator>
     </view>
     <view class="section top-section">
       <view class="pet-info">
         <view class="info">
           <text class="name">{{ pet.name }} ({{ pet.breed }})\n</text>
-          <text class="detail">年龄：4岁4个月 \n</text>
-          <text class="detail">体重：1.5kg \n</text>
-          <text class="detail">爱好：想吃什么就吃什么 \n</text>
+          <text class="detail">年龄：{{pet.age}}\n</text>
+          <text class="detail">体重：{{pet.weigh}}\n</text>
+          <text class="detail">爱好：{{pet.habit}}</text>
         </view>
         <image src="../../static/pages/index/home/images/greenpet.jpg" class="avatar"></image>
       </view>
@@ -36,16 +35,17 @@
     <view class="section bottom-section">
       <scroll-view scroll-y class="content">
         <view v-for="(post, index) in posts" :key="index" class="timeline-item">
-          <view class="date">{{ post.date }}\n</view>
+          <view class="date">{{ post.date }}</view>
           <view class="post">
             <text class="title">{{ post.title }}\n</text>
-            <text class="subtitle">{{ post.subtitle }}\n</text>
+            <text class="subtitle">{{ post.subtitle }}</text>
             <view class="actions">
-              <text class="like">❤</text>
+              <uni-icons :type="post.liked ? 'heart-filled' : 'heart'" size="40" :color="post.liked ? 'red' : ''" @click="toggleLike(index)"></uni-icons>
             </view>
           </view>
         </view>
       </scroll-view>
+      <button class="fab" @click="goToAddPage">+</button>
     </view>
   </view>
 </template>
@@ -57,11 +57,14 @@ export default {
       pet: {
         avatar: '/static/pages/index/home/greenpet.jpg',
         name: '旺财',
-        breed: '柯基'
+        breed: '柯基',
+		age:'4岁3个月',
+		weigh:'100斤',
+		habit:'爱吃多拉'
       },
       posts: [
-        { date: '8月14日', title: '体内驱虫', subtitle: '体内驱虫', type: 'health' },
-        { date: '8月14日', title: '体重1.5千克', subtitle: '体内驱虫', type: 'health' },
+        { date: '8月14日', title: '体内驱虫', subtitle: '体内驱虫', type: 'health', liked: false },
+        { date: '8月14日', title: '体重1.5千克', subtitle: '体内驱虫', type: 'health', liked: false },
         // 添加更多帖子
       ]
     }
@@ -83,12 +86,22 @@ export default {
         url: '/pages/pet/card/card'
       });
     },
+    goToAddPage() {
+      uni.navigateTo({
+        url: '/pages/pet/add/add' // 这里填写跳转页面的地址
+      });
+    },
+    toggleLike(index) {
+      this.posts[index].liked = !this.posts[index].liked;
+    },
     navigateBack() {
       uni.navigateBack();
     }
   }
 }
 </script>
+ 
+
 
 <style>
 .container {
@@ -107,19 +120,15 @@ export default {
 .centered-bottom-text {
   text-align: center;
 }
-.left-icon, .right-icon {
-  font-size: 24px;
-}
-.title {
-  font-size: 18px;
-  font-weight: bold;
-}
+
 .section {
   width: 100%;
 }
 .top-section {
+  display: flex;
   background-color: #FFD3D3;
-  padding: 15px;
+  padding-top: 15px; 
+  padding-bottom: 15px;
   justify-content: center;
 }
 .pet-info {
@@ -129,14 +138,16 @@ export default {
   background-color: #fff;
   padding: 15px;
   border-radius: 10px;
+  width: 370px;
+  height: 100px;
 }
 .info {
   flex: 1;
-  margin-right: 10px;
+  margin-right: 5px;
 }
 .name {
   font-weight: bold;
-  font-size: 16px;
+  font-size: 20px; /* 增大字体大小 */
 }
 .detail {
   color: #555;
@@ -170,6 +181,7 @@ export default {
   background-color: #F5F5F5;
   flex: 1;
   padding: 10px;
+  position: relative;
 }
 .content {
   flex: 1;
@@ -178,13 +190,13 @@ export default {
 .timeline-item {
   margin-bottom: 15px;
   display: flex;
-  align-items: center;
+  flex-direction: column;
 }
 .date {
-  width: 60px;
-  text-align: center;
+  text-align: left; /* 调整日期位置 */
   color: #FF69B4;
   font-size: 14px;
+  margin-bottom: 5px;
 }
 .post {
   flex: 1;
@@ -207,5 +219,20 @@ export default {
 .like {
   font-size: 20px;
   color: #FF69B4;
+}
+.fab {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #32CD32;
+  color: #fff;
+  font-size: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 </style>
