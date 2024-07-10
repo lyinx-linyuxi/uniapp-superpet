@@ -2,7 +2,7 @@
 	<view class="container">
 		<uni-list>
 			<uni-list-item v-for="item in items" :title="item.title" :note="item.description" :thumb="item.avatar"
-				thumb-size="lg" :rightText="item.time" />
+				thumb-size="lg" :rightText="item.time" :clickable="true" @click="getInfo(item.id)"/>
 		</uni-list>
 	</view>
 </template>
@@ -24,6 +24,9 @@
 			console.log(this.items)
 		},
 		methods: {
+			getInfo(id) {
+				console.log(id)
+			},
 			fetchData() {
 				uni.request({
 					url: "https://api.examplesdaf",
@@ -43,6 +46,7 @@
 			handleFetchError() {
 				console.log('Failed to fetch data');
 				this.items = [{
+						id : 100,
 						avatar: defaultAvatarUrl,
 						image: defaultPostImage,
 						time: "8:17:20",
@@ -51,6 +55,7 @@
 						category: "nlsdf"
 					},
 					{
+						id: 102,
 						avatar: defaultAvatarUrl,
 						image: defaultPostImage,
 						time: "8:14:20",
