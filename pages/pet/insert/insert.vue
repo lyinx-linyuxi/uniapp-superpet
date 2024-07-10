@@ -32,14 +32,14 @@
 			</view>
 			<view class="form-item">
 				<text class="label">是否绝育：</text>
-				<view class="neuter-buttons">
-					<button :class="{'button': true, 'active': neuter === 'yes', 'yes': true}"
-						@click="selectNeuter('yes')">
-						<text :class="{'yes-text': true, 'active-text': neuter === 'yes'}">已绝育</text>
+				<view class="sterilized-buttons">
+					<button :class="{'button': true, 'active': sterilized === 'yes', 'yes': true}"
+						@click="selectsterilized('yes')">
+						<text :class="{'yes-text': true, 'active-text': sterilized === 'yes'}">已绝育</text>
 					</button>
-					<button :class="{'button': true, 'active': neuter === 'no', 'no': true}"
-						@click="selectNeuter('no')">
-						<text :class="{'no-text': true, 'active-text': neuter === 'no'}">未绝育</text>
+					<button :class="{'button': true, 'active': sterilized === 'no', 'no': true}"
+						@click="selectsterilized('no')">
+						<text :class="{'no-text': true, 'active-text': sterilized === 'no'}">未绝育</text>
 					</button>
 				</view>
 			</view>
@@ -50,8 +50,8 @@
 			</view>
 			<view class="form-item">
 				<text class="label">到家日期：</text>
-				<uni-datetime-picker @change="onArrivalDateChange" :value="arrivalDate" type="date" placeholder="点击设置日期"
-					data-type="arrivalDate"></uni-datetime-picker>
+				<uni-datetime-picker @change="onhomeDateChange" :value="homeDate" type="date" placeholder="点击设置日期"
+					data-type="homeDate"></uni-datetime-picker>
 			</view>
 			<navigator url="/pages/pet/card/card">
 				<button class="submit-button" @click="submitInfo">完成注册</button>
@@ -77,9 +77,9 @@
 				weight: '',
 				description: '',
 				gender: '', // 用于存储选择的性别
-				neuter: '', // 用于存储是否绝育的选择
+				sterilized: '', // 用于存储是否绝育的选择
 				birthDate: '', // 出生日期
-				arrivalDate: '' // 到家日期
+				homeDate: '' // 到家日期
 			}
 		},
 		methods: {
@@ -92,17 +92,17 @@
 				console.log(gender);
 
 			},
-			selectNeuter(neuter) {
-				this.neuter = neuter;
-				console.log(neuter);
+			selectsterilized(sterilized) {
+				this.sterilized = sterilized;
+				console.log(sterilized);
 			},
 			onBirthDateChange(date) {
 				this.birthDate = date;
 				console.log(this.birthDate);
 			},
-			onArrivalDateChange(date) {
-				this.arrivalDate = date;
-				console.log(this.arrivalDate)
+			onhomeDateChange(date) {
+				this.homeDate = date;
+				console.log(this.homeDate)
 			},
 			inputDescription(input) {
 				this.description = input.detail.value;
@@ -120,20 +120,20 @@
 				console.log(typeof(this.weight), this.weight);
 				console.log(typeof(this.description), this.description);
 				console.log(typeof(this.gender), this.gender);
-				console.log(typeof(this.neuter), this.neuter);
+				console.log(typeof(this.sterilized), this.sterilized);
 				console.log(typeof(this.birthDate), this.birthDate);
-				console.log(typeof(this.arrivalDate), this.arrivalDate);
+				console.log(typeof(this.homeDate), this.homeDate);
 				uni.request({
-					url: 'http:///123.138.191.138/admin/petcard/savePet',
+					url: 'http://localhost:8080/admin/petcard/savePet',
 					method: 'POST',
 					data: {
 						petName: this.petName,
 						gender: this.gender,
 						weight: this.weight,
 						description: this.description,
-						neuter: this.neuter,
+						sterilized: this.sterilized,
 						birthDate: this.birthDate,
-						arrivalDate: this.arrivalDate,
+						homeDate: this.homeDate,
 					},
 					header: {
 						'content-type': 'application/json'
@@ -193,7 +193,7 @@
 	}
 
 	.gender-buttons,
-	.neuter-buttons {
+	.sterilized-buttons {
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -218,7 +218,7 @@
 		margin-right: 0;
 	}
 
-	.neuter-buttons .button {
+	.sterilized-buttons .button {
 		display: flex;
 		flex: auto;
 		flex-direction: column;
@@ -232,7 +232,7 @@
 		background-color: #fff;
 	}
 
-	.neuter-buttons .button:last-child {
+	.sterilized-buttons .button:last-child {
 		margin-right: 0;
 	}
 
