@@ -152,8 +152,8 @@
 
 	.content {
 		flex: 1;
-		height: 100vh;
-		width:100vb;
+		height: 100%;
+		width: 100%;
 	}
 
 	.post {

@@ -1,7 +1,7 @@
 {
-	"easycom": { 
-		"autoscan": true, 
-		"custom": { 
+	"easycom": {
+		"autoscan": true,
+		"custom": {
 			"^uni-(.*)": "@dcloudio/uni-ui/lib/uni-$1/uni-$1.vue"
 		}
 	},
@@ -13,85 +13,87 @@
 			}
 		},
 		{
-			"path" : "pages/mine/mine",
-			"style" : 
-			{
-				"navigationBarTitleText" : "我的"
+			"path": "pages/mine/mine",
+			"style": {
+				"navigationBarTitleText": "我的"
 			}
 		},
 		{
-			"path" : "pages/message/message",
-			"style" : 
-			{
-				"navigationBarTitleText" : "消息"
+			"path": "pages/message/message",
+			"style": {
+				"navigationBarTitleText": "消息"
 			}
 		},
 		{
-			"path" : "pages/pet/pet",
-			"style" : 
-			{
-				"navigationBarTitleText" : "我的萌宠",
+			"path": "pages/pet/pet",
+			"style": {
+				"navigationBarTitleText": "我的萌宠",
 				"navigationBarBackgroundColor": "#FFD3D3",
 				"navigationStyle": "custom"
 			}
 		},
 		{
-			"path" : "pages/pet/card/card",
-			"style" : 
-			{
-				"navigationBarTitleText" : "",
+			"path": "pages/pet/card/card",
+			"style": {
+				"navigationBarTitleText": "",
 				"navigationBarBackgroundColor": "#FFD3D3"
-				
+
 			}
 		},
 		{
-			"path" : "pages/weather/weather",
-			"style" : 
-			{
-				"navigationBarTitleText" : "天气"
+			"path": "pages/weather/weather",
+			"style": {
+				"navigationBarTitleText": "天气"
 			}
 		},
 		{
-			"path" : "pages/pet/insert/insert",
-			"style" : 
-			{
-				"navigationBarTitleText" : "爱宠机密"
+			"path": "pages/pet/insert/insert",
+			"style": {
+				"navigationBarTitleText": "爱宠机密"
 				//"navigationBarBackgroundColor": "#fff"
 			}
 		},
 		{
-			"path" : "pages/pet/agreement/agreement",
-			"style" : 
-			{
-				"navigationBarTitleText" : "爱宠用户协议"
-				}
-		},
-		{
-			"path" : "pages/message/likes/likes",
-			"style" : 
-			{
-				"navigationBarTitleText" : "收到的赞"
+			"path": "pages/pet/agreement/agreement",
+			"style": {
+				"navigationBarTitleText": "爱宠用户协议"
 			}
 		},
 		{
-			"path" : "pages/message/comments/comments",
-			"style" : 
-			{
-				"navigationBarTitleText" : "收到的评论"
+			"path": "pages/message/likes/likes",
+			"style": {
+				"navigationBarTitleText": "收到的赞"
 			}
 		},
 		{
-			"path" : "pages/message/follow/follow",
-			"style" : 
-			{
-				"navigationBarTitleText" : "新的关注"
+			"path": "pages/message/comments/comments",
+			"style": {
+				"navigationBarTitleText": "收到的评论"
 			}
 		},
 		{
-			"path" : "pages/pet/add/add",
+			"path": "pages/message/follow/follow",
+			"style": {
+				"navigationBarTitleText": "新的关注"
+			}
+		},
+		{
+			"path": "pages/pet/add/add",
+			"style": {
+				"navigationBarTitleText": "添加卡片"
+			}
+		},
+		{
+			"path": "pages/mine/about/about",
+			"style": {
+				"navigationBarTitleText": "关于"
+			}
+		},
+		{
+			"path" : "pages/mine/favours/favours",
 			"style" : 
 			{
-				"navigationBarTitleText" : ""
+				"navigationBarTitleText" : "我赞过的"
 			}
 		}
 	],
@@ -102,8 +104,7 @@
 		"backgroundColor": "#F8F8F8"
 	},
 	"tabBar": {
-		"list":[
-			{
+		"list": [{
 				"pagePath": "pages/index/index",
 				"text": "首页",
 				"iconPath": "static/assets/images/home.png",
