@@ -1,22 +1,10 @@
 <template>
 	<view class="container">
 		<uni-list>
-			<uni-list-item v-for="item in items" :key="item.id">
-				<view class="list-item">
-					<image class="avatar" :src="item.avatar"></image>
-					<view class="content">
-						<view class="header">
-							<text class="title">{{ item.title }}</text>
-							<text class="time">{{ item.time }}</text>
-						</view>
-						<text class="description">{{ item.description }}</text>
-						<text class="category">{{ item.category }}</text>
-					</view>
-				</view>
-			</uni-list-item>
+			<uni-list-item v-for="item in items" :title="item.title" :note="item.description" :thumb="item.avatar"
+				thumb-size="lg" :rightText="item.time" />
 		</uni-list>
 	</view>
-	<view>hellow?></view>
 </template>
 
 
@@ -30,15 +18,10 @@
 				items: []
 			}
 		},
-		onLaunch: function() {
-			console.log('App Launch')
-		},
-		onShow: function() {
-			console.log('App Show');
-			console.log(this.items);
-		},
-		onHide: function() {
-			console.log('App Hide')
+		onLoad() {
+			console.log('fetchdata');
+			this.fetchData();
+			console.log(this.items)
 		},
 		methods: {
 			fetchData() {
@@ -60,32 +43,29 @@
 			handleFetchError() {
 				console.log('Failed to fetch data');
 				this.items = [{
-					avater: defaultAvatarUrl,
-					content: 'default nulla',
-					image: defaultPostImage,
-					time: "8:17:20",
-					title: 'sfasdf',
-					description: "afasdfa",
-					category: "nlsdf"
-				}]
-			},
-			onLoad(){
-				console.log('fetchdata');
-				this.fetchData();
-			},
+						avatar: defaultAvatarUrl,
+						image: defaultPostImage,
+						time: "8:17:20",
+						title: 'sfasdf',
+						description: "afasdfa",
+						category: "nlsdf"
+					},
+					{
+						avatar: defaultAvatarUrl,
+						image: defaultPostImage,
+						time: "8:14:20",
+						title: 'guanyu',
+						description: "nodesherer",
+						category: "nlsdf"
+					},
+				];
+				console.log('Default data loaded:', this.items);
+			}
+
 		},
 	}
 </script>
 <style>
-	.container {
-		padding: 10px;
-	}
-
-	.list-item {
-		display: flex;
-		align-items: center;
-	}
-
 	.avatar {
 		width: 60px;
 		height: 60px;
@@ -94,7 +74,8 @@
 	}
 
 	.content {
-		flex: 1;
+		width: 100%;
+		height: 100%;
 	}
 
 	.header {
