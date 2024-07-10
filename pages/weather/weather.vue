@@ -17,6 +17,11 @@
 			<text>风级 : {{ windpower }}</text>
 		</view>
 	</view>
+	<view class="second-contain">
+		<view>
+			<image src="../../static/pages/weather/未来2.gif"></image>
+		</view>
+	</view>
 </template>
 
 <script>
@@ -103,4 +108,9 @@
 		background-color: #179b16;
 		border-color: #179b16;
 	  }
+.second-contain{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
 </style>

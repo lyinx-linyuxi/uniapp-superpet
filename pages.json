@@ -95,6 +95,13 @@
 			{
 				"navigationBarTitleText" : "我赞过的"
 			}
+		},
+		{
+			"path" : "pages/ask/ask",
+			"style" : 
+			{
+				"navigationBarTitleText" : "问答"
+			}
 		}
 	],
 	"globalStyle": {
@@ -134,6 +141,7 @@
 				"iconPath": "static/assets/images/userinfo.png",
 				"selectedIconPath": "static/assets/images/userinfo-select.png"
 			}
+		
 		]
 	},
 	"uniIdRouter": {}

@@ -1,6 +1,15 @@
 {
-  "dependencies": {
-    "@dcloudio/uni-ui": "^1.5.5",
-    "axios": "^1.7.2"
-  }
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"@dcloudio/uni-ui": "^1.5.5",
+		"@escook/request-miniprogram": "^0.2.1",
+		"axios": "^1.7.2",
+		"base-64": "^1.0.0",
+		"crypto-js": "^4.2.0",
+		"fast-xml-parser": "^3.17.4",
+		"url": "^0.11.3",
+		"utf8": "^3.0.0"
+	}
 }
