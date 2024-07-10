@@ -1,6 +1,9 @@
 <template>
   <view class="container">
     <view class="header">
+      <view @click="togglePopup" class="menu-icon">
+        <uni-icons type="list" size="25"></uni-icons>
+      </view>
       <navigator url="/pages/pet/card/card">
         <text class="centered-bottom-text">我的萌宠</text>
       </navigator>
@@ -47,20 +50,34 @@
       </scroll-view>
       <button class="fab" @click="goToAddPage">+</button>
     </view>
+    <uni-popup ref="popup" type="left">
+            <view class="popup-content">
+              <text class="popup-header">更多</text>
+              <uni-list>
+                <uni-list-item title="编辑萌宠卡" clickable link="navigateTo" to="/pages/pet/card/card" @click="onClick($event,1)" show-arrow="true" thumb="/static/pages/pet/画笔.png"></uni-list-item>
+                <uni-list-item title="换皮肤" clickable link="navigateTo" to="/pages/pet/card/card" @click="onClick($event,1)" show-arrow="true" thumb="/static/pages/pet/旗帜.png"></uni-list-item>
+                <uni-list-item title="保存萌卡图" clickable link="navigateTo" to="/pages/pet/card/card" @click="onClick($event,1)" show-arrow="true" thumb="/static/pages/pet/图片.png"></uni-list-item>
+                <uni-list-item title="设置" clickable link="navigateTo" to="/pages/pet/card/card" @click="onClick($event,1)" show-arrow="true" thumb="/static/pages/pet/齿轮.png"></uni-list-item>
+              </uni-list>
+            </view>
+    </uni-popup>
   </view>
 </template>
 
 <script>
+
+
 export default {
+ 
   data() {
     return {
       pet: {
         avatar: '/static/pages/index/home/greenpet.jpg',
         name: '旺财',
         breed: '柯基',
-		age:'4岁3个月',
-		weigh:'100斤',
-		habit:'爱吃多拉'
+        age: '4岁3个月',
+        weigh: '100斤',
+        habit: '爱吃多拉'
       },
       posts: [
         { date: '8月14日', title: '体内驱虫', subtitle: '体内驱虫', type: 'health', liked: false },
@@ -88,7 +105,7 @@ export default {
     },
     goToAddPage() {
       uni.navigateTo({
-        url: '/pages/pet/add/add' // 这里填写跳转页面的地址
+        url: '/pages/pet/add/add'
       });
     },
     toggleLike(index) {
@@ -96,12 +113,13 @@ export default {
     },
     navigateBack() {
       uni.navigateBack();
+    },
+    togglePopup() {
+      this.$refs.popup.open();
     }
   }
 }
 </script>
- 
-
 
 <style>
 .container {
@@ -116,6 +134,12 @@ export default {
   display: flex;
   justify-content: center;
   align-items: flex-end;
+  position: relative;
+}
+.menu-icon {
+  position: absolute;
+  left: 15px;
+  top: 55px;
 }
 .centered-bottom-text {
   text-align: center;
@@ -138,7 +162,7 @@ export default {
   background-color: #fff;
   padding: 15px;
   border-radius: 10px;
-  width: 370px;
+  width: 350px;
   height: 100px;
 }
 .info {
@@ -234,5 +258,22 @@ export default {
   justify-content: center;
   align-items: center;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+.popup-content {
+  padding: 70px 15px 15px; /* 调整内容位置 */
+  background-color: #fff;
+  height: 100%;
+  width: 200px;
+}
+.popup-header {
+  position: absolute;
+  left: 15px;
+  top: 50px;
+}
+.popup-item {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  padding: 10px 0;
 }
 </style>
