@@ -41,9 +41,9 @@
 			}
 		},
 		{
-			"path": "pages/weather/weather",
+			"path": "pages/cloudpet/cloudpet",
 			"style": {
-				"navigationBarTitleText": "天气"
+				"navigationBarTitleText": "云宠"
 			}
 		},
 		{
@@ -97,10 +97,17 @@
 			}
 		},
 		{
-			"path" : "pages/ask/ask",
+			"path" : "pages/cloudpet/ask/ask",
 			"style" : 
 			{
 				"navigationBarTitleText" : "问答"
+			}
+		},
+		{
+			"path" : "pages/cloudpet/weather/weather",
+			"style" : 
+			{
+				"navigationBarTitleText" : "天气"
 			}
 		}
 	],
@@ -130,10 +137,10 @@
 				"selectedIconPath": "static/assets/images/news-select.png"
 			},
 			{
-				"pagePath": "pages/weather/weather",
-				"text": "天气",
-				"iconPath": "static/assets/images/weather.png",
-				"selectedIconPath": "static/assets/images/weather_active.png"
+				"pagePath": "pages/cloudpet/cloudpet",
+				"text": "云宠",
+				"iconPath": "static/assets/images/cloudpet.png",
+				"selectedIconPath": "static/assets/images/cloudpet-selected.png"
 			},
 			{
 				"pagePath": "pages/mine/mine",
