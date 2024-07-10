@@ -6,7 +6,7 @@
 		<view class="form">
 			<view class="form-item">
 				<text class="label">爱宠名：</text>
-				<input type="text" placeholder="点击输入爱宠名" class="input" />
+				<input type="text" placeholder="点击输入爱宠名" :value="petName" @input="inputPetName" class="input" />
 			</view>
 			<view class="form-item">
 				<text class="label">性别：</text>
@@ -23,11 +23,12 @@
 			</view>
 			<view class="form-item">
 				<text class="label">体重：</text>
-				<input type="text" placeholder="点击输入体重(kg)" class="input" />
+				<input type="text" placeholder="点击输入体重(kg)" :value="weight" class="input" @input="inputWeight" />
 			</view>
 			<view class="form-item">
 				<text class="label">一句描述：</text>
-				<input type="text" placeholder="爱吃啥，有啥特点..." class="input" />
+				<input type="text" placeholder="爱吃啥，有啥特点..." :value="description" class="input"
+					@input="inputDescription" />
 			</view>
 			<view class="form-item">
 				<text class="label">是否绝育：</text>
@@ -44,16 +45,16 @@
 			</view>
 			<view class="form-item">
 				<text class="label">出生日期：</text>
-				<uni-datetime-picker @change="onDateChange" :value="birthDate" type="date" placeholder="点击设置日期"
+				<uni-datetime-picker @change="onBirthDateChange" :value="birthDate" type="date" placeholder="点击设置日期"
 					data-type="birthDate"></uni-datetime-picker>
 			</view>
 			<view class="form-item">
 				<text class="label">到家日期：</text>
-				<uni-datetime-picker @change="onDateChange" :value="arrivalDate" type="date" placeholder="点击设置日期"
+				<uni-datetime-picker @change="onArrivalDateChange" :value="arrivalDate" type="date" placeholder="点击设置日期"
 					data-type="arrivalDate"></uni-datetime-picker>
 			</view>
 			<navigator url="/pages/pet/card/card">
-				<button class="submit-button">完成注册</button>
+				<button class="submit-button" @click="submitInfo">完成注册</button>
 			</navigator>
 		</view>
 		<view class="agreement-container">
@@ -61,9 +62,9 @@
 			<navigator url="/pages/pet/agreement/agreement">
 				<text class="agreement" style="color: blue;">宠爱用户协议</text>
 			</navigator>
-			
-			
-			
+
+
+
 		</view>
 
 	</view>
@@ -72,6 +73,9 @@
 	export default {
 		data() {
 			return {
+				petName: '',
+				weight: '',
+				description: '',
 				gender: '', // 用于存储选择的性别
 				neuter: '', // 用于存储是否绝育的选择
 				birthDate: '', // 出生日期
@@ -79,24 +83,68 @@
 			}
 		},
 		methods: {
+			inputPetName(input) {
+				this.petName = input.detail.value;
+				console.log(this.petName);
+			},
 			selectGender(gender) {
 				this.gender = gender;
+				console.log(gender);
+
 			},
 			selectNeuter(neuter) {
 				this.neuter = neuter;
+				console.log(neuter);
 			},
-			onDateChange(event) {
-				const {
-					detail,
-					currentTarget: {
-						dataset
+			onBirthDateChange(date) {
+				this.birthDate = date;
+				console.log(this.birthDate);
+			},
+			onArrivalDateChange(date) {
+				this.arrivalDate = date;
+				console.log(this.arrivalDate)
+			},
+			inputDescription(input) {
+				this.description = input.detail.value;
+				console.log(this.description);
+			},
+			inputWeight(input) {
+				console.log(input);
+
+				this.weight = parseFloat(input.detail.value);
+				console.log(typeof(this.weight));
+
+			},
+			submitInfo() {
+				console.log(typeof(this.petName), this.petName);
+				console.log(typeof(this.weight), this.weight);
+				console.log(typeof(this.description), this.description);
+				console.log(typeof(this.gender), this.gender);
+				console.log(typeof(this.neuter), this.neuter);
+				console.log(typeof(this.birthDate), this.birthDate);
+				console.log(typeof(this.arrivalDate), this.arrivalDate);
+				uni.request({
+					url: 'http:///123.138.191.138/admin/petcard/savePet',
+					method: 'POST',
+					data: {
+						petName: this.petName,
+						gender: this.gender,
+						weight: this.weight,
+						description: this.description,
+						neuter: this.neuter,
+						birthDate: this.birthDate,
+						arrivalDate: this.arrivalDate,
+					},
+					header: {
+						'content-type': 'application/json'
+					},
+					success: (res) => {
+						console.log(res.data);
+					},
+					fail: (res) =>{
+						console.log("Failed to connect");
 					}
-				} = event;
-				if (dataset.type === 'birthDate') {
-					this.birthDate = detail.value;
-				} else if (dataset.type === 'arrivalDate') {
-					this.arrivalDate = detail.value;
-				}
+				});
 			}
 		}
 	}
@@ -247,8 +295,8 @@
 		font-size: 16px;
 		text-align: center;
 	}
-	
-	.agreement-container{
+
+	.agreement-container {
 		display: flex;
 		flex-direction: row;
 		align-items: center;
