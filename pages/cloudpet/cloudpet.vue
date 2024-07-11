@@ -1,116 +1,85 @@
 <template>
-	<view>
-		<view>
-			<button size="default" type="primary" hover-class="is-hover" @click="getAdcode">
-				获取天气
-			</button>
-		</view>
-		<view>
-			<text>地址 : {{ province + city }}</text>
-			<br>
-			<text>天气 : {{ weather }}</text>
-			<br>
-			<text>温度 : {{ temperature }}</text>
-			<br>
-			<text>风向 : {{ winddirection }}</text>
-			<br>
-			<text>风级 : {{ windpower }}</text>
-		</view>
-	</view>
-	<view class="second-contain">
-		<view>
-			<image src="../../static/pages/weather/未来2.gif"></image>
-		</view>
-	</view>
+  <view class="contain">
+    <view class="image-container">
+      <image src="../../static/pages/weather/未来2.gif" class="gif-image"></image>
+    </view>
+    <view class="button-container">
+      <button class="left-button" @click="goToWeatherPage">天气查询</button>
+      <button class="center-button" @click="goToAiPage">AI问答</button>
+      <button class="right-button" @click="goToVoicePage">语音交互</button>
+    </view>
+  </view>
 </template>
 
 <script>
-	export default {
-		data() {
-			return {
-				adcode: "",
-				province: "",
-				city: "",
-				weather: "",
-				temperature: "",
-				winddirection: "",
-				windpower: "",
-			}
-		},
-		onLaunch: function() {
-			console.log('App Launch')
-		},
-		onShow: function() {
-			console.log('App Show')
-		},
-		onHide: function() {
-			console.log('App Hide')
-		},
-		methods: {
-			getAdcode() {
-				uni.request({
-				    url: "https://restapi.amap.com/v3/ip?key=21bd3d58902f67974f972385282ad93b",
-				    method: "GET",
-				    success: (res) => {
-				        console.log(res.data);
-				        this.adcode = res.data.adcode;
-				        this.province = res.data.province;
-				        this.city = res.data.city;
-				        
-				        // 在第一个请求成功后，发送第二个请求
-				        uni.request({
-				            url: "https://restapi.amap.com/v3/weather/weatherInfo?city=" + this.adcode + "&key=21bd3d58902f67974f972385282ad93b",
-				            method: "GET",
-				            header: {
-				                "Content-Type": "application/json"
-				            },
-				            success: (ret) => {
-				                if (ret.data.status == '0') {
-				                    // uni.showToast({
-				                    //     title: '发生错误，请重试',
-				                    //     icon: 'error'
-				                    // })
-				                    setTimeout(function () {
-				                        uni.hideToast()
-				                    }, 2000);
-				                    // console.log("https://restapi.amap.com/v3/weather/weatherInfo?city=" + this.adcode + "&key=21bd3d58902f67974f972385282ad93b")
-				                }
-				                else {
-				                    this.weather = ret.data.lives[0].weather;
-				                    this.temperature = ret.data.lives[0].temperature;
-				                    this.winddirection = ret.data.lives[0].winddirection;
-				                    this.windpower = ret.data.lives[0].windpower;
-				                }
-				                // console.log("https://restapi.amap.com/v3/weather/weatherInfo?city=" + this.adcode + "&key=21bd3d58902f67974f972385282ad93b")
-				                // console.log(ret.data);
-				            },
-				            fail() {
-				                console.error("Weather request failed");
-				            }
-				        });
-				    },
-				    fail() {
-				        console.error("IP request failed");
-				    }
-				});
-				
-			},
-		},
-	}
+  export default {
+    data() {
+      return {
+        
+      }
+    },
+    methods: {
+      goToWeatherPage() {
+        uni.navigateTo({
+         url:'/pages/cloudpet/weather/weather' // 请替换为实际的页面路径
+        });
+      },
+      goToAiPage() {
+        uni.navigateTo({
+          url:'/pages/cloudpet/ask/ask' // 请替换为实际的页面路径
+        });
+      },
+      goToVoicePage() {
+        uni.navigateTo({
+          url: '/pages/voice/voice-query' // 请替换为实际的页面路径
+        });
+      }
+    }
+  }
 </script>
 
 <style>
-	.warp {
-		background-color: #fff;
-	}
-	.is-hover {
-		color: rgba(255, 255, 255, 0.6);
-		background-color: #179b16;
-		border-color: #179b16;
-	  }
-.second-contain{
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
+  .contain {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+  .image-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  .gif-image {
+    width: 100%;
+    max-width: 500px;
+    height: 400px;
+  }
+  .button-container {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  .left-button, .center-button, .right-button {
+    flex: 1;
+    margin: 0 10px;
+    padding: 10px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    background-size: cover;
+    background-position: center;
+  }
+  .left-button {
+    background-color: #ff7f50;
+  }
+  .center-button {
+    background-color: #32cd32;
+  }
+  .right-button {
+    background-color: #1e90ff;
+  }
 </style>

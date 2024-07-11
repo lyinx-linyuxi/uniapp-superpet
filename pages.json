@@ -84,6 +84,12 @@
 			}
 		},
 		{
+			"path": "pages/pet/picstyles/picstyles",
+			"style": {
+				"navigationBarTitleText": "皮肤库 "
+			}
+		},
+		{
 			"path": "pages/mine/about/about",
 			"style": {
 				"navigationBarTitleText": "关于"
