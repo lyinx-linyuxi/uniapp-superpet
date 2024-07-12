@@ -8,7 +8,7 @@
 			<view v-if="activeTab === 'follow'">
 				<view class="post" v-for="(post, index) in posts" :key="index">
 					<view class="user-info">
-						<image :src="post.avatar" class="avatar"></image>
+						<image :src="post.headshot_url" class="avatar"></image>
 						<view class="info">
 							<text class="username">{{ post.username }}</text>
 							<text class="time">{{ post.time }}</text>
@@ -92,17 +92,21 @@
 			},
 			fetchData() {
 				uni.request({
-					url: "https://api.examplesdaf",
+					url: "http://localhost:8090/api/data",
 					method: "GET",
 					success:(res) => {
+						console.log("success", res.data)
 						if (res.statusCode == 200) {
-							this.items = res.data;
+							this.posts = res.data;
+							console.log(res.data);
 						}
 						else {
+							console.log("here", res.data);
 							this.handleFetchError();
 						}
 					},
 					fail: () => {
+						// console.log("there", res.data)
 						this.handleFetchError();
 					}
 				});
@@ -114,8 +118,8 @@
 						host_id: '',
 						post_order: '',
 						username: 'xiaoxi',
-						avatar: defaultAvatarUrl,
-						content: 'default nulla',
+						headshot_url: defaultAvatarUrl,
+						text: 'default nulla',
 						image: defaultPostImage,
 						time: "1days",
 						liked: false,
