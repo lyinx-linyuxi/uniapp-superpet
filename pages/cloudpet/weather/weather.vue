@@ -17,11 +17,6 @@
 			<text>风级 : {{ windpower }}</text>
 		</view>
 	</view>
-	<view class="second-contain">
-		<view>
-			<image src="../../static/pages/weather/未来2.gif"></image>
-		</view>
-	</view>
 </template>
 
 <script>

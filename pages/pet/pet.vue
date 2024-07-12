@@ -55,7 +55,7 @@
               <text class="popup-header">更多</text>
               <uni-list>
                 <uni-list-item title="编辑萌宠卡" clickable link="navigateTo" to="/pages/pet/card/card" @click="onClick($event,1)" show-arrow="true" thumb="/static/pages/pet/画笔.png"></uni-list-item>
-                <uni-list-item title="换皮肤" clickable link="navigateTo" to="/pages/pet/card/card" @click="onClick($event,1)" show-arrow="true" thumb="/static/pages/pet/旗帜.png"></uni-list-item>
+                <uni-list-item title="换皮肤" clickable link="navigateTo" to="/pages/pet/picstyles/picstyles" @click="onClick()" show-arrow="true" thumb="/static/pages/pet/旗帜.png"></uni-list-item>
                 <uni-list-item title="保存萌卡图" clickable link="navigateTo" to="/pages/pet/card/card" @click="onClick($event,1)" show-arrow="true" thumb="/static/pages/pet/图片.png"></uni-list-item>
                 <uni-list-item title="设置" clickable link="navigateTo" to="/pages/pet/card/card" @click="onClick($event,1)" show-arrow="true" thumb="/static/pages/pet/齿轮.png"></uni-list-item>
               </uni-list>
