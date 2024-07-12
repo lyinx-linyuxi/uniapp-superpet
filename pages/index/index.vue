@@ -14,7 +14,7 @@
 							<text class="time">{{ post.time }}</text>
 						</view>
 					</view>
-					<text class="content">{{ post.content }}</text>
+					<text class="content">{{ post.text }}</text>
 					<image :src="post.image" class="post-image"></image>
 					<view class="actions">
 						<view class="action" @click="likePost(post)">
@@ -41,7 +41,7 @@
 							<text class="time">{{ post.time }}</text>
 						</view>
 					</view>
-					<text class="content">{{ post.content }}</text>
+					<text class="content">{{ post.text }}</text>
 					<image :src="post.image" class="post-image"></image>
 					<view class="actions">
 						<view class="action" @click="likePost">
@@ -76,6 +76,7 @@
 			}
 		},
 		onLoad() {
+			console.log('fetchdata');
 			this.fetchData();
 		},
 		methods: {
@@ -110,8 +111,10 @@
 				console.log('Failed to fetch data');
 				this.posts = [
 					{
+						host_id: '',
+						post_order: '',
 						username: 'xiaoxi',
-						avater: defaultAvatarUrl,
+						avatar: defaultAvatarUrl,
 						content: 'default nulla',
 						image: defaultPostImage,
 						time: "1days",
@@ -134,6 +137,7 @@
 	}
 
 	.tab-bar {
+		width: 100%;
 		display: flex;
 		justify-content: space-around;
 		background-color: #fff;
