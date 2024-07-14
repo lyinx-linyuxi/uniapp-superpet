@@ -1,10 +1,14 @@
 <template>
-  <view >
-    <uni-easyinput  v-model="TEXT"  focus="true" clearable="true"  :palceholderstyle="placeholderstyle" :style="style" placeholder="请输入内容"@input="input"  />
-    <button style="background-color: blue; color: white;  margin-top: 15px;" @click="sendToSpark()">发送</button>
+  <view>
+    <!-- 其他内容 -->
+    <view class="input-container">
+      <uni-easyinput v-model="TEXT" :auto-height="true" :focus="true" :clearable="true" :placeholderstyle="placeholderstyle" placeholder="请输入内容" @input="input" class="input-box" />
+      <button class="send-button" @click="sendToSpark()">发送</button>
+    </view>
     <text style="width: 90%; flex-wrap: wrap;">{{sparkResult}}</text>
   </view>
 </template>
+
 <script>
   import * as base64 from "base-64";
   import CryptoJS from "crypto-js";
@@ -77,6 +81,7 @@
           };
           console.log("请求的params：" + JSON.stringify(params));
           this.sparkResult = this.sparkResult + "\r\n——————————————————————————————————————————————————"+"\r\n我：" + this.TEXT + "\r\n";
+		  this.TEXT = '';
           this.sparkResult = this.sparkResult + "初音未来：";
           console.log("发送第一帧...", params);
           realThis.socketTask.send({
@@ -173,5 +178,30 @@
 </script>
 
 <style>
-	
+.input-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background-color: #f8f8f8;
+  border-top: 1px solid #ddd;
+}
+
+.input-box {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.send-button {
+  background-color: blue;
+  color: white;
+  height: 40px;
+  padding: 0 20px;
+  border: none;
+  border-radius: 4px;
+  margin-right: 10px;
+}
 </style>
