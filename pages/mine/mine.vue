@@ -95,10 +95,10 @@
 			navigateTo(url) {
 				uni.navigateTo({
 					url: url
-				})
+				});
 			}
 		}
-	};
+	}
 </script>
 
 

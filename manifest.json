@@ -18,7 +18,8 @@
         },
         /* 模块配置 */
         "modules" : {
-            "Speech" : {}
+            "Speech" : {},
+            "OAuth" : {}
         },
         /* 应用发布信息 */
         "distribute" : {
@@ -51,6 +52,12 @@
                         "appid" : "",
                         "apikey" : "",
                         "secretkey" : ""
+                    }
+                },
+                "oauth" : {
+                    "weixin" : {
+                        "appid" : "",
+                        "UniversalLinks" : ""
                     }
                 }
             }

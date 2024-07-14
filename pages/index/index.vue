@@ -1,223 +1,134 @@
 <template>
-	<view class="container">
-		<view class="tab-bar">
-			<view :class="{'active-tab': activeTab === 'follow'}" @click="switchTab('follow')">关注</view>
-			<view :class="{'active-tab': activeTab === 'circle'}" @click="switchTab('circle')">宠物圈</view>
+	<view class="content">
+		<view class="topBox">
+			<h3>WELCOME</h3>
+			<h3>欢迎使用云端宠物</h3>
 		</view>
-		<scroll-view scroll-y class="content">
-			<view v-if="activeTab === 'follow'">
-				<view class="post" v-for="(post, index) in posts" :key="index">
-					<view class="user-info">
-						<image :src="post.headshot_url" class="avatar"></image>
-						<view class="info">
-							<text class="username">{{ post.username }}</text>
-							<text class="time">{{ post.time }}</text>
-						</view>
-					</view>
-					<text class="content">{{ post.text }}</text>
-					<image :src="post.image" class="post-image"></image>
-					<view class="actions">
-						<view class="action" @click="likePost(post)">
-							<uni-icons :type="post.liked ? 'heart-filled' : 'heart'" size="14" color="#999"></uni-icons>
-							<text> {{ post.likes }}</text>
-						</view>
-						<view class="action" @click="toggleComments">
-							<uni-icons type="chat" size="14" color="#999"></uni-icons>
-							<text>{{ post.comments }}</text>
-						</view>
-						<view class="action" @click="sharePost">
-							<uni-icons type="pyq" size="14" color="#999"></uni-icons>
-							<text> {{ post.shares }}</text>
-						</view>
-					</view>
+		<view class="inputBox">
+			<view class="ipt">
+				<h4>用户名</h4>
+				<input type="text" value="" placeholder="请输入用户名" />
+			</view>
+			<view class="ipt">
+				<h4>密码</h4>
+				<input type="text" value="" placeholder="请输入密码" />
+			</view>
+			<view @click="gotohome"><button class="loginBtn">登录</button></view>
+			<button class="registerBtn">注册</button>
+
+			<view class="tipbox">
+				<view class="txt">
+					—— 其他账号登录 ——
+				</view>
+				<view class="otherUser">
+					<uni-icons type="qq" size="40" color="rgb(66,157,250)"></uni-icons>
+					<uni-icons type="weixin" size="40" color="rgb(2,187,17)"></uni-icons>
 				</view>
 			</view>
-			<view v-if="activeTab === 'circle'">
-				<view class="post" v-for="(post, index) in posts" :key="index">
-					<view class="user-info">
-						<image :src="post.avatar" class="avatar"></image>
-						<view class="info">
-							<text class="username">{{ post.username }}</text>
-							<text class="time">{{ post.time }}</text>
-						</view>
-					</view>
-					<text class="content">{{ post.text }}</text>
-					<image :src="post.image" class="post-image"></image>
-					<view class="actions">
-						<view class="action" @click="likePost">
-							<uni-icons :type="post.liked ? 'heart-filled' : 'heart'" size="14" color="#999"></uni-icons>
-							<text> {{ post.likes }}</text>
-						</view>
-						<view class="action" @click="toggleComments">
-							<uni-icons type="chat" size="14" color="#999"></uni-icons>
-							<text>{{ post.comments }}</text>
-						</view>
-						<view class="action" @click="sharePost">
-							<uni-icons type="pyq" size="14" color="#999"></uni-icons>
-							<text> {{ post.shares }}</text>
-						</view>
-					</view>
-				</view>
-			</view>
-		</scroll-view>
+		</view>
 	</view>
 </template>
 
 <script>
-	import axios from 'axios';
-	const defaultAvatarUrl =
-		'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0';
-	const defaultPostImage = '/static/pages/index/home/images/3.png'
+
 	export default {
 		data() {
 			return {
-				activeTab: 'follow',
-				posts: []
+
 			}
-		},
-		onLoad() {
-			console.log('fetchdata');
-			this.fetchData();
 		},
 		methods: {
-			switchTab(tab) {
-				this.activeTab = tab;
-				this.fetchData();
-			},
-			likePost(post) {
-				post.liked = !post.liked;
-				post.liked ? post.likes++ : post.likes--;
-				console.log("hit");
-				// this.$forceUpdate();
-			},
-			fetchData() {
-				uni.request({
-					url: "http://localhost:8090/api/data",
-					method: "GET",
-					success:(res) => {
-						console.log("success", res.data)
-						if (res.statusCode == 200) {
-							this.posts = res.data;
-							console.log(res.data);
-						}
-						else {
-							console.log("here", res.data);
-							this.handleFetchError();
-						}
-					},
-					fail: () => {
-						// console.log("there", res.data)
-						this.handleFetchError();
-					}
-				});
-			},
-			handleFetchError() {
-				console.log('Failed to fetch data');
-				this.posts = [
-					{
-						host_id: '',
-						post_order: '',
-						username: 'xiaoxi',
-						headshot_url: defaultAvatarUrl,
-						text: 'default nulla',
-						image: defaultPostImage,
-						time: "1days",
-						liked: false,
-						likes: 100,
-						comments: 200,
-						shares: 29
-					}
-				]
+			gotohome(){
+				uni.switchTab({
+					url:'/pages/home/home'
+				})
 			}
+
 		}
 	}
 </script>
 
-<style>
-	.container {
-		display: flex;
-		flex-direction: column;
+<style scoped>
+	.content {
 		height: 100vh;
+		background-color: aquamarine;
+		background: url("https://www.galaxyclub.cn/Upload/IMAGES/15/0615/38af439784544e95b7c64cad64a14157_650x650.jpg") no-repeat;
+		background-size: cover;
 	}
 
-	.tab-bar {
-		width: 100%;
-		display: flex;
-		justify-content: space-around;
+	.topBox {
+		font-size: 34rpx;
+		color: #fff;
+		padding: 80rpx 50rpx;
+	}
+
+	h3 {
+		margin-bottom: 10rpx;
+	}
+
+	.inputBox {
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		width: 750rpx;
+		height: 85vh;
 		background-color: #fff;
-		padding: 10px 0;
+		border-top-left-radius: 40rpx;
+		border-top-right-radius: 40rpx;
+		padding: 60rpx;
+		box-sizing: border-box;
 	}
 
-	.tab-bar view {
-		padding: 10px;
-		font-weight: bold;
+	.ipt {
+		margin-bottom: 50rpx;
 	}
 
-	.active-tab {
-		color: #FF69B4;
-		border-bottom: 2px solid #FF69B4;
+	.ipt h4 {
+		margin-bottom: 20rpx;
+		font-size: 36rpx;
+		color: #333;
 	}
 
-	.content {
-		flex: 1;
-		height: 100%;
-		width: 100%;
+	.ipt input {
+		border-bottom: 1px solid #dedede;
+		padding-bottom: 20rpx;
+		font-size: 28rpx;
 	}
 
-	.post {
-		margin-bottom: 15px;
-		padding: 10px;
-		background-color: #fff;
-		border-radius: 5px;
-		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	.loginBtn {
+		margin-top: 20rpx;
+		line-height: 85rpx;
+		text-align: center;
+		background: linear-gradient(to right, rgb(86, 104, 214), rgb(86, 104, 214));
+		border-radius: 40rpx;
+		color: #fff;
+		margin-top: 50rpx;
 	}
 
-	.user-info {
+	.registerBtn {
+		margin-top: 20rpx;
+		line-height: 85rpx;
+		text-align: center;
+		border-radius: 40rpx;
+		color: rgb(86, 104, 214);
+		margin-top: 50rpx;
+		border: none;
+	}
+
+	.otherUser {
+		margin-top: 30rpx;
 		display: flex;
-		align-items: center;
-		margin-bottom: 10px;
+		justify-content: center;
 	}
 
-	.avatar {
-		width: 40px;
-		height: 40px;
-		border-radius: 50%;
-		margin-right: 10px;
+	.txt {
+		font-size: 28rpx;
+		color: #969696;
+		text-align: center;
+		margin-top: 36rpx;
 	}
 
-	.info {
-		display: flex;
-		flex-direction: column;
-	}
-
-	.username {
-		font-weight: bold;
-		font-size: 16px;
-	}
-
-	.time {
-		color: #888;
-		font-size: 14px;
-	}
-
-
-	.content {
-		margin-bottom: 10px;
-	}
-
-	.post-image {
-		width: 100%;
-		border-radius: 5px;
-		margin-bottom: 10px;
-	}
-
-	.actions {
-		display: flex;
-		justify-content: space-between;
-	}
-
-	.action {
-		font-size: 14px;
-		color: #888;
+	.otherUser .uni-icons {
+		margin-left: 20rpx;
 	}
 </style>
