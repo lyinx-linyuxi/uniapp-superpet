@@ -31,7 +31,7 @@
       },
       goToVoicePage() {
         uni.navigateTo({
-          url: '/pages/voice/voice-query' // 请替换为实际的页面路径
+         url:'/pages/cloudpet/voice/voice' // 请替换为实际的页面路径
         });
       }
     }

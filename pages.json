@@ -115,6 +115,13 @@
 			{
 				"navigationBarTitleText" : "天气"
 			}
+		},
+		{
+			"path" : "pages/cloudpet/voice/voice",
+			"style" : 
+			{
+				"navigationBarTitleText" : "语音识别"
+			}
 		}
 	],
 	"globalStyle": {

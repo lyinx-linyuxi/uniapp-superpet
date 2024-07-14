@@ -99,7 +99,8 @@
 				uni.showToast({
 					title: `选择该皮肤`,
 					icon: 'none'
-				})
+				});
+				uni.navigateBack();
 			}
 		}
 	}
