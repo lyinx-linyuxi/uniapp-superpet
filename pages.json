@@ -6,8 +6,16 @@
 		}
 	},
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+	    {
+	    	"path" : "pages/index/index",
+	    	"style" : 
+	    	{
+	    		"navigationBarTitleText" : "登录",
+				"navigationBarBackgroundColor": "#fff"
+	    	}
+	    },
 		{
-			"path": "pages/index/index",
+			"path": "pages/home/home",
 			"style": {
 				"navigationBarTitleText": "首页"
 			}
@@ -122,17 +130,25 @@
 			{
 				"navigationBarTitleText" : "语音识别"
 			}
+		},
+		{
+			"path" : "pages/pet/insert/register/register",
+			"style" : 
+			{
+				"navigationBarTitleText" : "注册",
+				"navigationBarBackgroundColor": "#fff"
+			}
 		}
 	],
 	"globalStyle": {
-		"navigationBarTextStyle": "white",
+		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
-		"navigationBarBackgroundColor": "#f0ad4e",
+		"navigationBarBackgroundColor": "#f0a210",
 		"backgroundColor": "#F8F8F8"
 	},
 	"tabBar": {
 		"list": [{
-				"pagePath": "pages/index/index",
+				"pagePath": "pages/home/home",
 				"text": "首页",
 				"iconPath": "static/assets/images/home.png",
 				"selectedIconPath": "static/assets/images/home-select.png"

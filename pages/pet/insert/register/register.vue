@@ -6,6 +6,11 @@
 		</view>
 		<view class="inputBox">
 			<view class="ipt">
+				<h4>用户名</h4>
+				<uni-easyinput type="text" v-model="username" placeholder="请输入用户名"
+					@input="inputusername"></uni-easyinput>
+			</view>
+			<view class="ipt">
 				<h4>账号</h4>
 				<uni-easyinput type="text" v-model="userid" @input="inputuserid" placeholder="请输入账号"></uni-easyinput>
 			</view>
@@ -14,20 +19,11 @@
 				<uni-easyinput type="password" v-model="password" placeholder="请输入密码"
 					@input="inputpassword"></uni-easyinput>
 			</view>
-			<button class="loginBtn" @click="userlogin">登录</button>
-			<button class="registerBtn" @click="gotoregister">注册</button>
-
-			<view class="tipbox">
-				<view class="txt">
-					—— 其他账号登录 ——
-				</view>
-				<view class="otherUser">
-					<uni-icons type="qq" size="40" color="rgb(66,157,250)"></uni-icons>
-					<uni-icons type="weixin" size="40" color="rgb(2,187,17)"></uni-icons>
-				</view>
-			</view>
-		</view>
+			<view @click="registerBtn"><button class="loginBtn">完成注册</button></view>
 	</view>
+</view>
+			
+
 </template>
 
 <script>
@@ -44,31 +40,27 @@
 					url: '/pages/home/home'
 				})
 			},
-			gotoregister(){
-				uni.navigateTo({
-					url:'/pages/pet/insert/register/register'
-				})
+			inputusername(){
+				this.username = username,
+				console(this.username)
 			},
-			inputuserid() {
-				// this.userid = uerid,
-					console.log(this.userid)
+			inputuerid() {
+				this.userid = uerid,
+					console(this.userid)
 			},
 			inputpassword() {
-				// this.password = password,
-					console.log(this.password)
+				this.password = password,
+					console(this.password)
 			},
-			userlogin() {
+			registerBtn() {
+				console.log(typeof(this.username),this.username)
 				console.log(typeof(this.userid), this.userid);
 				console.log(typeof(this.password), this.password);
-				if (this.password == 88888888){
-					uni.switchTab({
-						url: '/pages/home/home'
-					})
-				};
 				uni.request({
-					url: 'http://localhost:8080/admin/user/login',
+					url: 'http://localhost:8080/admin/user/addUser',
 					method: 'POST',
 					data: {
+						username: this.username,
 						userid: this.userid,
 						password: this.password,
 					},
@@ -77,6 +69,7 @@
 					},
 					success: (res) => {
 						console.log(res.data);
+						uni.navigateBack();
 					},
 					fail: (res) => {
 						console.log("Failed to connect");
@@ -168,7 +161,4 @@
 		margin-top: 36rpx;
 	}
 
-	.otherUser .uni-icons {
-		margin-left: 20rpx;
-	}
 </style>
