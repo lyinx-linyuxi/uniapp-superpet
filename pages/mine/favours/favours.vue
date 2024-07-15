@@ -1,8 +1,8 @@
 <template>
 	<view class="container">
 		<uni-list>
-			<uni-list-item v-for="item in items" :title="item.title" :note="item.description" :thumb="item.avatar"
-				thumb-size="lg" :rightText="item.time" :clickable="true" @click="getInfo(item.id)"/>
+			<uni-list-item v-for="item in items" :title="item.text" :note="item.username" :thumb="item.headshotUrl"
+				thumb-size="lg" :rightText="item.postTime" :clickable="true" @click="getInfo(item.id)"/>
 		</uni-list>
 	</view>
 </template>
@@ -29,11 +29,13 @@
 			},
 			fetchData() {
 				uni.request({
-					url: "https://api.examplesdaf",
-					method: "GET",
+					url: "http://localhost:8080/admin/post/LikedPosts/3",
+					method: "POST",
 					success: (res) => {
 						if (res.statusCode == 200) {
-							this.items = res.data;
+							console.log("res.data", res.data);
+							this.items = res.data.data;
+							console.log("this.itmes", this.items);
 						} else {
 							this.handleFetchError();
 						}
@@ -46,22 +48,16 @@
 			handleFetchError() {
 				console.log('Failed to fetch data');
 				this.items = [{
-						id : 100,
-						avatar: defaultAvatarUrl,
-						image: defaultPostImage,
-						time: "8:17:20",
-						title: 'sfasdf',
-						description: "afasdfa",
-						category: "nlsdf"
+						headshotUrl: defaultAvatarUrl, // 发帖人的头像
+						time: "8:17:20", // 发帖时间
+						username: 'sfasdf', // 传title，可以是null（如果有标题，就是tiltle， 如果没有，用发帖的内容截取一段内容作为标题）
+						text: "afasdfa", // 发帖的内容。
 					},
 					{
-						id: 102,
-						avatar: defaultAvatarUrl,
-						image: defaultPostImage,
-						time: "8:14:20",
-						title: 'guanyu',
-						description: "nodesherer",
-						category: "nlsdf"
+						headshotUrl: defaultAvatarUrl,
+						postTime: "8:14:20",
+						username: 'guanyu',
+						text: "nodesherer",
 					},
 				];
 				console.log('Default data loaded:', this.items);
