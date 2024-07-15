@@ -25,7 +25,7 @@
 		},
 		methods: {
 			getInfo(id) {
-				console.log(id)
+				console.log(id);
 			},
 			fetchData() {
 				uni.request({

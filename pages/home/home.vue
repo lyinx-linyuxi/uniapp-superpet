@@ -8,14 +8,16 @@
 			<view v-if="activeTab === 'follow'">
 				<view class="post" v-for="(post, index) in posts" :key="index">
 					<view class="user-info">
-						<image :src="post.headshot_url" class="avatar"></image>
+						<image :src="post.headshotUrl" class="avatar"></image>
 						<view class="info">
-							<text class="username">{{ post.username }}</text>
-							<text class="time">{{ post.time }}</text>
+							<text class="username">{{ post.userName }}</text>
+							<text class="time">{{ post.postTime }}</text>
 						</view>
 					</view>
 					<text class="content">{{ post.text }}</text>
-					<image :src="post.image" class="post-image"></image>
+					<image
+						:src="post.imageUrl === 'null' ? '/static/pages/index/home/images/banner4.png': post.imageUrl"
+						class="post-image"></image>
 					<view class="actions">
 						<view class="action" @click="likePost(post)">
 							<uni-icons :type="post.liked ? 'heart-filled' : 'heart'" size="14" color="#999"></uni-icons>
@@ -37,12 +39,14 @@
 					<view class="user-info">
 						<image :src="post.avatar" class="avatar"></image>
 						<view class="info">
-							<text class="username">{{ post.username }}</text>
-							<text class="time">{{ post.time }}</text>
+							<text class="username">{{ post.userName }}</text>
+							<text class="time">{{ post.postTime }}</text>
 						</view>
 					</view>
 					<text class="content">{{ post.text }}</text>
-					<image :src="post.image" class="post-image"></image>
+					<image
+						:src="post.imageUrl === 'null' ? '/static/pages/index/home/images/banner4.png': post.imageUrl"
+						class="post-image"></image>
 					<view class="actions">
 						<view class="action" @click="likePost">
 							<uni-icons :type="post.liked ? 'heart-filled' : 'heart'" size="14" color="#999"></uni-icons>
@@ -64,7 +68,6 @@
 </template>
 
 <script>
-	import axios from 'axios';
 	const defaultAvatarUrl =
 		'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0';
 	const defaultPostImage = '/static/pages/index/home/images/3.png'
@@ -77,12 +80,12 @@
 		},
 		onLoad() {
 			console.log('fetchdata');
-			this.fetchData();
+			this.fetchData(this.activeTab);
 		},
 		methods: {
 			switchTab(tab) {
 				this.activeTab = tab;
-				this.fetchData();
+				this.fetchData(this.activeTab);
 			},
 			likePost(post) {
 				post.liked = !post.liked;
@@ -90,18 +93,21 @@
 				console.log("hit");
 				// this.$forceUpdate();
 			},
-			fetchData() {
+			fetchData(tabName) {
+				let address = 'petCircle'
+				if (tabName === 'follow') {
+					address = 'MyFollowedPetCircle';
+				}
 				uni.request({
-					url: "http://localhost:8090/api/data",
-					method: "GET",
-					success:(res) => {
+					url: "http://localhost:8080/admin/post/" + address + "/3",
+					method: "POST",
+					success: (res) => {
 						console.log("success", res.data)
 						if (res.statusCode == 200) {
-							this.posts = res.data;
-							console.log(res.data);
-						}
-						else {
-							console.log("here", res.data);
+							this.posts = res.data.data;
+							console.log(res.data.data);
+						} else {
+							console.log("here", res.data.data);
 							this.handleFetchError();
 						}
 					},
@@ -113,21 +119,19 @@
 			},
 			handleFetchError() {
 				console.log('Failed to fetch data');
-				this.posts = [
-					{
-						host_id: '',
-						post_order: '',
-						username: 'xiaoxi',
-						headshot_url: defaultAvatarUrl,
-						text: 'default nulla',
-						image: defaultPostImage,
-						time: "1days",
-						liked: false,
-						likes: 100,
-						comments: 200,
-						shares: 29
-					}
-				]
+				this.posts = [{
+					host_id: '',
+					post_order: '',
+					userName: 'xiaoxi',
+					headshotUrl: defaultAvatarUrl,
+					text: 'default nulla',
+					imageUrl: defaultPostImage,
+					postTime: "1days",
+					liked: false,
+					likes: 100,
+					comments: 200,
+					shares: 29
+				}]
 			}
 		}
 	}
@@ -170,6 +174,7 @@
 		background-color: #fff;
 		border-radius: 5px;
 		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+		height: 100%;
 	}
 
 	.user-info {
