@@ -18,8 +18,7 @@
         },
         /* 模块配置 */
         "modules" : {
-            "Speech" : {},
-            "OAuth" : {}
+            "Speech" : {}
         },
         /* 应用发布信息 */
         "distribute" : {
@@ -49,17 +48,12 @@
             "sdkConfigs" : {
                 "speech" : {
                     "baidu" : {
-                        "appid" : "",
-                        "apikey" : "",
-                        "secretkey" : ""
+                        "appid" : "93711322",
+                        "apikey" : "3r9TKR8f9p1ALrr7UQPDJEZQ",
+                        "secretkey" : "i1XzaUzYgXV2fjdiqxXPKp5S5V6wgEWt"
                     }
                 },
-                "oauth" : {
-                    "weixin" : {
-                        "appid" : "",
-                        "UniversalLinks" : ""
-                    }
-                }
+                "oauth" : {}
             }
         }
     },
