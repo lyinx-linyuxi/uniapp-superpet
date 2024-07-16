@@ -10,10 +10,10 @@
 				<uni-easyinput type="text" v-model="username" placeholder="请输入用户名"
 					@input="inputusername"></uni-easyinput>
 			</view>
-			<view class="ipt">
+			<!-- <view class="ipt">
 				<h4>账号</h4>
 				<uni-easyinput type="text" v-model="userid" @input="inputuserid" placeholder="请输入账号"></uni-easyinput>
-			</view>
+			</view> -->
 			<view class="ipt">
 				<h4>密码</h4>
 				<uni-easyinput type="password" v-model="password" placeholder="请输入密码"
@@ -54,11 +54,11 @@
 			},
 			registerBtn() {
 				console.log(typeof(this.username), this.username)
-				console.log(typeof(this.userid), this.userid);
+				//console.log(typeof(this.userid), this.userid);
 				console.log(typeof(this.password), this.password);
-				if (this.userid.length < 3 || this.userid.length > 10) {
+				if (this.username.length < 3 || this.username.length > 10) {
 					uni.showToast({
-						title: '账号应在3~10位之间',
+						title: '用户名应在3~10位之间',
 						icon: 'none'
 					})
 					return
@@ -74,15 +74,28 @@
 						method: 'POST',
 						data: {
 							username: this.username,
-							userid: this.userid,
+							//userid: this.userid,
 							password: this.password,
 						},
 						header: {
 							'content-type': 'application/json'
 						},
 						success: (res) => {
-							console.log(res.data);
-							uni.navigateBack();
+							//console.log(res.data);
+							if(res.data==1){
+								uni.showToast({
+									title: '注册成功',
+									icon: 'none'
+								})
+								uni.navigateBack();
+							}
+							else{
+								uni.showToast({
+									title: '注册失败',
+									icon: 'none'
+								})
+							}
+							return
 						},
 						fail: (res) => {
 							console.log("Failed to connect");

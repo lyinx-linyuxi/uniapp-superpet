@@ -7,7 +7,7 @@
 		<view class="inputBox">
 			<view class="ipt">
 				<h4>账号</h4>
-				<uni-easyinput type="text" v-model="userid" @input="inputuserid" placeholder="请输入账号"></uni-easyinput>
+				<uni-easyinput type="text" v-model="username" @input="inputusername" placeholder="请输入用户名"></uni-easyinput>
 			</view>
 			<view class="ipt">
 				<h4>密码</h4>
@@ -49,25 +49,25 @@
 					url: '/pages/pet/insert/register/register'
 				})
 			},
-			inputuserid() {
+			inputusername() {
 				// this.userid = userid,
-				console.log(this.userid)
+				console.log(this.username)
 			},
 			inputpassword() {
 				// this.password = password,
 				console.log(this.password)
 			},
 			userlogin() {
-				console.log(typeof(this.userid), this.userid);
+				console.log(typeof(this.username), this.username);
 				console.log(typeof(this.password), this.password);
 				if (this.password == 88888888) {
 					uni.switchTab({
 						url: '/pages/home/home'
 					})
 				};
-				if (this.userid.length < 3 || this.userid.length > 10) {
+				if (this.username.length < 3 || this.username.length > 10) {
 					uni.showToast({
-						title: '账号应在3~10位之间',
+						title: '用户名应在3~10位之间',
 						icon: 'none'
 					})
 					return
@@ -82,7 +82,7 @@
 						url: 'http://localhost:8080/admin/user/login',
 						method: 'POST',
 						data: {
-							userid: this.userid,
+							username: this.username,
 							password: this.password,
 						},
 						header: {
