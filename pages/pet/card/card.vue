@@ -4,8 +4,8 @@
     <view class="user-info">
       <image :src="user.avatar" class="avatar"></image>
       <view class="info">
-        <text class="name">{{ user.name }}\n</text>
-        <text class="pets">有{{ user.petCount }}个宠物</text>
+        <text class="name">{{ user.username }}\n</text>
+        <text class="pets">有{{ user.petNum }}个宠物</text>
       </view>
     </view>
 	<navigator url="/pages/pet/insert/insert">
@@ -21,14 +21,11 @@
 </template>
 
 <script>
+import { currentUser } from '../../../global/userinfo';
 export default {
   data() {
     return {
-      user: {
-        avatar: 'https://i.loli.net/2017/08/21/599a521472424.jpg',
-        name: '朝歌铲屎官',
-        petCount: 2
-      }
+		user: currentUser,
     }
   },
   methods: {

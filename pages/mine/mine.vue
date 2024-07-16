@@ -1,7 +1,7 @@
 <template>
 	<view class="container">
 		<view class="header">
-			<image  class="avatar" :src='user.getProperty("headshotUrl")' mode="aspectFill" lazy-load></image>
+			<image class="avatar" :src='user.getProperty("headshotUrl")' mode="aspectFill" lazy-load></image>
 			<view class="user-info">
 				<text class="username">{{user.getProperty("username")}}</text>
 				<text class="pet-num">有{{user.getProperty("petNum")}}个宠物</text>
@@ -27,6 +27,8 @@
 			<uni-list>
 				<uni-list-item :showExtraIcon="true" :extra-icon="flag" :show-badge="true" showArrow title="关于"
 					link="navigateTo" to="/pages/mine/about/about"></uni-list-item>
+				<uni-list-item :show-extra-icon="true" :extra-icon="settings" :show-badge="true" showArrow title="设置"
+					:clickable="true" @click="navigateTo('/pages/mine/favours/favours')"></uni-list-item>
 			</uni-list>
 		</view>
 	</view>
@@ -39,12 +41,19 @@
 
 
 <script>
-	import { currentUser } from '../../global/userinfo';
+	import {
+		currentUser
+	} from '../../global/userinfo';
 	export default {
 		components: {},
 		data() {
 			return {
 				user: currentUser,
+				settings: {
+					color: '#000000',
+					size: '20',
+					type: 'settings',
+				},
 				heart: {
 					color: '#000000',
 					size: '20',
@@ -72,11 +81,11 @@
 			}
 		},
 		methods: {
-			onConfirm(e){
-				this.pickerText=JSON.stringify(e.label)
+			onConfirm(e) {
+				this.pickerText = JSON.stringify(e.label)
 				console.log(this.pickerText);
 			},
-			openPicker(){
+			openPicker() {
 				this.$refs.mpvueCityPicker.show()
 			},
 			changeimage() {
@@ -89,7 +98,7 @@
 						this.user.updateProperty("headshot_url", res.tempFilePaths[0]);
 					}
 				});
-			
+
 			},
 			change(e) {
 				console.log('当前模式：' + e.type + ',状态：' + e.show);
@@ -130,7 +139,7 @@
 		padding: 10px;
 		background-color: #fff;
 		border-bottom: 1px solid #eee;
-		
+
 	}
 
 	.avatar {
@@ -166,6 +175,4 @@
 	.list {
 		margin-top: 10px;
 	}
-
-
 </style>

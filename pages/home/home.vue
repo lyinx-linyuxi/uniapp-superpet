@@ -13,6 +13,8 @@
 							<text class="username">{{ post.userName }}</text>
 							<text class="time">{{ post.postTime }}</text>
 						</view>
+						<uni-icons class="star-button" :type="post.followed ? 'person-filled' : 'personadd'" size="20px"
+							@click="followUser(post.hostId)"></uni-icons>
 					</view>
 					<text class="content">{{ post.text }}</text>
 					<image
@@ -71,7 +73,9 @@
 	const defaultAvatarUrl =
 		'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0';
 	const defaultPostImage = '/static/pages/index/home/images/3.png';
-	import { currentUser } from '../../global/userinfo';
+	import {
+		currentUser
+	} from '../../global/userinfo';
 	export default {
 		data() {
 			return {
@@ -85,6 +89,32 @@
 			this.fetchData(this.activeTab);
 		},
 		methods: {
+			followUser(hostId) {
+				uni.request({
+					url: "http://localhost:8080/admin/post/addFollow",
+					method: 'POST',
+					data: {
+						followerId: hostId,
+						followingId: this.user.userId,
+					},
+					header: {
+						'content-type': 'application/json'
+					},
+					success: (res) => {
+						console.log("success", res.data)
+						if (res.statusCode == 200) {
+							this.posts = res.data.data;
+							console.log(res.data.data);
+						} else {
+							console.log("here", res.data.data);
+						}
+					},
+					fail: () => {
+					}
+				});
+			},
+			sharePost() {},
+			toggleComments() {},
 			switchTab(tab) {
 				this.activeTab = tab;
 				this.fetchData(this.activeTab);
@@ -150,7 +180,8 @@
 					liked: false,
 					likes: 100,
 					comments: 200,
-					shares: 29
+					shares: 29,
+					followed: false,
 				}]
 			}
 		}
@@ -223,6 +254,11 @@
 	.time {
 		color: #888;
 		font-size: 14px;
+	}
+
+	.star-button {
+		margin-left: auto;
+		color: yellow;
 	}
 
 
