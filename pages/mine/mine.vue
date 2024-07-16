@@ -1,10 +1,10 @@
 <template>
 	<view class="container">
 		<view class="header">
-			<image  class="avatar" :src='user.getProperty("headshot_url")' mode="aspectFill" lazy-load></image>
+			<image  class="avatar" :src='user.getProperty("headshotUrl")' mode="aspectFill" lazy-load></image>
 			<view class="user-info">
 				<text class="username">{{user.getProperty("username")}}</text>
-				<text class="pet-num">有{{user.getProperty("pet_num")}}个宠物</text>
+				<text class="pet-num">有{{user.getProperty("petNum")}}个宠物</text>
 			</view>
 			<view @click="changeimage">
 				<button class="update-avatar" plain="true" size="default">

@@ -1,12 +1,13 @@
 // 用户类
 class User {
 	constructor(name, age, email) {
-		this.user_id = -1;
+		this.userId = -1;
 		this.username = 'default';
+		this.password = '';
 		this.email = email;
 		this.phone = '';
-		this.headshot_url = '/static/pages/index/home/images/1.png';
-		this.pet_num = 1;
+		this.headshotUrl = '/static/pages/index/home/images/1.png';
+		this.petNum = 1;
 		this.gender = 'female';
 	}
 
