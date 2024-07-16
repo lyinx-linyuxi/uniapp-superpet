@@ -125,6 +125,13 @@
 			}
 		},
 		{
+			"path": "pages/pet/insert/register/register",
+			"style": {
+				"navigationBarTitleText": "注册",
+				"navigationBarBackgroundColor": "#fff"
+			}
+		},
+		{
 			"path" : "pages/cloudpet/voice/voice",
 			"style" : 
 			{
@@ -135,7 +142,7 @@
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
-		"navigationBarBackgroundColor": "#00a2f0",
+		"navigationBarBackgroundColor": "#f59220",
 		"backgroundColor": "#F8F8F8"
 	},
 	"tabBar": {
