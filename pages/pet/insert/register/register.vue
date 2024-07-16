@@ -20,9 +20,9 @@
 					@input="inputpassword"></uni-easyinput>
 			</view>
 			<view @click="registerBtn"><button class="loginBtn">完成注册</button></view>
+		</view>
 	</view>
-</view>
-			
+
 
 </template>
 
@@ -40,9 +40,9 @@
 					url: '/pages/home/home'
 				})
 			},
-			inputusername(){
+			inputusername() {
 				this.username = username,
-				console(this.username)
+					console(this.username)
 			},
 			inputuerid() {
 				this.userid = uerid,
@@ -53,28 +53,42 @@
 					console(this.password)
 			},
 			registerBtn() {
-				console.log(typeof(this.username),this.username)
+				console.log(typeof(this.username), this.username)
 				console.log(typeof(this.userid), this.userid);
 				console.log(typeof(this.password), this.password);
-				uni.request({
-					url: 'http://localhost:8080/admin/user/addUser',
-					method: 'POST',
-					data: {
-						username: this.username,
-						userid: this.userid,
-						password: this.password,
-					},
-					header: {
-						'content-type': 'application/json'
-					},
-					success: (res) => {
-						console.log(res.data);
-						uni.navigateBack();
-					},
-					fail: (res) => {
-						console.log("Failed to connect");
-					}
-				});
+				if (this.userid.length < 3 || this.userid.length > 10) {
+					uni.showToast({
+						title: '账号应在3~10位之间',
+						icon: 'none'
+					})
+					return
+				} else if (this.password.length < 6 || this.password.length > 12) {
+					uni.showToast({
+						title: '密码应在6~12位之间',
+						icon: 'none'
+					})
+					return
+				} else {
+					uni.request({
+						url: 'http://localhost:8080/admin/user/addUser',
+						method: 'POST',
+						data: {
+							username: this.username,
+							userid: this.userid,
+							password: this.password,
+						},
+						header: {
+							'content-type': 'application/json'
+						},
+						success: (res) => {
+							console.log(res.data);
+							uni.navigateBack();
+						},
+						fail: (res) => {
+							console.log("Failed to connect");
+						}
+					});
+				}
 			}
 		}
 
@@ -160,5 +174,4 @@
 		text-align: center;
 		margin-top: 36rpx;
 	}
-
 </style>

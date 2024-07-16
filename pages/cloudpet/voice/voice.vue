@@ -1,130 +1,93 @@
 <template>
-  <view class="content">
-	<textarea class="result" placeholder="语音识别内容" :value="result"></textarea>
-	<view class="recogniz">
-		<view style="color: #0000CC;">
-			<text>{{title}}</text>
+	<view class="content">
+		<image class="logo" src="/static/logo.png"></image>
+		<button @click="voiceBegain">讯飞语音识别</button>
+		<view v-if="words1">
+			这是searchValue：{{words1}}
 		</view>
-		<view class="partial">
-			<text>{{partialResult}}</text>
+		<view v-if="words2">
+			这是searchText：{{words2}}
 		</view>
-		<view class="volume" :style="{width:valueWidth}"></view>
 	</view>
-	<button type="default" @touchstart="startRecognize" @touchend="endRecognize">按下开始&amp;松开结束</button>
-  </view>
 </template>
+
 <script>
-export default {
-    data() {
-      return {
-		title: '未开始',
-        text: '',
-		partialResult: '...',
-        result: '',
-		valueWidth: '0px'
-      }
-    },
-    onLoad() {
-// #ifdef APP-PLUS
-		// 监听语音识别事件
-		plus.speech.addEventListener('start', this.ontStart, false);
-		plus.speech.addEventListener('volumeChange', this.onVolumeChange, false);
-		plus.speech.addEventListener('recognizing', this.onRecognizing, false);
-		plus.speech.addEventListener('recognition', this.onRecognition, false);
-		plus.speech.addEventListener('end', this.onEnd, false);
-// #endif
-    },
-	methods: {
-		ontStart() {
-			this.title = '...倾听中...';
-			this.text = '';
-			console.log('Event: start');
-		},
-		onVolumeChange(e) {
-			this.valueWidth = 100*e.volume+'px';
-			console.log('Event: volumeChange '+this.valueWidth);
-		},
-		onRecognizing(e) {
-			this.partialResult = e.partialResult;			
-			console.log('Event: recognizing');
-		},
-		onRecognition(e) {
-			this.text += e.result;
-			this.text?(this.text+='\n'):this.text='';
-			this.result = this.text;
-			this.partialResult = e.result;
-			console.log('Event: recognition');
-		},
-		onEnd() {
-			if(!this.text||this.text==''){
-				plus.nativeUI.toast('没有识别到内容');
+	export default {
+		data() {
+			return {
+				title: 'Hello',
+				words1: '',
+				words2: ''
 			}
-			this.result = this.text;
-			this.title = '未开始';
-			this.valueWidth = '0px';
-			this.partialResult = '...';
 		},
-		startRecognize() {
-			console.log('startRecognize');
-// #ifdef APP-PLUS
-			plus.speech.startRecognize({
-				engine: 'baidu',
-				lang: 'zh-cn',
-				'userInterface': false,
-				'continue': true
-			});
-// #endif
+		onLoad() {
+
 		},
-		endRecognize() {
-			console.log('endRecognize');
-// #ifdef APP-PLUS
-			plus.speech.stopRecognize();
-// #endif
+		methods: {
+			send() {
+				uniCloud.callFunction({
+					name: 'sendcode',
+					success: (e) => {
+						console.log('这是发送验证码', e);
+					}
+				})
+			},
+			// 调用讯飞语音识别
+			voiceBegain() {
+				let _this = this;
+				let options = {};
+				//#ifdef APP-PLUS || APP-PLUS-NVUE
+				options.engine = 'iFly';
+				options.punctuation = false; // 是否需要标点符号 
+				options.timeout = 10 * 1000; //语音录入持续时长
+				plus.speech.startRecognize(options, function(s) {
+					_this.searchText = _this.searchText + s;
+					console.log(_this.searchText) //拿到语音识别的结果
+					//下面是逻辑  
+					_this.searchValue = s;
+					_this.searchText = ""
+					
+					// 打印输出结果
+					 _this.words1 = _this.searchValue
+					 _this.words2 = _this.searchText
+					 
+					// 关闭语音
+					plus.speech.stopRecognize();
+				});
+				//#endif
+				// #ifdef H5
+				alert("只有h5平台才有alert方法")
+				// #endif
+			}
 		}
 	}
-}
 </script>
+
 <style>
-  .content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-.recogniz {
-    width: 200px;
-    height: 100px;
-    padding: 12px;
-    margin: 50px auto;
-    background-color: rgba(0,0,0,0.5);
-    border-radius: 16px;
-	text-align: center;
-}
-.partial {
-    width: 100%;
-    height: 40px;
-    margin-top: 16px;
-    font-size: 12px;
-    color: #FFFFFF;
-}
-.volume {
-	width: 10px;
-	height: 6px;
-	border-style:solid;
-	display:inline-block;
-	box-sizing:border-box;
-	border-width:1px;
-	border-color:#CCCCCC;
-	border-radius: 50%;
-    background-color: #00CC00;
-}
-.result {
-	color: #CCCCCC;
-	border: #00CCCC 1px solid;
-	margin: 25px auto;
-	padding: 6px;
-	width: 80%;
-	height: 100px;
-}
+	.content {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.logo {
+		height: 200rpx;
+		width: 200rpx;
+		margin-top: 200rpx;
+		margin-left: auto;
+		margin-right: auto;
+		margin-bottom: 50rpx;
+	}
+
+	.text-area {
+		display: flex;
+		justify-content: center;
+	}
+
+	.title {
+		font-size: 36rpx;
+		color: #8f8f94;
+	}
 </style>
 

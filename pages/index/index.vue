@@ -44,27 +44,71 @@
 					url: '/pages/home/home'
 				})
 			},
-			gotoregister(){
+			gotoregister() {
 				uni.navigateTo({
-					url:'/pages/pet/insert/register/register'
+					url: '/pages/pet/insert/register/register'
 				})
 			},
 			inputuserid() {
-				// this.userid = uerid,
-					console.log(this.userid)
+				// this.userid = userid,
+				console.log(this.userid)
 			},
 			inputpassword() {
 				// this.password = password,
-					console.log(this.password)
+				console.log(this.password)
 			},
 			userlogin() {
 				console.log(typeof(this.userid), this.userid);
 				console.log(typeof(this.password), this.password);
-				if (this.password == 88888888){
+				if (this.password == 88888888) {
 					uni.switchTab({
 						url: '/pages/home/home'
 					})
 				};
+				if (this.userid.length < 3 || this.userid.length > 10) {
+					uni.showToast({
+						title: '账号应在3~10位之间',
+						icon: 'none'
+					})
+					return
+				} else if (this.password.length < 6 || this.password.length > 12) {
+					uni.showToast({
+						title: '密码应在6~12位之间',
+						icon: 'none'
+					})
+					return
+				} else {
+					uni.request({
+						url: 'http://localhost:8080/admin/user/login',
+						method: 'POST',
+						data: {
+							userid: this.userid,
+							password: this.password,
+						},
+						header: {
+							'content-type': 'application/json'
+						},
+						success: (res) => {
+							//console.log(res.data);
+							if (res.data == 1) {
+								uni.switchTab({
+									url: '/pages/home/home'
+								})
+							}
+							if (res.data == 0) {
+								uni.showToast({
+									title: '账号或密码错误',
+									icon: "none",
+								})
+								return
+							}
+						},
+						fail: (res) => {
+							console.log("Failed to connect");
+						}
+					});
+				}
+
 				uni.request({
 					url: 'http://localhost:8080/admin/user/login',
 					method: 'POST',
