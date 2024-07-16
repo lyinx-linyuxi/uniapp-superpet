@@ -41,9 +41,19 @@
 				})
 			},
 			inputusername() {
+<<<<<<< HEAD
+				this.username = username,
+					console(this.username)
+			},
+			// inputuerid() {
+			// 	this.userid = uerid,
+			// 		console(this.userid)
+			// },
+=======
 				// this.username = username,
 					console.log(this.username)
 			},
+>>>>>>> f8936433cf9be1ff54ad343e3d0f862ed064b127
 			inputpassword() {
 				// this.password = password,
 					console.log(this.password)
