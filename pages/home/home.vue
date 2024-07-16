@@ -93,7 +93,25 @@
 				post.liked = !post.liked;
 				post.liked ? post.likes++ : post.likes--;
 				console.log("hit");
-				// this.$forceUpdate();
+				uni.request({
+					url: 'http://localhost:8080/admin/post/addPLike',
+					method: 'POST',
+					data: {
+						hostId: post.hostId,
+						likerId: this.user.getProperty("userId"),
+						postOrder: post.postOrder
+					},
+					header: {
+						'content-type': 'application/json'
+					},
+					success: (res) => {
+						console.log("success update like");
+						console.log(res);
+					},
+					fail: (res) => {
+						console.log("Failed to update like");
+					}
+				});
 			},
 			fetchData(tabName) {
 				let address = 'petCircle'
@@ -101,7 +119,7 @@
 					address = 'MyFollowedPetCircle';
 				}
 				uni.request({
-					url: "http://localhost:8080/admin/post/" + address + this.user.getProperty("userId"),
+					url: "http://localhost:8080/admin/post/" + address + "/" + this.user.getProperty("userId"),
 					method: "POST",
 					success: (res) => {
 						console.log("success", res.data)
@@ -122,8 +140,8 @@
 			handleFetchError() {
 				console.log('Failed to fetch data');
 				this.posts = [{
-					host_id: '',
-					post_order: '',
+					hostId: '',
+					postOrder: '',
 					userName: 'xiaoxi',
 					headshotUrl: defaultAvatarUrl,
 					text: 'default nulla',
