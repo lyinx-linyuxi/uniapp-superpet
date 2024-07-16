@@ -7,8 +7,7 @@
 		<view class="inputBox">
 			<view class="ipt">
 				<h4>用户名</h4>
-				<uni-easyinput type="text" v-model="username" placeholder="请输入用户名"
-					@input="inputusername"></uni-easyinput>
+				<uni-easyinput type="text" v-model="username" placeholder="请输入用户名" @input="inputusername"></uni-easyinput>
 			</view>
 			<!-- <view class="ipt">
 				<h4>账号</h4>
@@ -41,19 +40,10 @@
 				})
 			},
 			inputusername() {
-<<<<<<< HEAD
-				this.username = username,
+
+				//this.username = username,
 					console(this.username)
 			},
-			// inputuerid() {
-			// 	this.userid = uerid,
-			// 		console(this.userid)
-			// },
-=======
-				// this.username = username,
-					console.log(this.username)
-			},
->>>>>>> f8936433cf9be1ff54ad343e3d0f862ed064b127
 			inputpassword() {
 				// this.password = password,
 					console.log(this.password)
@@ -90,14 +80,15 @@
 							if(res.data.code==1){
 								uni.showToast({
 									title: '注册成功',
-									icon: 'none'
-								})
-								uni.navigateBack();
+									icon: 'success'
+								});
+								console.log("success");
+								uni.navigateBack();  	
 							}
 							else{
 								uni.showToast({
 									title: '注册失败',
-									icon: 'none'
+									icon: 'fail'
 								})
 							}
 							return

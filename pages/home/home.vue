@@ -70,10 +70,12 @@
 <script>
 	const defaultAvatarUrl =
 		'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0';
-	const defaultPostImage = '/static/pages/index/home/images/3.png'
+	const defaultPostImage = '/static/pages/index/home/images/3.png';
+	import { currentUser } from '../../global/userinfo';
 	export default {
 		data() {
 			return {
+				user: currentUser,
 				activeTab: 'follow',
 				posts: []
 			}
@@ -99,7 +101,7 @@
 					address = 'MyFollowedPetCircle';
 				}
 				uni.request({
-					url: "http://localhost:8080/admin/post/" + address + "/3",
+					url: "http://localhost:8080/admin/post/" + address + this.user.getProperty("userId"),
 					method: "POST",
 					success: (res) => {
 						console.log("success", res.data)
