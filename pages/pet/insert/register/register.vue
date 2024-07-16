@@ -6,28 +6,24 @@
 		</view>
 		<view class="inputBox">
 			<view class="ipt">
-				<h4>账号</h4>
-				<uni-easyinput type="text" v-model="username" @input="inputusername" placeholder="请输入用户名"></uni-easyinput>
+				<h4>用户名</h4>
+				<uni-easyinput type="text" v-model="username" placeholder="请输入用户名"
+					@input="inputusername"></uni-easyinput>
 			</view>
+			<!-- <view class="ipt">
+				<h4>账号</h4>
+				<uni-easyinput type="text" v-model="userid" @input="inputuserid" placeholder="请输入账号"></uni-easyinput>
+			</view> -->
 			<view class="ipt">
 				<h4>密码</h4>
 				<uni-easyinput type="password" v-model="password" placeholder="请输入密码"
 					@input="inputpassword"></uni-easyinput>
 			</view>
-			<button class="loginBtn" @click="userlogin">登录</button>
-			<button class="registerBtn" @click="gotoregister">注册</button>
-
-			<view class="tipbox">
-				<view class="txt">
-					—— 其他账号登录 ——
-				</view>
-				<view class="otherUser">
-					<uni-icons type="qq" size="40" color="rgb(66,157,250)"></uni-icons>
-					<uni-icons type="weixin" size="40" color="rgb(2,187,17)"></uni-icons>
-				</view>
-			</view>
+			<view @click="registerBtn"><button class="loginBtn">完成注册</button></view>
 		</view>
 	</view>
+
+
 </template>
 
 <script>
@@ -44,27 +40,22 @@
 					url: '/pages/home/home'
 				})
 			},
-			gotoregister() {
-				uni.navigateTo({
-					url: '/pages/pet/insert/register/register'
-				})
-			},
 			inputusername() {
-				// this.userid = userid,
-				console.log(this.username)
+				this.username = username,
+					console(this.username)
+			},
+			inputuerid() {
+				this.userid = uerid,
+					console(this.userid)
 			},
 			inputpassword() {
-				// this.password = password,
-				console.log(this.password)
+				this.password = password,
+					console(this.password)
 			},
-			userlogin() {
-				console.log(typeof(this.username), this.username);
+			registerBtn() {
+				console.log(typeof(this.username), this.username)
+				//console.log(typeof(this.userid), this.userid);
 				console.log(typeof(this.password), this.password);
-				if (this.password == 88888888) {
-					uni.switchTab({
-						url: '/pages/home/home'
-					})
-				};
 				if (this.username.length < 3 || this.username.length > 10) {
 					uni.showToast({
 						title: '用户名应在3~10位之间',
@@ -79,10 +70,11 @@
 					return
 				} else {
 					uni.request({
-						url: 'http://localhost:8080/admin/user/login',
+						url: 'http://localhost:8080/admin/user/addUser',
 						method: 'POST',
 						data: {
 							username: this.username,
+							//userid: this.userid,
 							password: this.password,
 						},
 						header: {
@@ -90,42 +82,26 @@
 						},
 						success: (res) => {
 							//console.log(res.data);
-							if (res.data == 1) {
-								uni.switchTab({
-									url: '/pages/home/home'
-								})
-							}
-							if (res.data == 0) {
+							if(res.data==1){
 								uni.showToast({
-									title: '账号或密码错误',
-									icon: "none",
+									title: '注册成功',
+									icon: 'none'
 								})
-								return
+								uni.navigateBack();
 							}
+							else{
+								uni.showToast({
+									title: '注册失败',
+									icon: 'none'
+								})
+							}
+							return
 						},
 						fail: (res) => {
 							console.log("Failed to connect");
 						}
 					});
 				}
-
-				uni.request({
-					url: 'http://localhost:8080/admin/user/login',
-					method: 'POST',
-					data: {
-						userid: this.userid,
-						password: this.password,
-					},
-					header: {
-						'content-type': 'application/json'
-					},
-					success: (res) => {
-						console.log(res.data);
-					},
-					fail: (res) => {
-						console.log("Failed to connect");
-					}
-				});
 			}
 		}
 
@@ -210,9 +186,5 @@
 		color: #969696;
 		text-align: center;
 		margin-top: 36rpx;
-	}
-
-	.otherUser .uni-icons {
-		margin-left: 20rpx;
 	}
 </style>
