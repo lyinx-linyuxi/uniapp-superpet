@@ -97,7 +97,7 @@
 								for(const key in res.data.data){
 									if(res.data.data.hasOwnProperty(key)){
 										console.log(key,res.data.data[key]);
-										this.user.updateProperty(key, res.data.data[key])
+										this.user.updateProperty(key, res.data.data[key]);
 									}
 								}
 								uni.switchTab({
