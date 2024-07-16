@@ -20,8 +20,6 @@
 		},
 		onLoad() {
 			console.log('fetchdata');
-			this.fetchData();
-			console.log(this.items)
 		},
 		methods: {
 			getInfo(id) {

@@ -65,7 +65,7 @@
 							{{ TEXT.length }} / {{ maxCharCount }}
 						</span>
 						<span>
-							<button type="primary" @click="sendToSpark" :disabled="sendBtnDisabled">
+							<button type="primary" @click="sendToSpark()" :disabled="sendBtnDisabled">
 								发送
 							</button>
 						</span>
@@ -499,7 +499,8 @@
 
 			// 多行文本
 			textarea {
-				width: calc(100vh - 50px); // 减去滚动条的宽度
+				width: auto; // 减去滚动条的宽度
+				box-sizing: border-box;
 				margin-top: 2px;
 				padding: 0.5rem 6rem 1rem 1.25rem;
 				padding-bottom: 0;
@@ -588,13 +589,13 @@
 	// 	color: #666666;
 	// 	line-height: 1.8;
 	// }
-</style>
-
-<style>
-	html,
-	body {
-		height: 100%;
-		margin: 0;
-		padding: 0;
+	uni-page-body {
+		min-height: 100% !important;
+		height: auto !important;
+		padding-bottom: calc(100rpx + constant(safe-area-inset-bottom));
+		/*兼容 IOS<11.2*/
+		padding-bottom: calc(100rpx + env(safe-area-inset-bottom));
+		/*兼容 IOS>11.2*/
+		display: flex;
 	}
 </style>

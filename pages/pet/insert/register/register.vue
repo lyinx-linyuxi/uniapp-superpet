@@ -30,7 +30,7 @@
 	export default {
 		data() {
 			return {
-				userid: '',
+				username: '',
 				password: ''
 			}
 		},
@@ -41,6 +41,7 @@
 				})
 			},
 			inputusername() {
+<<<<<<< HEAD
 				this.username = username,
 					console(this.username)
 			},
@@ -48,9 +49,14 @@
 			// 	this.userid = uerid,
 			// 		console(this.userid)
 			// },
+=======
+				// this.username = username,
+					console.log(this.username)
+			},
+>>>>>>> f8936433cf9be1ff54ad343e3d0f862ed064b127
 			inputpassword() {
-				this.password = password,
-					console(this.password)
+				// this.password = password,
+					console.log(this.password)
 			},
 			registerBtn() {
 				console.log(typeof(this.username), this.username)
@@ -73,8 +79,7 @@
 						url: 'http://localhost:8080/admin/user/addUser',
 						method: 'POST',
 						data: {
-							username: this.username,
-							//userid: this.userid,
+							userName: this.username,
 							password: this.password,
 						},
 						header: {
@@ -82,7 +87,7 @@
 						},
 						success: (res) => {
 							//console.log(res.data);
-							if(res.data==1){
+							if(res.data.code==1){
 								uni.showToast({
 									title: '注册成功',
 									icon: 'none'
