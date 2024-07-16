@@ -139,11 +139,15 @@
 				console.log("switchTab to", tab);
 			},
 			likePost(post) {
+				let path = 'addPLike';
+				if(post.like === true){
+					path = 'deletePLike';
+				}
 				post.liked = !post.liked;
 				post.liked ? post.likes++ : post.likes--;
 				console.log("hit");
 				uni.request({
-					url: 'http://localhost:8080/admin/post/addPLike',
+					url: 'http://localhost:8080/admin/post/' + path,
 					method: 'POST',
 					data: {
 						hostId: post.hostId,
