@@ -20,6 +20,9 @@
 				</view>
 
 		  		<view class="block"></view>
+				<view class="f-content1" >
+					<text>“{{comment.ctext}}”</text>
+				</view>
 		  		<view class="f-time" >
 		  			<text>{{comment.commentTime}}</text>
 		  		</view>
@@ -47,7 +50,7 @@ export default {
   methods: {
 	  getMessage(){
 		  uni.request({
-		  	url: "http://localhost:8080/admin/message/getComments/3",
+		  	url: "http://localhost:8080/admin/message/getComments/1",
 					  	// url: "http://localhost:8080/admin/message/getNewcommentsDetail/" + this.user.getProperty("userId"),
 		  	method: "GET",
 		  	success:(res) => {
@@ -128,6 +131,15 @@ export default {
 			align-items:flex-start;
 			text{
 				font-size: 10px;
+			}
+		}
+		.f-content1{display:flex;
+			width: 250px;
+			justify-content: flex-start;
+			align-items:flex-start;
+			text{
+				font-size: 10px;
+				text-align: right;
 			}
 		}
 		.block{display:flex;
