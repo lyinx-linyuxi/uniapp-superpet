@@ -6,7 +6,11 @@
 		</view>
 		<view class="inputBox">
 			<view class="ipt">
-				<h4>账号</h4>
+				<h4>用户
+				
+				
+				
+				号</h4>
 				<uni-easyinput type="text" v-model="username" @input="inputusername" placeholder="请输入用户名"></uni-easyinput>
 			</view>
 			<view class="ipt">

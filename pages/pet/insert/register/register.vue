@@ -44,10 +44,10 @@
 				this.username = username,
 					console(this.username)
 			},
-			inputuerid() {
-				this.userid = uerid,
-					console(this.userid)
-			},
+			// inputuerid() {
+			// 	this.userid = uerid,
+			// 		console(this.userid)
+			// },
 			inputpassword() {
 				this.password = password,
 					console(this.password)
