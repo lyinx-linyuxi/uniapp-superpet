@@ -31,9 +31,11 @@
 </template>
 
 <script>
+	import { currentUser } from '../../global/userinfo'
 	export default {
 		data() {
 			return {
+				user: currentUser,
 				username: '',
 				password: ''
 			}
@@ -89,9 +91,15 @@
 							'content-type': 'application/json'
 						},
 						success: (res) => {
-							console.log(res);	
+							console.log(res);
 							if (res.data.code == 1) {
-								console.log(res.data.dat);
+								console.log(res.data.data);
+								for(const key in res.data.data){
+									if(res.data.data.hasOwnProperty(key)){
+										console.log(key,res.data.data[key]);
+										this.user.updateProperty(key, res.data.data[key])
+									}
+								}
 								uni.switchTab({
 									url: '/pages/home/home'
 								})
