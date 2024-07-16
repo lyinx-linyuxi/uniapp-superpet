@@ -14,7 +14,7 @@
 							<text class="time">{{ post.postTime }}</text>
 						</view>
 						<uni-icons class="star-button" :type="post.followed ? 'person-filled' : 'personadd'" size="20px"
-							@click="followUser(post.hostId)"></uni-icons>
+							@click="followUser(post)"></uni-icons>
 					</view>
 					<text class="content">{{ post.text }}</text>
 					<image
@@ -44,6 +44,8 @@
 							<text class="username">{{ post.userName }}</text>
 							<text class="time">{{ post.postTime }}</text>
 						</view>
+						<uni-icons class="star-button" :type="post.followed ? 'person-filled' : 'personadd'" size="20px"
+							@click="followUser(post)"></uni-icons>
 					</view>
 					<text class="content">{{ post.text }}</text>
 					<image
@@ -89,13 +91,20 @@
 			this.fetchData(this.activeTab);
 		},
 		methods: {
-			followUser(hostId) {
+			followUser(post) {
+				let path = '';
+				if(post.followed === false){
+					path = 'addFollow';
+				}
+				else if(post.followed === true){
+					path = 'deleteFollow';
+				}
 				uni.request({
-					url: "http://localhost:8080/admin/post/addFollow",
+					url: "http://localhost:8080/admin/post/" + path,
 					method: 'POST',
 					data: {
-						followerId: hostId,
-						followingId: this.user.userId,
+						followerId: this.user.userId,
+						followingId: post.hostId,
 					},
 					header: {
 						'content-type': 'application/json'
@@ -103,14 +112,23 @@
 					success: (res) => {
 						console.log("success", res.data)
 						if (res.statusCode == 200) {
-							this.posts = res.data.data;
-							console.log(res.data.data);
+							console.log("fetch data");
+							//成功了需要将相关的post展示时显示关注关系
+							// method 1
+							//this.fetchData(this.activeTab)
+							// method 2
+							let len = this.posts.length;
+							console.log("len", len);
+							for(let i = 0; i < len; i++){
+								if(this.posts[i].hostId == post.hostId){
+									this.posts[i].followed = !this.posts[i].followed;
+								}
+							}
 						} else {
 							console.log("here", res.data.data);
 						}
 					},
-					fail: () => {
-					}
+					fail: () => {}
 				});
 			},
 			sharePost() {},
@@ -118,6 +136,7 @@
 			switchTab(tab) {
 				this.activeTab = tab;
 				this.fetchData(this.activeTab);
+				console.log("switchTab to", tab);
 			},
 			likePost(post) {
 				post.liked = !post.liked;
@@ -192,10 +211,12 @@
 	.container {
 		display: flex;
 		flex-direction: column;
-		height: 100vh;
 	}
 
 	.tab-bar {
+		position: fixed;
+		top: 44px;
+		z-index: 9999;
 		width: 100%;
 		display: flex;
 		justify-content: space-around;
@@ -214,8 +235,9 @@
 	}
 
 	.content {
+		margin-top: 64px;
 		flex: 1;
-		height: 100%;
+		height: auto;
 		width: 100%;
 	}
 
