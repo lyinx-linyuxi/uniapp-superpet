@@ -1,10 +1,10 @@
 <template>
 	<view class="container">
 		<view class="header">
-			<image  class="avatar" :src="userpic" mode="aspectFill" lazy-load></image>
+			<image  class="avatar" :src='user.getProperty("headshot_url")' mode="aspectFill" lazy-load></image>
 			<view class="user-info">
-				<text class="username">我是你爹</text>
-				<text class="pet-num">有好多个宠物</text>
+				<text class="username">{{user.getProperty("username")}}</text>
+				<text class="pet-num">有{{user.getProperty("pet_num")}}个宠物</text>
 			</view>
 			<view @click="changeimage">
 				<button class="update-avatar" plain="true" size="default">
@@ -39,11 +39,12 @@
 
 
 <script>
+	import { currentUser } from '../../global/userinfo';
 	export default {
 		components: {},
 		data() {
 			return {
-				userpic:"https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2Fbf6fe5f0-4e5c-4dd1-9545-f58151164f0c%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1688030544&t=0eb95982f55004824ffbd3cd0aedd1f9",
+				user: currentUser,
 				heart: {
 					color: '#000000',
 					size: '20',
@@ -84,7 +85,8 @@
 					sizeType: ['compressed'], //压缩图
 					success: (res) => {
 						console.log(JSON.stringify(res.tempFilePaths));
-						this.userpic = res.tempFilePaths
+						console.log(res.tempFilePaths);
+						this.user.updateProperty("headshot_url", res.tempFilePaths[0]);
 					}
 				});
 			
