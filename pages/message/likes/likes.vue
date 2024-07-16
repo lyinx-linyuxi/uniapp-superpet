@@ -83,15 +83,11 @@ export default {
 	li{
 		padding: 5px;
 	}
-	.test{
-		padding: 10px;
-		height:40px;
-		width:40px;
-	}
 	.body{display:flex;
 		height: 40px;
 		background-color: Azure;
 		flex-direction:row;
+		border:solid;
 		.f-image{display:flex;
 			width: 40px;
 			image{
