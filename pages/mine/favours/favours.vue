@@ -29,7 +29,7 @@
 			},
 			fetchData() {
 				uni.request({
-					url: "https://api.examplesdaf",
+					url: "http://localhost:8080/post/LikedPosts/3",
 					method: "GET",
 					success: (res) => {
 						if (res.statusCode == 200) {
