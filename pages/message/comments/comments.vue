@@ -114,6 +114,14 @@ export default {
 				font-size: 10px;
 			}
 		}
+		.f-content0{display:flex;
+			width: 80px;
+			justify-content: flex-start;
+			align-items:flex-start;
+			text{
+				font-size: 10px;
+			}
+		}
 		.f-content{display:flex;
 			width: 250px;
 			justify-content: flex-start;
