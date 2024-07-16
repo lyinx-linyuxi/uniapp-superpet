@@ -34,7 +34,7 @@
 	export default {
 		data() {
 			return {
-				userid: '',
+				username: '',
 				password: ''
 			}
 		},
@@ -55,7 +55,7 @@
 			},
 			inputpassword() {
 				// this.password = password,
-				console.log(this.password)
+				console.log(this.password);
 			},
 			userlogin() {
 				console.log(typeof(this.username), this.username);
@@ -89,13 +89,14 @@
 							'content-type': 'application/json'
 						},
 						success: (res) => {
-							//console.log(res.data);
-							if (res.data == 1) {
+							console.log(res);	
+							if (res.data.code == 1) {
+								console.log(res.data.dat);
 								uni.switchTab({
 									url: '/pages/home/home'
 								})
 							}
-							if (res.data == 0) {
+							if (res.data.code == 0) {
 								uni.showToast({
 									title: '账号或密码错误',
 									icon: "none",
@@ -108,24 +109,6 @@
 						}
 					});
 				}
-
-				uni.request({
-					url: 'http://localhost:8080/admin/user/login',
-					method: 'POST',
-					data: {
-						userid: this.userid,
-						password: this.password,
-					},
-					header: {
-						'content-type': 'application/json'
-					},
-					success: (res) => {
-						console.log(res.data);
-					},
-					fail: (res) => {
-						console.log("Failed to connect");
-					}
-				});
 			}
 		}
 
