@@ -34,6 +34,7 @@
 			},
 			// 调用讯飞语音识别
 			voiceBegain() {
+				console.log("begin to record");
 				let _this = this;
 				let options = {};
 				//#ifdef APP-PLUS || APP-PLUS-NVUE

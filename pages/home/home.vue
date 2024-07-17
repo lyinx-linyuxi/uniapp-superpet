@@ -13,6 +13,8 @@
 							<text class="username">{{ post.userName }}</text>
 							<text class="time">{{ post.postTime }}</text>
 						</view>
+						<uni-icons class="star-button" :type="post.followed ? 'person-filled' : 'personadd'" size="20px"
+							@click="followUser(post)"></uni-icons>
 					</view>
 					<text class="content">{{ post.text }}</text>
 					<image
@@ -49,6 +51,8 @@
 							<text class="username">{{ post.userName }}</text>
 							<text class="time">{{ post.postTime }}</text>
 						</view>
+						<uni-icons class="star-button" :type="post.followed ? 'person-filled' : 'personadd'" size="20px"
+							@click="followUser(post)"></uni-icons>
 					</view>
 					<text class="content">{{ post.text }}</text>
 					<image
@@ -107,7 +111,9 @@
 	const defaultAvatarUrl =
 		'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0';
 	const defaultPostImage = '/static/pages/index/home/images/3.png';
-	import { currentUser } from '../../global/userinfo';
+	import {
+		currentUser
+	} from '../../global/userinfo';
 	export default {
 		data() {
 			return {
@@ -121,15 +127,80 @@
 			this.fetchData(this.activeTab);
 		},
 		methods: {
+			followUser(post) {
+				let path = '';
+				if(post.followed === false){
+					path = 'addFollow';
+				}
+				else if(post.followed === true){
+					path = 'deleteFollow';
+				}
+				uni.request({
+					url: "http://localhost:8080/admin/post/" + path,
+					method: 'POST',
+					data: {
+						followerId: this.user.userId,
+						followingId: post.hostId,
+					},
+					header: {
+						'content-type': 'application/json'
+					},
+					success: (res) => {
+						console.log("success", res.data)
+						if (res.statusCode == 200) {
+							console.log("fetch data");
+							//成功了需要将相关的post展示时显示关注关系
+							// method 1
+							//this.fetchData(this.activeTab)
+							// method 2
+							let len = this.posts.length;
+							console.log("len", len);
+							for(let i = 0; i < len; i++){
+								if(this.posts[i].hostId == post.hostId){
+									this.posts[i].followed = !this.posts[i].followed;
+								}
+							}
+						} else {
+							console.log("here", res.data.data);
+						}
+					},
+					fail: () => {}
+				});
+			},
+			sharePost() {},
+			toggleComments() {},
 			switchTab(tab) {
 				this.activeTab = tab;
 				this.fetchData(this.activeTab);
+				console.log("switchTab to", tab);
 			},
 			likePost(post) {
+				let path = 'addPLike';
+				if(post.like === true){
+					path = 'deletePLike';
+				}
 				post.liked = !post.liked;
 				post.liked ? post.likes++ : post.likes--;
 				console.log("hit");
-				// this.$forceUpdate();
+				uni.request({
+					url: 'http://localhost:8080/admin/post/' + path,
+					method: 'POST',
+					data: {
+						hostId: post.hostId,
+						likerId: this.user.getProperty("userId"),
+						postOrder: post.postOrder
+					},
+					header: {
+						'content-type': 'application/json'
+					},
+					success: (res) => {
+						console.log("success update like");
+						console.log(res);
+					},
+					fail: (res) => {
+						console.log("Failed to update like");
+					}
+				});
 			},
 			fetchData(tabName) {
 				let address = 'petCircle'
@@ -137,7 +208,7 @@
 					address = 'MyFollowedPetCircle';
 				}
 				uni.request({
-					url: "http://localhost:8080/admin/post/" + address +"/"+ this.user.getProperty("userId"),
+					url: "http://localhost:8080/admin/post/" + address + this.user.getProperty("userId"),
 					method: "POST",
 					success: (res) => {
 						console.log("success", res.data)
@@ -158,8 +229,8 @@
 			handleFetchError() {
 				console.log('Failed to fetch data');
 				this.posts = [{
-					host_id: '',
-					post_order: '',
+					hostId: '',
+					postOrder: '',
 					userName: 'xiaoxi',
 					headshotUrl: defaultAvatarUrl,
 					text: 'default nulla',
@@ -168,7 +239,8 @@
 					liked: false,
 					likes: 100,
 					comments: 200,
-					shares: 29
+					shares: 29,
+					followed: false,
 				}]
 			}
 		}
@@ -179,10 +251,12 @@
 	.container {
 		display: flex;
 		flex-direction: column;
-		height: 100vh;
 	}
 
 	.tab-bar {
+		position: fixed;
+		top: 44px;
+		z-index: 9999;
 		width: 100%;
 		display: flex;
 		justify-content: space-around;
@@ -201,8 +275,9 @@
 	}
 
 	.content {
+		margin-top: 64px;
 		flex: 1;
-		height: 100%;
+		height: auto;
 		width: 100%;
 	}
 
@@ -241,6 +316,11 @@
 	.time {
 		color: #888;
 		font-size: 14px;
+	}
+
+	.star-button {
+		margin-left: auto;
+		color: yellow;
 	}
 
 

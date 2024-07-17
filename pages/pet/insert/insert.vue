@@ -1,7 +1,7 @@
 <template>
 	<view class="container">
-		<view class="user-info">
-			<image src="../../../static/pages/index/home/images/greenpet.jpg" class="avatar"></image>
+		<view class="user-info" @click="changeImage()">
+			<image :src="imageUrl" class="avatar"></image>
 		</view>
 		<view class="form">
 			<view class="form-item">
@@ -70,19 +70,34 @@
 	</view>
 </template>
 <script>
+	import { currentUser } from '../../../global/userinfo';
 	export default {
 		data() {
 			return {
+				user: currentUser,
+				species: '',
 				petName: '',
 				weight: '',
 				description: '',
 				gender: '', // 用于存储选择的性别
 				sterilized: '', // 用于存储是否绝育的选择
 				birthDate: '', // 出生日期
-				homeDate: '' // 到家日期
+				homeDate: '' ,// 到家日期
+				imageUrl: '../../../static/pages/index/home/images/greenpet.jpg',
 			}
 		},
 		methods: {
+			changeImage() {
+				uni.chooseImage({
+					count: 1, //默认9
+					sizeType: ['compressed'], //压缩图
+					success: (res) => {
+						console.log(JSON.stringify(res.tempFilePaths));
+						console.log(res.tempFilePaths);
+						this.imageUrl = res.tempFilePaths[0];
+					}
+				});
+			},
 			inputPetName(input) {
 				this.petName = input.detail.value;
 				console.log(this.petName);
@@ -124,9 +139,11 @@
 				console.log(typeof(this.birthDate), this.birthDate);
 				console.log(typeof(this.homeDate), this.homeDate);
 				uni.request({
-					url: 'http://localhost:8080/admin/petcard/savePet',
+					url: 'http://localhost:8080/admin/petcard/addPet',
 					method: 'POST',
 					data: {
+						userId: this.user.userId,
+						imageUrl: this.imageUrl,
 						petName: this.petName,
 						gender: this.gender,
 						weight: this.weight,
@@ -134,17 +151,23 @@
 						sterilized: this.sterilized,
 						birthDate: this.birthDate,
 						homeDate: this.homeDate,
+						species: this.species,
 					},
 					header: {
 						'content-type': 'application/json'
 					},
 					success: (res) => {
+						let newVal = this.user.getProperty("petNum") + 1;
+						console.log(newVal);
 						console.log(res.data);
+						this.user.updateProperty("petNum", newVal);
+					
 					},
-					fail: (res) =>{
+					fail: (res) => {
 						console.log("Failed to connect");
 					}
 				});
+				uni.navigateBack();
 			}
 		}
 	}
