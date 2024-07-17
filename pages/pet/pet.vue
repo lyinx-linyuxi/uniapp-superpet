@@ -165,16 +165,19 @@
 	}
 
 	.section {
-		margin-top: 60px;
+
 		width: 100%;
 	}
 
 	.top-section {
+		margin-top: 60px;
 		display: flex;
 		background-color: #FFD3D3;
 		padding-top: 15px;
 		padding-bottom: 15px;
 		justify-content: center;
+		position: fixed;
+		z-index: 999;
 	}
 
 	.pet-info {
@@ -214,6 +217,9 @@
 	.middle-section {
 		background-color: #fff;
 		padding: 10px 0;
+		position: fixed;
+		top: 220px;
+		z-index: 9999;
 	}
 
 	.tab-bar {
@@ -237,11 +243,13 @@
 		background-color: #F5F5F5;
 		flex: 1;
 		position: relative;
+		margin-top: 280px;
 	}
 
 	.content {
 		flex: 1;
 		margin-top: 10px;
+		height: 400px;
 	}
 
 	.timeline-item {

@@ -139,10 +139,10 @@
 				
 				this.species = parseFloat(input.detail.value);
 				console.log(typeof(this.species));
-			}
+			},
 			submitInfo() {
 				console.log(typeof(this.petName), this.petName);
-				console.log(typeof(this.species), this.species)
+				console.log(typeof(this.species), this.species);
 				console.log(typeof(this.weight), this.weight);
 				console.log(typeof(this.description), this.description);
 				console.log(typeof(this.gender), this.gender);

@@ -96,7 +96,7 @@
 	import {
 		copyToClipboard
 	} from "/utils/commonUtils.js";
-	const httpUrl = "https://spark-api.xf-yun.com/v3.5/chat";
+	const httpUrl = "ws(s)://spark-openapi.cn-huabei-1.xf-yun.com/v1/assistants/943792kfdqqz_v1";
 	const APPID = '6c3aa33b';
 	const APISecret = 'Y2UzOTVjY2YxZTdlNjI3ZjE0NGI2NTg4';
 	const APIKey = 'a1d7d3cbf7be5e84e12bbb52bb684e9f';
