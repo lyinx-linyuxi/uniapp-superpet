@@ -17,6 +17,22 @@
 		  <image src="../../../static/pages/pet/card/images/img-pet-card-add.png" class="card-image" mode="aspectFit"></image>
 		</view>
 	</navigator>
+	<ul>
+		<li class="list" v-for="card in cards" :key="card.id">
+			<view class="card">
+				<view class="pet-info" >
+					<view class="info">
+						<text class="name" space="emsp">{{ card.petName }}  ： {{ card.description }}\n</text>
+						<text class="detail" space="emsp">性别：{{card.gender}}   体重：{{card.weight}}kg    绝育情况：{{card.sterilized}}\n</text>
+						<text class="detail" space="emsp">出生日期：{{card.birthDate}}\n</text>
+						<text class="detail" space="emsp">到家日期：{{card.homeDate}}</text>
+					</view>
+				</view>
+			</view>
+		</li>
+		
+	</ul>
+	
 </view>
 </template>
 
@@ -25,18 +41,59 @@ import { currentUser } from '../../../global/userinfo';
 export default {
   data() {
     return {
+		
 		user: currentUser,
+		cards:[],
+		// petName: '',
+		// weight: '',
+		// description: '',
+		// gender: '', // 用于存储选择的性别
+		// sterilized: '', // 用于存储是否绝育的选择
+		// birthDate: '', // 出生日期
+		// homeDate: '' // 到家日期
     }
+  },
+  created() {
+    this.getMessage();
   },
   methods: {
     navigateBack() {
       uni.navigateBack();
-    }
+    },
+	getMessage(){
+			  uni.request({
+			  	url: "http://localhost:8080/admin/petcard/myPet/"+ this.user.getProperty("userId"),
+						  	// url: "http://localhost:8080/admin/message/getNewFollowersDetail/" + this.user.getProperty("userId"),
+			  	method: "POST",
+			  	success:(res) => {
+			  		console.log("success", res.data.data)
+			  		if (res.statusCode == 200) {
+						
+			  			this.cards=res.data.data;
+						console.log(this.card[0])
+			  		}
+			  		else {
+			  			console.log("here", res.data);
+			  			this.handleFetchError();
+			  		}
+			  	},
+			  	fail: () => {
+			  		this.handleFetchError();
+			  	}
+			  });
+	},
+	handleFetchError(){
+			  this.followers = [{}] 
+	}
   }
 }
 </script>
 
 <style>
+	ul{
+		padding: 0px;
+		list-style:none;
+	}
 .container {
   background-color: #FFD3D3;
   height: 100vh;
