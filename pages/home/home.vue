@@ -52,7 +52,7 @@
 						:src="post.imageUrl === 'null' ? '/static/pages/index/home/images/banner4.png': post.imageUrl"
 						class="post-image"></image>
 					<view class="actions">
-						<view class="action" @click="likePost">
+						<view class="action" @click="likePost(post)">
 							<uni-icons :type="post.liked ? 'heart-filled' : 'heart'" size="14" color="#999"></uni-icons>
 							<text> {{ post.likes }}</text>
 						</view>
