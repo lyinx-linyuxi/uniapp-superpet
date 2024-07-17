@@ -4,20 +4,20 @@
 		<view class = "weather-info">
 			<view class="location">
 				<uni-icons type="map-pin-ellipse" size="25" color="#fff"></uni-icons>
-				<text>   西安市碑林区  {{ province + city }}</text>
+				<text> {{ province + city }}</text>
 			</view><br>
 			<view class="temperature">
-				<text>28°C  {{ temperature }}</text>
+				<text>{{ temperature }}°C</text>
 			</view><br>
 			<view class="todayweather">
 				<uni-icons type="cloud-download-filled" size="120" color="#fff"></uni-icons>
 				<!-- <el-icon color="#fff"><Drizzling /></el-icon> -->
-				<text>小雨  {{ weather }}</text>
+				<text>{{ weather }}</text>
 			</view><br>
 			
 			<view class="wind">
-				<text>风向 : {{ winddirection }}</text>
-				<text>风级 : {{ windpower }}</text>
+				<text>风向 : {{ winddirection }}  风级 : {{ windpower }}</text>
+				
 			</view>
 		</view>
 		<view>

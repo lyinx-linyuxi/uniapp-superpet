@@ -389,6 +389,7 @@
 			// 会话头像
 			.ai-chat-avatar {
 				margin-right: 12px;
+				border-radius: 50%;
 			}
 
 			// 会话内容盒子

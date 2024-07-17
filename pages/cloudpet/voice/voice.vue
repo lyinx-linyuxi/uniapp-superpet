@@ -2,6 +2,7 @@
 	<view class="content">
 		<image class="logo" src="/static/logo.png"></image>
 		<button @click="voiceBegain">讯飞语音识别</button>
+		<uni-icons type="mic-filled" size="50" color="#999"></uni-icons>
 		<view v-if="words1">
 			这是searchValue：{{words1}}
 		</view>

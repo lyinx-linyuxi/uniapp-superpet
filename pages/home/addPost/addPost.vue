@@ -2,22 +2,20 @@
 	<view class="container">
 		<view class="section form-section">
 			<view class="form">
-				<view class="form-item">
-					<text class="label">标题：</text>
-					<input type="text" placeholder="点击输入标题,如果有的话" v-model="post.title" class="input" />
-				</view>
-				<view class="form-item">
-					<text class="label">文字：</text>
-					<input type="text" placeholder="点击输入文字" v-model="post.text" class="input" />
-				</view>
+				<input type="text" placeholder="标题" v-model="post.title" class="input" />
+				<textarea type="text" placeholder="点击输入文字" v-model="post.text" class="inputbox" />
+				
 				<view class="photo">
-					<uni-icons class="icon" type="images-filled" size="100px" @click="selectPhoto()"></uni-icons>
+					<view class="picture">
+						<uni-icons class="icon" type="images-filled" size="150px" @click="selectPhoto()"></uni-icons>
+					</view>
+					<view class="camera">
+						<uni-icons class="icon" type="camera-filled" size="150px" @click="selectPhoto()"></uni-icons>
+					</view>					
 					<!-- <image src="../../../static/pages/index/home/images/greenpet.jpg" class="avatar"></image> -->
 				</view>
-
 			</view>
-
-			<button class="submit-button" @click="submitPost">完成填写</button>
+			<button class="submit-button" @click="submitPost">发表</button>
 			<view class="section empty-section"></view>
 		</view>
 	</view>
@@ -93,12 +91,14 @@
 		display: flex;
 		flex-direction: column;
 		height: 100vh;
+		background-color:#fff;
 	}
 
 	.section {
 		width: 100%;
+		background-color: #fff;
 	}
-
+	
 	.form-section {
 		background-color: #fff;
 		padding: 15px;
@@ -106,19 +106,30 @@
 	}
 
 	.empty-section {
-		background-color: #F5F5F5;
+		background-color: #fff;
 		flex: 1;
 	}
 
 	.photo {
 		display: flex;
-		margin-right: auto;
+		margin-top: 20px;
+		justify-content:space-evenly;
+		
+	}
+	.picture{
+		background-color: #ffbd00;
+		border-radius: 25px;
+		margin-right: 10px;
+		box-shadow: #374667 3px 3px;
+		
+	}
+	.camera{
+		background-color: #ff9ab0;
+		border-radius: 25px;
+		box-shadow: #374667 3px 3px;
 	}
 
-	.icon {
-		width: 100px;
-		height: 100px;
-	}
+	
 
 	.form {
 		background-color: #fff;
@@ -127,32 +138,37 @@
 		flex: 1;
 	}
 
-	.form-item {
-		display: flex;
-		align-items: center;
-		margin-bottom: 15px;
-	}
-
-	.label {
-		width: 100px;
-		font-size: 16px;
-	}
 
 	.input {
 		flex: 1;
-		padding: 8px;
-		border: 1px solid #ccc;
-		border-radius: 5px;
+		padding: 10px;
+		border-bottom: 1px solid #ccc;
+	
+		margin-right: 10px;
+		font-size: 25px;
+	}	
+	.inputbox{
+		width: auto;
+		height:250px;
+		font-size: 20px;
+		margin-right: 10px;
+		margin-top: 10px;
+		border-bottom: 1px solid #e7e7e7;
+		margin-bottom: 10px;
 	}
+	
 
 	.submit-button {
-		width: 50%;
+		width: 80%;
 		padding: 10px;
-		background-color: #32CD32;
+		background-color: #0bb5fc;
 		color: #fff;
 		border: none;
-		border-radius: 5px;
-		font-size: 16px;
+		border-radius: 25px;
+		font-size: 20px;
+		font-weight: bold;
 		text-align: center;
+		margin-top: 30px;
+		box-shadow: #374667 3px 3px;
 	}
 </style>

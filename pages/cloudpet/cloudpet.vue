@@ -55,8 +55,8 @@
   }
   .gif-image {
     width: 100%;
-    max-width: 500px;
-    height: 350px;
+    max-width: 400px;
+    height: 330px;
   }
   .button-container {
     display: flex;

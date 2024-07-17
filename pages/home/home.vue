@@ -49,7 +49,7 @@
 					<view class="dispaly-comments" v-if="comments[post.postOrder]">
 						<view class="list" v-for="comment in comments[post.postOrder]" :key="comment.commentOrder">
 							<view class="comment-detail">
-								<text>{{comment.userName}}</text>
+								<text>{{comment.userName}} : </text>
 								<text>{{comment.text}}</text>
 							</view>
 						</view>
@@ -96,8 +96,8 @@
 					<view class="dispaly-comments" v-if="comments[post.postOrder]">
 						<view class="list" v-for="comment in comments[post.postOrder]" :key="comment.commentOrder">
 							<view class="comment-detail">
-								<text>{{comment.userName}}</text>
-								<text>{{comment.text}}</text>
+								<text class="commenter">{{comment.userName}} : </text>
+								<text> {{comment.text}}</text>
 							</view>
 						</view>
 					</view>
@@ -451,5 +451,12 @@
 		flex-direction: row;
 		width: 100%;
 		height: 10px;
+		margin-top: 5px;
+		padding:5px;
+		margin-bottom: 5px;
+	}
+	.commenter{
+		color:#537aa6;
+		
 	}
 </style>

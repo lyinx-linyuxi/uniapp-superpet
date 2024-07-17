@@ -130,6 +130,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  box-shadow: #374667 3px 3px;
 }
 .card-content {
   flex: 1;
