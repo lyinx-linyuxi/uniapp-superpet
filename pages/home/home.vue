@@ -25,7 +25,7 @@
 							<uni-icons :type="post.liked ? 'heart-filled' : 'heart'" size="14" color="#999"></uni-icons>
 							<text> {{ post.likes }}</text>
 						</view>
-						<view class="action" @click="switchTab('comments')">
+						<view class="action"  @click="CommentDetail(post)">
 							<uni-icons type="chat" size="14" color="#999"></uni-icons>
 							<text>{{ post.comments }}</text>							
 						</view>
@@ -36,7 +36,7 @@
 						
 					</view>
 					<view class="ipt">
-						<uni-easyinput type="text" v-model="comments" @input="inputcomments" placeholder="请输入评论"></uni-easyinput>
+						<uni-easyinput type="text" v-model="text" @input="inputcomments" placeholder="请输入评论"></uni-easyinput>
 						<view class="action" @click="postComment(post)">							
 							<uni-icons type="paperplane" size="30" color="#999"></uni-icons>
 						</view>
@@ -63,7 +63,7 @@
 							<uni-icons :type="post.liked ? 'heart-filled' : 'heart'" size="14" color="#999"></uni-icons>
 							<text> {{ post.likes }}</text>
 						</view>
-						<view class="action" @click="switchTab('comments')">
+						<view class="action" @click="CommentDetail(post)">
 							<uni-icons type="chat" size="14" color="#999"></uni-icons>
 							<text>{{ post.comments }}</text>
 						</view>
@@ -74,34 +74,20 @@
 						
 					</view>
 					<view class="ipt">
-						<uni-easyinput type="text" v-model="comments" @input="inputcomments" placeholder="请输入评论"></uni-easyinput>
+						<uni-easyinput type="text" :value="comments" @input="inputcomments" placeholder="请输入评论"></uni-easyinput>
 						<view class="action" @click="postComment(post)">
 							<uni-icons type="paperplane" size="30" color="#999"></uni-icons>
 						</view>
 					</view>	
-				</view>
-			</view>
-			<view v-if="activeTab === 'comments'">
-				<h1>评论</h1>
-				<!-- <view class="list" v-for="comment in comments" :key="comment.hostId">
-					<span class="body" >
-						<view class="headshot">
-							<image :src="comment.headshotUrl" />
-						</view>
-						<view class="content">
-							<view class="f-name" >
+					<view class="dispaly-comments" >
+						<view class="list" v-for="comment in comments ":key="comment.hostId">
+							<view class="comment-detail">
 								<text>{{comment.userName}}</text>
-							</view>
-							<view class="comment-text">
 								<text>{{comment.text}}</text>
 							</view>
 						</view>
-						<view class="comment-time">
-							<text>{{comment.commentTime}}</text>					
-						</view>
-					</span>
-				</view> -->
-				
+					</view>
+				</view>
 			</view>
 		</scroll-view>
 	</view>
@@ -117,6 +103,8 @@
 	export default {
 		data() {
 			return {
+				text: '',
+				comments: [],
 				user: currentUser,
 				activeTab: 'follow',
 				posts: []
@@ -203,9 +191,10 @@
 				});
 			},
 			inputcomments() {
-				console.log(this.comments);
+				console.log(this.text);
 			},
 			postComment(post){
+				this.text = '';
 				let path = 'addComment';
 				console.log(typeof(this.comments), this.comments);
 				uni.request({
@@ -230,6 +219,7 @@
 				});
 				this.comments="";
 			},
+			
 			fetchData(tabName) {
 				let address = 'petCircle'
 				if (tabName === 'follow') {
@@ -253,6 +243,31 @@
 						this.handleFetchError();
 					}
 				});
+			},
+			CommentDetail(post){					  
+					  uni.request({
+					  	url: "http://localhost:8080/admin/post/postComments",
+								  	// url: "http://localhost:8080/admin/message/getNewcommentsDetail/" + this.user.getProperty("userId"),
+					  	method: "POST",
+						data: {
+							  "hostId": post.hostId,
+							  "postOrder": post.postOrder,
+							},
+					  	success:(res) => {
+					  		console.log("success", res.data)
+					  		if (res.statusCode == 200) {
+					  			this.comments=res.data.data;
+								console.log("console log here",this.comments)
+					  		}
+					  		else {
+					  			console.log("here", res.data);
+					  			this.handleFetchError();
+					  		}
+					  	},
+					  	fail: () => {
+					  		this.handleFetchError();
+					  	}
+					  });
 			},
 			handleFetchError() {
 				console.log('Failed to fetch data');
@@ -381,8 +396,12 @@
 		input{
 			font-size: 10rpx;
 		}
-		
-		
-		
+			
+	}
+	.comment-detail{
+		display: flex;
+		flex-direction: row;
+		width: 100%;
+		height: 10px;
 	}
 </style>
