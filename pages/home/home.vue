@@ -23,15 +23,22 @@
 							<uni-icons :type="post.liked ? 'heart-filled' : 'heart'" size="14" color="#999"></uni-icons>
 							<text> {{ post.likes }}</text>
 						</view>
-						<view class="action" @click="toggleComments">
+						<view class="action" @click="switchTab('comments')">
 							<uni-icons type="chat" size="14" color="#999"></uni-icons>
-							<text>{{ post.comments }}</text>
+							<text>{{ post.comments }}</text>							
 						</view>
 						<view class="action" @click="sharePost">
 							<uni-icons type="pyq" size="14" color="#999"></uni-icons>
 							<text> {{ post.shares }}</text>
 						</view>
+						
 					</view>
+					<view class="ipt">
+						<uni-easyinput type="text" v-model="comments" @input="inputcomments" placeholder="请输入评论"></uni-easyinput>
+						<view class="action" @click="postComment">							
+							<uni-icons type="paperplane" size="30" color="#999"></uni-icons>
+						</view>
+					</view>	
 				</view>
 			</view>
 			<view v-if="activeTab === 'circle'">
@@ -48,11 +55,11 @@
 						:src="post.imageUrl === 'null' ? '/static/pages/index/home/images/banner4.png': post.imageUrl"
 						class="post-image"></image>
 					<view class="actions">
-						<view class="action" @click="likePost">
+						<view class="action" @click="likePost(post)">
 							<uni-icons :type="post.liked ? 'heart-filled' : 'heart'" size="14" color="#999"></uni-icons>
 							<text> {{ post.likes }}</text>
 						</view>
-						<view class="action" @click="toggleComments">
+						<view class="action" @click="switchTab('comments')">
 							<uni-icons type="chat" size="14" color="#999"></uni-icons>
 							<text>{{ post.comments }}</text>
 						</view>
@@ -60,8 +67,37 @@
 							<uni-icons type="pyq" size="14" color="#999"></uni-icons>
 							<text> {{ post.shares }}</text>
 						</view>
+						
 					</view>
+					<view class="ipt">
+						<uni-easyinput type="text" v-model="comments" @input="inputcomments" placeholder="请输入评论"></uni-easyinput>
+						<view class="action" @click="postComment">
+							<uni-icons type="paperplane" size="30" color="#999"></uni-icons>
+						</view>
+					</view>	
 				</view>
+			</view>
+			<view v-if="activeTab === 'comments'">
+				<h1>评论</h1>
+				<!-- <view class="list" v-for="comment in comments" :key="comment.hostId">
+					<span class="body" >
+						<view class="headshot">
+							<image :src="comment.headshotUrl" />
+						</view>
+						<view class="content">
+							<view class="f-name" >
+								<text>{{comment.userName}}</text>
+							</view>
+							<view class="comment-text">
+								<text>{{comment.text}}</text>
+							</view>
+						</view>
+						<view class="comment-time">
+							<text>{{comment.commentTime}}</text>					
+						</view>
+					</span>
+				</view> -->
+				
 			</view>
 		</scroll-view>
 	</view>
@@ -101,7 +137,7 @@
 					address = 'MyFollowedPetCircle';
 				}
 				uni.request({
-					url: "http://localhost:8080/admin/post/" + address + this.user.getProperty("userId"),
+					url: "http://localhost:8080/admin/post/" + address +"/"+ this.user.getProperty("userId"),
 					method: "POST",
 					success: (res) => {
 						console.log("success", res.data)
@@ -226,5 +262,19 @@
 	.action {
 		font-size: 14px;
 		color: #888;
+	}
+	.ipt {
+		display: flex;
+		flex-direction: row;
+		margin-top: 10rpx;
+		width: 100%;
+		height: 10;
+		
+		input{
+			font-size: 10rpx;
+		}
+		
+		
+		
 	}
 </style>

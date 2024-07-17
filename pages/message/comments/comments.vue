@@ -9,23 +9,24 @@
 		  		<view class="f-name" >
 		  			<text>{{comment.userName}}</text>
 		  		</view>
-				<view class="f-content0" >
-					<text>评论了你的帖子</text>
+				<view class="f-content0">
+					<div><text>评论了你的帖子</text></div>
+					
+					<div><text>{{comment.commentTime}}</text></div>					
 				</view>
-				<view class="f-image">
-					<image :src="comment.imageUrl" />
-				</view>
-				<view class="f-content" >
-					<text>“{{comment.ptext}}……”</text>
-				</view>
+				
+				
 
 		  		<view class="block"></view>
-				<view class="f-content1" >
-					<text>“{{comment.ctext}}”</text>
+				<view class="f-content" >
+					<text>“{{comment.text}}”</text>
 				</view>
-		  		<view class="f-time" >
-		  			<text>{{comment.commentTime}}</text>
-		  		</view>
+		  		<view class="u-image">
+					<image :src="comment.imageUrl" />
+				</view>
+				<!-- <view class="f-time" >
+		  			
+		  		</view> -->
 		  	</span>
 		</li>
 	</ul>
@@ -95,61 +96,60 @@ export default {
 	}
 
 	.body{display:flex;
-		height: 40px;
-		background-color: Azure;
+		height: 50px;
+		background-color: #fff;
 		flex-direction:row;
-		border:solid;
+		border-bottom:1px solid #e1e1e1;
 		.f-image{display:flex;
 			width: 40px;
 			image{
 				height: 40px;
 				width: 40px;
+				border-radius: 15%;
 			}
 		}
 		.f-name{display:flex;
-			width: 60px;
-			justify-content: flex-start;
+			width: 70px;
+			margin-left: 10px;
+			justify-content: center;
 			align-items:flex-start;
+			color: #25259d;
 			text{
-				font-size: 10px;
+				font-size: 15px;
 			}
 		}
 		.f-content0{display:flex;
-			width: 80px;
-			justify-content: flex-start;
-			align-items:flex-start;
+			margin-left: 5px;
+			flex-direction: column;
+			width: 200px;
+			justify-content: center;
+			align-content:flex-start;
 			text{
-				font-size: 10px;
+				font-size: 12px;
 			}
 		}
+		
 		.f-content{display:flex;
 			width: 250px;
+			height: 40px;
 			justify-content: flex-start;
-			align-items:flex-start;
+			align-items:center;
 			text{
-				font-size: 10px;
-			}
-		}
-		.f-content1{display:flex;
-			width: 250px;
-			justify-content: flex-start;
-			align-items:flex-start;
-			text{
-				font-size: 10px;
+				font-size: 14px;
 				text-align: right;
 			}
 		}
 		.block{display:flex;
 			flex-grow: 1;
 		}
-		.f-time{display:flex;
-			width: 110px;
-			height: 40px;
-			justify-content: flex-end;
-			align-items:center;
-			text{display:flex;
-				font-size: 10px;
+		.u-image{display:flex;
+			width: 50px;
+			image{
+				height: 50px;
+				width: 50px;
+				
 			}
 		}
+		
 	}
 </style>

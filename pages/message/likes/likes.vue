@@ -3,19 +3,22 @@
 	<ul>
 		<li class="list" v-for="liker in likers" :key="liker.hostId" >
 		    <span class="body" >
-		  		<view class="f-image">
-		  			<image :src="liker.headshotUrl" />
-		  		</view><br>
+		  		
+				<view class="f-image">
+					<image :src="liker.headshotUrl" />
+				</view><br>
 		  		<view class="f-name" >
 		  			<text>{{liker.userName}}</text>
 		  		</view>
 				<view class="f-content" >
 					<text>赞了你的帖子 “{{liker.text}}……”</text>
+					<text>{{liker.likeTime}}</text>
 				</view>
 		  		<view class="block"></view>
-		  		<view class="f-time" >
-		  			<text>{{liker.likeTime}}</text>
-		  		</view>
+				<view class="f-image">
+					<image :src="liker.imageUrl" />
+				</view><br>
+		  		
 		  	</span>
 		</li>
 	</ul>
@@ -84,26 +87,30 @@ export default {
 		padding: 5px;
 	}
 	.body{display:flex;
-		height: 40px;
-		background-color: Azure;
+		height: 50px;
+		background-color: #fff;
 		flex-direction:row;
-		border:solid;
+		border-bottom:1px solid #e1e1e1;
 		.f-image{display:flex;
 			width: 40px;
 			image{
 				height: 40px;
 				width: 40px;
+				border-radius: 15%;
 			}
 		}
 		.f-name{display:flex;
-			width: 60px;
+			width: 70px;
 			justify-content: flex-start;
+			margin-left: 10px;
 			align-items:flex-start;
+			color: #25259d;
 			text{
-				font-size: 10px;
+				font-size: 15px;
 			}
 		}
 		.f-content{display:flex;
+			flex-direction: column;
 			width: 250px;
 			justify-content: flex-start;
 			align-items:flex-start;
