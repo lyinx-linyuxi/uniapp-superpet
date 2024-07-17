@@ -135,7 +135,7 @@
 	}
 </script>
 
-<style>
+<style scoped>
 	.container {
 		display: flex;
 		flex-direction: column;
@@ -143,12 +143,15 @@
 	}
 
 	.header {
+		width: 100%;
+		position: fixed;
+		top: 0px;
+		z-index: 9999;
 		background-color: #FFD3D3;
 		height: 60px;
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		position: relative;
 	}
 
 	.menu-icon {
@@ -162,15 +165,19 @@
 	}
 
 	.section {
+
 		width: 100%;
 	}
 
 	.top-section {
+		margin-top: 60px;
 		display: flex;
 		background-color: #FFD3D3;
 		padding-top: 15px;
 		padding-bottom: 15px;
 		justify-content: center;
+		position: fixed;
+		z-index: 999;
 	}
 
 	.pet-info {
@@ -210,6 +217,9 @@
 	.middle-section {
 		background-color: #fff;
 		padding: 10px 0;
+		position: fixed;
+		top: 220px;
+		z-index: 9999;
 	}
 
 	.tab-bar {
@@ -232,13 +242,14 @@
 	.bottom-section {
 		background-color: #F5F5F5;
 		flex: 1;
-		padding: 10px;
 		position: relative;
+		margin-top: 280px;
 	}
 
 	.content {
 		flex: 1;
 		margin-top: 10px;
+		height: 400px;
 	}
 
 	.timeline-item {
@@ -248,6 +259,7 @@
 	}
 
 	.date {
+		margin-left: 20px;
 		text-align: left;
 		/* 调整日期位置 */
 		color: #FF69B4;
@@ -259,6 +271,7 @@
 		flex: 1;
 		background-color: #fff;
 		padding: 10px;
+		margin: 10px;
 		border-radius: 5px;
 		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 	}
@@ -283,9 +296,9 @@
 	}
 
 	.fab {
-		position: absolute;
+		position: fixed;
 		right: 20px;
-		bottom: 20px;
+		bottom: 60px;
 		width: 50px;
 		height: 50px;
 		border-radius: 50%;

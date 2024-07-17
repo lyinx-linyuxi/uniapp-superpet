@@ -17,7 +17,8 @@
 		{
 			"path": "pages/home/home",
 			"style": {
-				"navigationBarTitleText": "首页"
+				"navigationBarTitleText": "首页",
+				 "navigationStyle": "custom"
 			}
 		},
 		{
@@ -88,7 +89,7 @@
 		{
 			"path": "pages/pet/add/add",
 			"style": {
-				"navigationBarTitleText": "添加卡片"
+				"navigationBarTitleText": "添加笔记"
 			}
 		},
 		{
@@ -136,6 +137,13 @@
 			"style" : 
 			{
 				"navigationBarTitleText" : "语音识别"
+			}
+		},
+		{
+			"path" : "pages/home/addPost/addPost",
+			"style" : 
+			{
+				"navigationBarTitleText" : "发帖子"
 			}
 		}
 	],

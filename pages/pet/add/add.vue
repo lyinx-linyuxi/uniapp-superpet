@@ -10,8 +10,8 @@
           <input type="text" placeholder="点击输入标题" v-model="post.title" class="input" />
         </view>
         <view class="form-item">
-          <text class="label">副标题：</text>
-          <input type="text" placeholder="点击输入副标题" v-model="post.subtitle" class="input" />
+          <text class="label">内容：</text>
+          <input type="text" placeholder="点击输入内容" v-model="post.subtitle" class="input" />
         </view>
         <view class="form-item">
           <text class="label">日期：</text>
