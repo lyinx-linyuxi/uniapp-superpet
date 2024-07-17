@@ -1,4 +1,9 @@
 <template>
+	<view class="tool"></view>
+	<view class="header">
+		<text class="title">我的萌宠</text>
+		<uni-icons class="add-post-icon" type="plus" size="25px" @click="addPost()"></uni-icons>
+	</view>
 	<view class="container">
 		<view class="tab-bar">
 			<view :class="{'active-tab': activeTab === 'follow'}" @click="switchTab('follow')">关注</view>
@@ -27,20 +32,21 @@
 						</view>
 						<view class="action" @click="switchTab('comments')">
 							<uni-icons type="chat" size="14" color="#999"></uni-icons>
-							<text>{{ post.comments }}</text>							
+							<text>{{ post.comments }}</text>
 						</view>
 						<view class="action" @click="sharePost">
 							<uni-icons type="pyq" size="14" color="#999"></uni-icons>
 							<text> {{ post.shares }}</text>
 						</view>
-						
+
 					</view>
 					<view class="ipt">
-						<uni-easyinput type="text" v-model="comments" @input="inputcomments" placeholder="请输入评论"></uni-easyinput>
-						<view class="action" @click="postComment(post)">							
+						<uni-easyinput type="text" v-model="comments" @input="inputcomments"
+							placeholder="请输入评论"></uni-easyinput>
+						<view class="action" @click="postComment(post)">
 							<uni-icons type="paperplane" size="30" color="#999"></uni-icons>
 						</view>
-					</view>	
+					</view>
 				</view>
 			</view>
 			<view v-if="activeTab === 'circle'">
@@ -71,14 +77,15 @@
 							<uni-icons type="pyq" size="14" color="#999"></uni-icons>
 							<text> {{ post.shares }}</text>
 						</view>
-						
+
 					</view>
 					<view class="ipt">
-						<uni-easyinput type="text" v-model="comments" @input="inputcomments" placeholder="请输入评论"></uni-easyinput>
+						<uni-easyinput type="text" v-model="comments" @input="inputcomments"
+							placeholder="请输入评论"></uni-easyinput>
 						<view class="action" @click="postComment(post)">
 							<uni-icons type="paperplane" size="30" color="#999"></uni-icons>
 						</view>
-					</view>	
+					</view>
 				</view>
 			</view>
 			<view v-if="activeTab === 'comments'">
@@ -101,7 +108,7 @@
 						</view>
 					</span>
 				</view> -->
-				
+
 			</view>
 		</scroll-view>
 	</view>
@@ -129,10 +136,9 @@
 		methods: {
 			followUser(post) {
 				let path = '';
-				if(post.followed === false){
+				if (post.followed === false) {
 					path = 'addFollow';
-				}
-				else if(post.followed === true){
+				} else if (post.followed === true) {
 					path = 'deleteFollow';
 				}
 				uni.request({
@@ -155,8 +161,8 @@
 							// method 2
 							let len = this.posts.length;
 							console.log("len", len);
-							for(let i = 0; i < len; i++){
-								if(this.posts[i].hostId == post.hostId){
+							for (let i = 0; i < len; i++) {
+								if (this.posts[i].hostId == post.hostId) {
 									this.posts[i].followed = !this.posts[i].followed;
 								}
 							}
@@ -168,7 +174,11 @@
 				});
 			},
 			sharePost() {},
-			
+			addPost(){
+				uni.navigateTo({
+					url: "/pages/home/addPost/addPost"
+				})
+			},
 			switchTab(tab) {
 				this.activeTab = tab;
 				this.fetchData(this.activeTab);
@@ -176,7 +186,7 @@
 			},
 			likePost(post) {
 				let path = 'addPLike';
-				if(post.like === true){
+				if (post.like === true) {
 					path = 'deletePLike';
 				}
 				post.liked = !post.liked;
@@ -205,7 +215,7 @@
 			inputcomments() {
 				console.log(this.comments);
 			},
-			postComment(post){
+			postComment(post) {
 				let path = 'addComment';
 				console.log(typeof(this.comments), this.comments);
 				uni.request({
@@ -228,7 +238,7 @@
 						console.log("Failed to update like");
 					}
 				});
-				this.comments="";
+				this.comments = "";
 			},
 			fetchData(tabName) {
 				let address = 'petCircle'
@@ -236,11 +246,7 @@
 					address = 'MyFollowedPetCircle';
 				}
 				uni.request({
-<<<<<<< HEAD
-					url: "http://localhost:8080/admin/post/" + address + "/"+this.user.getProperty("userId"),
-=======
 					url: "http://localhost:8080/admin/post/" + address + "/" + this.user.getProperty("userId"),
->>>>>>> faaa75f4f0bacde3ffb83eb1511b3e1c39caf22c
 					method: "POST",
 					success: (res) => {
 						console.log("success", res.data)
@@ -279,16 +285,34 @@
 	}
 </script>
 
-<style>
+<style scoped>
 	.container {
 		display: flex;
 		flex-direction: column;
+	}
+
+	.header {
+		width: 100%;
+		position: fixed;
+		z-index: 999;
+		background-color: #FFD3D3;
+		height: 44px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.add-post-icon {
+		position: fixed;
+		top: 9.5px;
+		right: 5px;
 	}
 
 	.tab-bar {
 		position: fixed;
 		top: 44px;
 		z-index: 9999;
+		height: 36px;
 		width: 100%;
 		display: flex;
 		justify-content: space-around;
@@ -307,7 +331,7 @@
 	}
 
 	.content {
-		margin-top: 64px;
+		margin-top: 100px;
 		flex: 1;
 		height: auto;
 		width: 100%;
@@ -375,18 +399,19 @@
 		font-size: 14px;
 		color: #888;
 	}
+
 	.ipt {
 		display: flex;
 		flex-direction: row;
 		margin-top: 10rpx;
 		width: 100%;
 		height: 10;
-		
-		input{
+
+		input {
 			font-size: 10rpx;
 		}
-		
-		
-		
+
+
+
 	}
 </style>
