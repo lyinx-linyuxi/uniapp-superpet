@@ -5,14 +5,14 @@
 				<!-- 头像 -->
 				<div class="ai-chat-avatar">
 					<image
-						src="https://img1.baidu.com/it/u=2640995470,2945739766&fm=253&fmt=auto&app=120&f=JPEG?w=500&h=500" />
+						src="https://bjcdn.openstorage.cn/xinghuo-privatedata/personality/2024-07-17/35ed16ea-0432-4c14-ba07-e260f7e34d47/cropped-image.jpeg?width=1080&height=1080" />
 				</div>
 				<!-- 内容 -->
 				<div class="ai-chat-content-box init-box">
-					<div class="ai-chat-title">AI 工具</div>
-					<div class="ai-chat-text">能够学习和理解人类的语言，进行多轮对话</div>
+					<div class="ai-chat-title">宠物专家</div>
+					<div class="ai-chat-text">作为一位经验丰富的宠物专家，我深谙宠物养成之道。</div>
 					<div class="ai-chat-text">
-						回答问题，高效便捷地帮助人们获取信息、知识和灵感
+						无论你在养育心爱宠物的过程中遇到任何难题，我都将为你提供科学、实用的指导和建议，助你的宠物健康成长。
 					</div>
 				</div>
 			</li>
@@ -25,7 +25,7 @@
 				<!-- AI头像 -->
 				<div class="ai-chat-avatar" v-if="chatItem.role === 'assistant'">
 					<image :size="40"
-						src="https://img1.baidu.com/it/u=2640995470,2945739766&fm=253&fmt=auto&app=120&f=JPEG?w=500&h=500" />
+						src="https://bjcdn.openstorage.cn/xinghuo-privatedata/personality/2024-07-17/35ed16ea-0432-4c14-ba07-e260f7e34d47/cropped-image.jpeg?width=1080&height=1080" />
 				</div>
 				<!-- 用户提问问题 -->
 				<div class="ai-chat-content-box" :class="chatItem.role + '-box'" v-if="chatItem.role === 'user'">
