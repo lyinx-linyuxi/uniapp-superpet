@@ -8,14 +8,15 @@
 				</view>
 				<view class="form-item">
 					<text class="label">文字：</text>
-					<input type="text" placeholder="点击输入副标题" v-model="post.text" class="input" />
+					<input type="text" placeholder="点击输入文字" v-model="post.text" class="input" />
 				</view>
 				<view class="photo">
 					<uni-icons class="icon" type="images-filled" size="100px" @click="selectPhoto()"></uni-icons>
 					<!-- <image src="../../../static/pages/index/home/images/greenpet.jpg" class="avatar"></image> -->
 				</view>
-				
+
 			</view>
+
 			<button class="submit-button" @click="submitPost">完成填写</button>
 			<view class="section empty-section"></view>
 		</view>
@@ -23,9 +24,14 @@
 </template>
 
 <script>
+	import {
+		currentUser
+	} from '../../../global/userinfo';
+
 	export default {
 		data() {
 			return {
+				user: currentUser,
 				post: {
 					hostId: -1,
 					title: '',
@@ -46,12 +52,37 @@
 			}
 		},
 		methods: {
+			selectPhoto() {
+				uni.chooseImage({
+					count: 1, //默认9
+					sizeType: ['compressed'], //压缩图
+					success: (res) => {
+						console.log(JSON.stringify(res.tempFilePaths));
+						console.log(res.tempFilePaths);
+						this.post.imageUrl = res.tempFilePaths[0];
+					}
+				});
+
+			},
+
 			submitPost() {
+				this.post.hostId = this.user.getProperty("userId");
+				console.log(this.post);
 				uni.request({
-					url:arguments,
-					data:arguments,
-					
-				})
+					url: "http://localhost:8080/admin/post/addPost",
+					method: 'POST',
+					data: this.post,
+					success: (res) => {
+						console.log("success", res);
+						if(res.statusCode == 200){
+							if(res.data.code == 1){}
+							console.log("addpost success");
+						}
+					},
+					fail: (res) => {
+						console.log(res);
+					}
+				});
 			}
 		}
 	}
@@ -115,7 +146,7 @@
 	}
 
 	.submit-button {
-		width: 100%;
+		width: 50%;
 		padding: 10px;
 		background-color: #32CD32;
 		color: #fff;

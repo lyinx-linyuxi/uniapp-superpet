@@ -1,7 +1,6 @@
 <template>
-	<view class="tool"></view>
 	<view class="header">
-		<text class="title">我的萌宠</text>
+		<text class="title">萌宠圈</text>
 		<uni-icons class="add-post-icon" type="plus" size="25px" @click="addPost()"></uni-icons>
 	</view>
 	<view class="container">
@@ -285,7 +284,8 @@
 	}
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+	
 	.container {
 		display: flex;
 		flex-direction: column;
@@ -300,6 +300,10 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		
+		.title{
+			font-weight: bold;
+		}
 	}
 
 	.add-post-icon {
@@ -387,7 +391,7 @@
 	.post-image {
 		width: 100%;
 		border-radius: 5px;
-		margin-bottom: 10px;
+		margin: 10px 0px;
 	}
 
 	.actions {
