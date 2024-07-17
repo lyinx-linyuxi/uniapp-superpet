@@ -37,7 +37,7 @@
 					</view>
 					<view class="ipt">
 						<uni-easyinput type="text" v-model="comments" @input="inputcomments" placeholder="请输入评论"></uni-easyinput>
-						<view class="action" @click="postComment">							
+						<view class="action" @click="postComment(post)">							
 							<uni-icons type="paperplane" size="30" color="#999"></uni-icons>
 						</view>
 					</view>	
@@ -75,7 +75,7 @@
 					</view>
 					<view class="ipt">
 						<uni-easyinput type="text" v-model="comments" @input="inputcomments" placeholder="请输入评论"></uni-easyinput>
-						<view class="action" @click="postComment">
+						<view class="action" @click="postComment(post)">
 							<uni-icons type="paperplane" size="30" color="#999"></uni-icons>
 						</view>
 					</view>	
@@ -168,7 +168,7 @@
 				});
 			},
 			sharePost() {},
-			toggleComments() {},
+			
 			switchTab(tab) {
 				this.activeTab = tab;
 				this.fetchData(this.activeTab);
@@ -202,13 +202,41 @@
 					}
 				});
 			},
+			inputcomments() {
+				console.log(this.comments);
+			},
+			postComment(post){
+				let path = 'addComment';
+				console.log(typeof(this.comments), this.comments);
+				uni.request({
+					url: 'http://localhost:8080/admin/post/' + path,
+					method: 'POST',
+					data: {
+						hostId: post.hostId,
+						commenterId: this.user.getProperty("userId"),
+						postOrder: post.postOrder,
+						text: this.comments,
+					},
+					header: {
+						'content-type': 'application/json'
+					},
+					success: (res) => {
+						console.log("success update like");
+						console.log(res);
+					},
+					fail: (res) => {
+						console.log("Failed to update like");
+					}
+				});
+				this.comments="";
+			},
 			fetchData(tabName) {
 				let address = 'petCircle'
 				if (tabName === 'follow') {
 					address = 'MyFollowedPetCircle';
 				}
 				uni.request({
-					url: "http://localhost:8080/admin/post/" + address + this.user.getProperty("userId"),
+					url: "http://localhost:8080/admin/post/" + address + "/" + this.user.getProperty("userId"),
 					method: "POST",
 					success: (res) => {
 						console.log("success", res.data)
