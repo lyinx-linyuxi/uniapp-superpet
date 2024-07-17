@@ -46,6 +46,7 @@
     align-items: center;
     padding: 20px;
 	background-color: #fff5d9;
+	height: calc(100vh - 134px);
   }
   .image-container {
     width: 100%;

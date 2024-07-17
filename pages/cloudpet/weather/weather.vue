@@ -109,8 +109,10 @@
 	}
 	
 	.weather{
+		display: flex;
+		flex-direction: column;
 		background-color: #4a749f;
-		height: 680px;
+		height: calc(100vh - 44px)
 	}
 	.getweather{
 		background-color: #ffc000;

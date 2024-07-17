@@ -49,8 +49,8 @@
 					<view class="dispaly-comments" v-if="comments[post.postOrder]">
 						<view class="list" v-for="comment in comments[post.postOrder]" :key="comment.commentOrder">
 							<view class="comment-detail">
-								<text>{{comment.username}}</text>
-								<text>{{comment.text}}</text>
+								<text class="comment-username">{{comment.username}} :</text>
+								<text class="comment-text">{{comment.text}}</text>
 							</view>
 						</view>
 					</view>
@@ -96,8 +96,8 @@
 					<view class="dispaly-comments" v-if="comments[post.postOrder]">
 						<view class="list" v-for="comment in comments[post.postOrder]" :key="comment.commentOrder">
 							<view class="comment-detail">
-								<text>{{comment.username}}</text>
-								<text>{{comment.text}}</text>
+								<text class="comment-username">{{comment.username}} :</text>
+								<text class="comment-text">{{comment.text}}</text>
 							</view>
 						</view>
 					</view>
@@ -125,6 +125,11 @@
 			}
 		},
 		onLoad() {
+			if(this.user.userId === -1){
+				uni.navigateTo({
+					url: "/pages/index/index"
+				})
+			}
 			console.log('fetchdata');
 			this.fetchData(this.activeTab);
 		},
@@ -211,7 +216,8 @@
 				console.log(this.text);
 			},
 			postComment(post) {
-				this.text = '';
+				console.log(this.text);
+				let that = this;
 				let path = 'addComment';
 				console.log(typeof(this.comments), this.comments);
 				uni.request({
@@ -221,20 +227,20 @@
 						hostId: post.hostId,
 						commenterId: this.user.getProperty("userId"),
 						postOrder: post.postOrder,
-						text: this.comments,
+						text: that.text,
 					},
 					header: {
 						'content-type': 'application/json'
 					},
 					success: (res) => {
-						console.log("success update like");
+						console.log("success update comment", that.text);
 						console.log(res);
 					},
 					fail: (res) => {
 						console.log("Failed to update like");
 					}
 				});
-				this.comments = "";
+				this.text = "";
 			},
 
 			fetchData(tabName) {
@@ -381,6 +387,11 @@
 						font-weight: bold;
 						font-size: 16px;
 					}
+					
+					.time {
+						color: #888;
+						font-size: 14px;
+					}
 				}
 
 				.star-button {
@@ -428,20 +439,48 @@
 				display: flex;
 				flex-direction: column;
 				padding: 10px;
-				background-color: #e1e1e1;
 				height: auto;
 
-	.comment-detail {
-		display: flex;
-		flex-direction: row;
-		width: 100%;
-		height: 10px;
-		margin-top: 5px;
-		padding:5px;
-		margin-bottom: 5px;
+				.comment-detail {
+					display: flex;
+					flex-direction: row;
+					width: 100%;
+					border: #000;
+					
+					.comment-username{
+						font-size: 12px;
+						font-weight: bold;
+						white-space: nowrap;
+						color:#537aa6;
+					}
+					
+					.comment-text{
+						margin-left: 5px;
+						font-size: 12px;
+					}
+				}
+			}
+
+		}
 	}
-	.commenter{
-		color:#537aa6;
-		
+
+	.add-post-icon {
+		position: fixed;
+		top: 9.5px;
+		right: 5px;
 	}
+
+
+
+	.tab-bar view {
+		padding: 10px;
+		font-weight: bold;
+	}
+
+	.active-tab {
+		color: #FF69B4;
+		border-bottom: 2px solid #FF69B4;
+	}
+
+
 </style>
