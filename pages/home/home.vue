@@ -208,7 +208,7 @@
 					address = 'MyFollowedPetCircle';
 				}
 				uni.request({
-					url: "http://localhost:8080/admin/post/" + address + this.user.getProperty("userId"),
+					url: "http://localhost:8080/admin/post/" + address + "/"+this.user.getProperty("userId"),
 					method: "POST",
 					success: (res) => {
 						console.log("success", res.data)

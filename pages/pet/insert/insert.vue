@@ -9,6 +9,10 @@
 				<input type="text" placeholder="点击输入爱宠名" :value="petName" @input="inputPetName" class="input" />
 			</view>
 			<view class="form-item">
+				<text class="label"> 品种：</text>
+				<input type="text" placeholder="点击输入品种" :value="species" class="input" @input="inputspecies" />
+			</view>
+			<view class="form-item">
 				<text class="label">性别：</text>
 				<view class="gender-buttons">
 					<button :class="{'button': true, 'active': gender === 'male', 'male': true}"
@@ -76,6 +80,7 @@
 			return {
 				user: currentUser,
 				petName: '',
+				species:'',
 				weight: '',
 				description: '',
 				gender: '', // 用于存储选择的性别
@@ -129,8 +134,15 @@
 				console.log(typeof(this.weight));
 
 			},
+			inputspecies(input){
+				console.log(input);
+				
+				this.species = parseFloat(input.detail.value);
+				console.log(typeof(this.species));
+			}
 			submitInfo() {
 				console.log(typeof(this.petName), this.petName);
+				console.log(typeof(this.species), this.species)
 				console.log(typeof(this.weight), this.weight);
 				console.log(typeof(this.description), this.description);
 				console.log(typeof(this.gender), this.gender);
@@ -144,6 +156,7 @@
 						userId: this.user.userId,
 						imageUrl: this.imageUrl,
 						petName: this.petName,
+						species:this.species,
 						gender: this.gender,
 						weight: this.weight,
 						description: this.description,

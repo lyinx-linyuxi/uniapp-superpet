@@ -23,6 +23,7 @@
 				<view class="pet-info" >
 					<view class="info">
 						<text class="name" space="emsp">{{ card.petName }}  ： {{ card.description }}\n</text>
+						<text class="detail" space="emsp">品种：{{card.species}}\n</text>
 						<text class="detail" space="emsp">性别：{{card.gender}}   体重：{{card.weight}}kg    绝育情况：{{card.sterilized}}\n</text>
 						<text class="detail" space="emsp">出生日期：{{card.birthDate}}\n</text>
 						<text class="detail" space="emsp">到家日期：{{card.homeDate}}</text>
