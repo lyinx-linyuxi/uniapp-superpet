@@ -29,7 +29,7 @@
 							<uni-icons :type="post.liked ? 'heart-filled' : 'heart'" size="14" color="#999"></uni-icons>
 							<text> {{ post.likes }}</text>
 						</view>
-						<view class="action" @click="switchTab('comments')">
+						<view class="action" @click="CommentDetail(post)">
 							<uni-icons type="chat" size="14" color="#999"></uni-icons>
 							<text>{{ post.comments }}</text>
 						</view>
@@ -40,10 +40,18 @@
 
 					</view>
 					<view class="ipt">
-						<uni-easyinput type="text" v-model="comments" @input="inputcomments"
+						<uni-easyinput type="text" v-model="text" @input="inputcomments"
 							placeholder="请输入评论"></uni-easyinput>
 						<view class="action" @click="postComment(post)">
 							<uni-icons type="paperplane" size="30" color="#999"></uni-icons>
+						</view>
+					</view>
+					<view class="dispaly-comments" v-if="comments[post.postOrder]">
+						<view class="list" v-for="comment in comments[post.postOrder]" :key="comment.commentOrder">
+							<view class="comment-detail">
+								<text>{{comment.userName}}</text>
+								<text>{{comment.text}}</text>
+							</view>
 						</view>
 					</view>
 				</view>
@@ -68,7 +76,7 @@
 							<uni-icons :type="post.liked ? 'heart-filled' : 'heart'" size="14" color="#999"></uni-icons>
 							<text> {{ post.likes }}</text>
 						</view>
-						<view class="action" @click="switchTab('comments')">
+						<view class="action" @click="CommentDetail(post)">
 							<uni-icons type="chat" size="14" color="#999"></uni-icons>
 							<text>{{ post.comments }}</text>
 						</view>
@@ -79,35 +87,21 @@
 
 					</view>
 					<view class="ipt">
-						<uni-easyinput type="text" v-model="comments" @input="inputcomments"
+						<uni-easyinput type="text" :value="text" @input="inputcomments"
 							placeholder="请输入评论"></uni-easyinput>
 						<view class="action" @click="postComment(post)">
 							<uni-icons type="paperplane" size="30" color="#999"></uni-icons>
 						</view>
 					</view>
-				</view>
-			</view>
-			<view v-if="activeTab === 'comments'">
-				<h1>评论</h1>
-				<!-- <view class="list" v-for="comment in comments" :key="comment.hostId">
-					<span class="body" >
-						<view class="headshot">
-							<image :src="comment.headshotUrl" />
-						</view>
-						<view class="content">
-							<view class="f-name" >
+					<view class="dispaly-comments" v-if="comments[post.postOrder]">
+						<view class="list" v-for="comment in comments[post.postOrder]" :key="comment.commentOrder">
+							<view class="comment-detail">
 								<text>{{comment.userName}}</text>
-							</view>
-							<view class="comment-text">
 								<text>{{comment.text}}</text>
 							</view>
 						</view>
-						<view class="comment-time">
-							<text>{{comment.commentTime}}</text>					
-						</view>
-					</span>
-				</view> -->
-
+					</view>
+				</view>
 			</view>
 		</scroll-view>
 	</view>
@@ -123,6 +117,8 @@
 	export default {
 		data() {
 			return {
+				text: '',
+				comments: {},
 				user: currentUser,
 				activeTab: 'follow',
 				posts: []
@@ -173,7 +169,7 @@
 				});
 			},
 			sharePost() {},
-			addPost(){
+			addPost() {
 				uni.navigateTo({
 					url: "/pages/home/addPost/addPost"
 				})
@@ -212,9 +208,10 @@
 				});
 			},
 			inputcomments() {
-				console.log(this.comments);
+				console.log(this.text);
 			},
 			postComment(post) {
+				this.text = '';
 				let path = 'addComment';
 				console.log(typeof(this.comments), this.comments);
 				uni.request({
@@ -239,6 +236,7 @@
 				});
 				this.comments = "";
 			},
+
 			fetchData(tabName) {
 				let address = 'petCircle'
 				if (tabName === 'follow') {
@@ -248,10 +246,42 @@
 					url: "http://localhost:8080/admin/post/" + address + "/" + this.user.getProperty("userId"),
 					method: "POST",
 					success: (res) => {
-						console.log("success", res.data)
 						if (res.statusCode == 200) {
-							this.posts = res.data.data;
-							console.log(res.data.data);
+							if (res.data.code) {
+								console.log("success", res.data)
+								this.posts = res.data.data;
+								console.log(res.data.data);
+								if (this.posts.length === 0) {
+									console.log("no posts found");
+								} else {
+									let that = this;
+									let temps = that.posts
+									for (let i = 0; i < temps.length; i++) {
+										let key = temps[i].postOrder;
+										console.log("key", key);
+										let value;
+										uni.request({
+											url: "http://localhost:8080/admin/post/postComments",
+											method: 'POST',
+											data: {
+												hostId: temps[i].hostId,
+												postOrder: temps[i].postOrder,
+											},
+											success(res) {
+												if (res.statusCode == 200) {
+													if (res.data.code == 1) {
+														console.log("temp[i]'s res'", res);
+														value = res.data.data
+														console.log("value", value);
+													}
+												}
+												that.$set(that.comments, key, value);
+											}
+										});
+									}
+									console.log("comments info", this.comments);
+								}
+							}
 						} else {
 							console.log("here", res.data.data);
 							this.handleFetchError();
@@ -285,7 +315,6 @@
 </script>
 
 <style scoped lang="scss">
-	
 	.container {
 		display: flex;
 		flex-direction: column;
@@ -300,8 +329,8 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		
-		.title{
+
+		.title {
 			font-weight: bold;
 		}
 	}
@@ -415,7 +444,12 @@
 			font-size: 10rpx;
 		}
 
+	}
 
-
+	.comment-detail {
+		display: flex;
+		flex-direction: row;
+		width: 100%;
+		height: 10px;
 	}
 </style>
