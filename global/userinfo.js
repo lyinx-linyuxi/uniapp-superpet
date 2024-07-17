@@ -9,6 +9,7 @@ class User {
 		this.headshotUrl = '/static/pages/index/home/images/1.png';
 		this.petNum = 1;
 		this.gender = 'female';
+		this.card = null;
 	}
 
 	getProperty(property){

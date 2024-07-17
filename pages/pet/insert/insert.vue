@@ -75,7 +75,6 @@
 		data() {
 			return {
 				user: currentUser,
-				species: '',
 				petName: '',
 				weight: '',
 				description: '',

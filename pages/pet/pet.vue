@@ -144,18 +144,17 @@
 
 	.header {
 		background-color: #FFD3D3;
-		padding: 15px;
 		height: 60px;
 		display: flex;
 		justify-content: center;
-		align-items: flex-end;
+		align-items: center;
 		position: relative;
 	}
 
 	.menu-icon {
 		position: absolute;
 		left: 15px;
-		top: 55px;
+		top: 17.5px;
 	}
 
 	.centered-bottom-text {
