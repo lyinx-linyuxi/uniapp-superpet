@@ -14,7 +14,7 @@
 							<text class="time">{{ post.postTime }}</text>
 						</view>
 						<uni-icons class="star-button" :type="post.followed ? 'person-filled' : 'personadd'" size="20px"
-							@click="followUser(post.hostId)"></uni-icons>
+							@click="followUser(post)"></uni-icons>
 					</view>
 					<text class="content">{{ post.text }}</text>
 					<image
@@ -25,15 +25,22 @@
 							<uni-icons :type="post.liked ? 'heart-filled' : 'heart'" size="14" color="#999"></uni-icons>
 							<text> {{ post.likes }}</text>
 						</view>
-						<view class="action" @click="toggleComments">
+						<view class="action" @click="switchTab('comments')">
 							<uni-icons type="chat" size="14" color="#999"></uni-icons>
-							<text>{{ post.comments }}</text>
+							<text>{{ post.comments }}</text>							
 						</view>
 						<view class="action" @click="sharePost">
 							<uni-icons type="pyq" size="14" color="#999"></uni-icons>
 							<text> {{ post.shares }}</text>
 						</view>
+						
 					</view>
+					<view class="ipt">
+						<uni-easyinput type="text" v-model="comments" @input="inputcomments" placeholder="请输入评论"></uni-easyinput>
+						<view class="action" @click="postComment">							
+							<uni-icons type="paperplane" size="30" color="#999"></uni-icons>
+						</view>
+					</view>	
 				</view>
 			</view>
 			<view v-if="activeTab === 'circle'">
@@ -44,17 +51,19 @@
 							<text class="username">{{ post.userName }}</text>
 							<text class="time">{{ post.postTime }}</text>
 						</view>
+						<uni-icons class="star-button" :type="post.followed ? 'person-filled' : 'personadd'" size="20px"
+							@click="followUser(post)"></uni-icons>
 					</view>
 					<text class="content">{{ post.text }}</text>
 					<image
 						:src="post.imageUrl === 'null' ? '/static/pages/index/home/images/banner4.png': post.imageUrl"
 						class="post-image"></image>
 					<view class="actions">
-						<view class="action" @click="likePost">
+						<view class="action" @click="likePost(post)">
 							<uni-icons :type="post.liked ? 'heart-filled' : 'heart'" size="14" color="#999"></uni-icons>
 							<text> {{ post.likes }}</text>
 						</view>
-						<view class="action" @click="toggleComments">
+						<view class="action" @click="switchTab('comments')">
 							<uni-icons type="chat" size="14" color="#999"></uni-icons>
 							<text>{{ post.comments }}</text>
 						</view>
@@ -62,8 +71,37 @@
 							<uni-icons type="pyq" size="14" color="#999"></uni-icons>
 							<text> {{ post.shares }}</text>
 						</view>
+						
 					</view>
+					<view class="ipt">
+						<uni-easyinput type="text" v-model="comments" @input="inputcomments" placeholder="请输入评论"></uni-easyinput>
+						<view class="action" @click="postComment">
+							<uni-icons type="paperplane" size="30" color="#999"></uni-icons>
+						</view>
+					</view>	
 				</view>
+			</view>
+			<view v-if="activeTab === 'comments'">
+				<h1>评论</h1>
+				<!-- <view class="list" v-for="comment in comments" :key="comment.hostId">
+					<span class="body" >
+						<view class="headshot">
+							<image :src="comment.headshotUrl" />
+						</view>
+						<view class="content">
+							<view class="f-name" >
+								<text>{{comment.userName}}</text>
+							</view>
+							<view class="comment-text">
+								<text>{{comment.text}}</text>
+							</view>
+						</view>
+						<view class="comment-time">
+							<text>{{comment.commentTime}}</text>					
+						</view>
+					</span>
+				</view> -->
+				
 			</view>
 		</scroll-view>
 	</view>
@@ -89,13 +127,20 @@
 			this.fetchData(this.activeTab);
 		},
 		methods: {
-			followUser(hostId) {
+			followUser(post) {
+				let path = '';
+				if(post.followed === false){
+					path = 'addFollow';
+				}
+				else if(post.followed === true){
+					path = 'deleteFollow';
+				}
 				uni.request({
-					url: "http://localhost:8080/admin/post/addFollow",
+					url: "http://localhost:8080/admin/post/" + path,
 					method: 'POST',
 					data: {
-						followerId: hostId,
-						followingId: this.user.userId,
+						followerId: this.user.userId,
+						followingId: post.hostId,
 					},
 					header: {
 						'content-type': 'application/json'
@@ -103,14 +148,23 @@
 					success: (res) => {
 						console.log("success", res.data)
 						if (res.statusCode == 200) {
-							this.posts = res.data.data;
-							console.log(res.data.data);
+							console.log("fetch data");
+							//成功了需要将相关的post展示时显示关注关系
+							// method 1
+							//this.fetchData(this.activeTab)
+							// method 2
+							let len = this.posts.length;
+							console.log("len", len);
+							for(let i = 0; i < len; i++){
+								if(this.posts[i].hostId == post.hostId){
+									this.posts[i].followed = !this.posts[i].followed;
+								}
+							}
 						} else {
 							console.log("here", res.data.data);
 						}
 					},
-					fail: () => {
-					}
+					fail: () => {}
 				});
 			},
 			sharePost() {},
@@ -118,13 +172,18 @@
 			switchTab(tab) {
 				this.activeTab = tab;
 				this.fetchData(this.activeTab);
+				console.log("switchTab to", tab);
 			},
 			likePost(post) {
+				let path = 'addPLike';
+				if(post.like === true){
+					path = 'deletePLike';
+				}
 				post.liked = !post.liked;
 				post.liked ? post.likes++ : post.likes--;
 				console.log("hit");
 				uni.request({
-					url: 'http://localhost:8080/admin/post/addPLike',
+					url: 'http://localhost:8080/admin/post/' + path,
 					method: 'POST',
 					data: {
 						hostId: post.hostId,
@@ -149,7 +208,7 @@
 					address = 'MyFollowedPetCircle';
 				}
 				uni.request({
-					url: "http://localhost:8080/admin/post/" + address + "/" + this.user.getProperty("userId"),
+					url: "http://localhost:8080/admin/post/" + address + this.user.getProperty("userId"),
 					method: "POST",
 					success: (res) => {
 						console.log("success", res.data)
@@ -192,10 +251,12 @@
 	.container {
 		display: flex;
 		flex-direction: column;
-		height: 100vh;
 	}
 
 	.tab-bar {
+		position: fixed;
+		top: 44px;
+		z-index: 9999;
 		width: 100%;
 		display: flex;
 		justify-content: space-around;
@@ -214,8 +275,9 @@
 	}
 
 	.content {
+		margin-top: 64px;
 		flex: 1;
-		height: 100%;
+		height: auto;
 		width: 100%;
 	}
 
@@ -280,5 +342,19 @@
 	.action {
 		font-size: 14px;
 		color: #888;
+	}
+	.ipt {
+		display: flex;
+		flex-direction: row;
+		margin-top: 10rpx;
+		width: 100%;
+		height: 10;
+		
+		input{
+			font-size: 10rpx;
+		}
+		
+		
+		
 	}
 </style>

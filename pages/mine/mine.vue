@@ -95,7 +95,7 @@
 					success: (res) => {
 						console.log(JSON.stringify(res.tempFilePaths));
 						console.log(res.tempFilePaths);
-						this.user.updateProperty("headshot_url", res.tempFilePaths[0]);
+						this.user.updateProperty("headshotUrl", res.tempFilePaths[0]);
 					}
 				});
 
