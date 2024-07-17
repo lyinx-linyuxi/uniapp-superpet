@@ -45,22 +45,26 @@
     justify-content: center;
     align-items: center;
     padding: 20px;
+	background-color: #fff5d9;
   }
   .image-container {
     width: 100%;
     display: flex;
     justify-content: center;
+	
   }
   .gif-image {
     width: 100%;
-    max-width: 500px;
-    height: 400px;
+    max-width: 400px;
+    height: 330px;
   }
   .button-container {
     display: flex;
+	flex-direction: column;
     width: 100%;
     justify-content: space-between;
     margin-top: 20px;
+	
   }
   .left-button, .center-button, .right-button {
     flex: 1;
@@ -68,18 +72,22 @@
     padding: 10px;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 25px;
+	font-size: 20px;
+	font-weight: bold;
     text-align: center;
     background-size: cover;
     background-position: center;
+	box-shadow: #374667 3px 3px;
+	margin-top: 10px;
   }
   .left-button {
-    background-color: #ff7f50;
+    background-color: #ff9aab;
   }
   .center-button {
-    background-color: #32cd32;
+    background-color: #06b3fe;
   }
   .right-button {
-    background-color: #1e90ff;
+    background-color: #fdc000;
   }
 </style>

@@ -431,39 +431,17 @@
 				background-color: #e1e1e1;
 				height: auto;
 
-				.comment-detail {
-					display: flex;
-					flex-direction: row;
-					justify-content: space-between;
-					width: 100%;
-				}
-			}
-
-		}
+	.comment-detail {
+		display: flex;
+		flex-direction: row;
+		width: 100%;
+		height: 10px;
+		margin-top: 5px;
+		padding:5px;
+		margin-bottom: 5px;
 	}
-
-	.add-post-icon {
-		position: fixed;
-		top: 9.5px;
-		right: 5px;
-	}
-
-
-
-	.tab-bar view {
-		padding: 10px;
-		font-weight: bold;
-	}
-
-	.active-tab {
-		color: #FF69B4;
-		border-bottom: 2px solid #FF69B4;
-	}
-
-
-
-	.time {
-		color: #888;
-		font-size: 14px;
+	.commenter{
+		color:#537aa6;
+		
 	}
 </style>

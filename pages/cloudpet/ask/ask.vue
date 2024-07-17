@@ -96,7 +96,7 @@
 	import {
 		copyToClipboard
 	} from "/utils/commonUtils.js";
-	const httpUrl = "ws(s)://spark-openapi.cn-huabei-1.xf-yun.com/v1/assistants/943792kfdqqz_v1";
+	const httpUrl = "https://spark-api.xf-yun.com/v4.0/chat";
 	const APPID = '6c3aa33b';
 	const APISecret = 'Y2UzOTVjY2YxZTdlNjI3ZjE0NGI2NTg4';
 	const APIKey = 'a1d7d3cbf7be5e84e12bbb52bb684e9f';
@@ -321,6 +321,9 @@
 					case "/v3.5/chat":
 						this.modelDomain = "generalv3.5";
 						break;
+					case "/v4.0/chat":
+						this.modelDomain = "4.0Ultra";
+						break;
 				}
 				console.log(this.modelDomain);
 
@@ -338,7 +341,7 @@
 						`${apiKeyName}="${APIKey}", algorithm="${algorithm}", headers="${headers}", signature="${signature}"`;
 					var authorization = base64.encode(authorizationOrigin);
 					url = `${url}?authorization=${authorization}&date=${encodeURI(date)}&host=${host}`;
-
+					console.log("url:"+url);
 					resolve(url);
 				});
 			},
@@ -389,6 +392,7 @@
 			// 会话头像
 			.ai-chat-avatar {
 				margin-right: 12px;
+				border-radius: 50%;
 			}
 
 			// 会话内容盒子

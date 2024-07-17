@@ -1,20 +1,29 @@
 <template>
-	<view>
-		<view>
-			<button size="default" type="primary" hover-class="is-hover" @click="getAdcode">
-				获取天气
-			</button>
+	<view class = "weather">
+		
+		<view class = "weather-info">
+			<view class="location">
+				<uni-icons type="map-pin-ellipse" size="25" color="#fff"></uni-icons>
+				<text> {{ province + city }}</text>
+			</view><br>
+			<view class="temperature">
+				<text>{{ temperature }}°C</text>
+			</view><br>
+			<view class="todayweather">
+				<uni-icons type="cloud-download-filled" size="120" color="#fff"></uni-icons>
+				<!-- <el-icon color="#fff"><Drizzling /></el-icon> -->
+				<text>{{ weather }}</text>
+			</view><br>
+			
+			<view class="wind">
+				<text>风向 : {{ winddirection }}  风级 : {{ windpower }}</text>
+				
+			</view>
 		</view>
 		<view>
-			<text>地址 : {{ province + city }}</text>
-			<br>
-			<text>天气 : {{ weather }}</text>
-			<br>
-			<text>温度 : {{ temperature }}</text>
-			<br>
-			<text>风向 : {{ winddirection }}</text>
-			<br>
-			<text>风级 : {{ windpower }}</text>
+			<button class="getweather" size="default"   @click="getAdcode">
+				获取天气
+			</button>
 		</view>
 	</view>
 </template>
@@ -98,11 +107,58 @@
 	.warp {
 		background-color: #fff;
 	}
-	.is-hover {
-		color: rgba(255, 255, 255, 0.6);
-		background-color: #179b16;
-		border-color: #179b16;
-	  }
+	
+	.weather{
+		background-color: #4a749f;
+		height: 680px;
+	}
+	.getweather{
+		background-color: #ffc000;
+		box-shadow: #374667 3px 3px;
+		border-radius: 30px;
+		color: #fff;
+		font-size: 25px;
+		font-weight: bold;	
+	}
+	.weather-info{
+		padding: 10px;
+	}
+	.location{
+		font-size: 20px;
+		color: #fff;
+		padding-top: 10px;
+		background-color: #86e2fc;
+		text-align: center;
+		box-shadow: #374667 3px 3px;
+		border-radius: 25px;
+		position: ;
+		height: 40px;
+		font-weight: bold;
+	}
+	.temperature{
+		margin-top: 50px;
+		font-size: 75px;
+		text-align: center;
+		color:#fff;
+		font-weight: bold;
+	}
+	.todayweather{display: flex;
+		flex-direction: column;
+		margin-top: 20px;
+		font-size: 25px;
+		text-align: center;
+		color:#fff;
+		font-weight: bold;
+	}
+	.wind{
+		margin-top: 20px;
+		font-size: 20px;
+		text-align: center;
+		color:#fff;
+		font-weight: bold;
+		margin-bottom: 60px;
+	}
+	
 .second-contain{
 	display: flex;
 	justify-content: center;
