@@ -28,7 +28,7 @@
 				<uni-list-item :showExtraIcon="true" :extra-icon="flag" :show-badge="true" showArrow title="关于"
 					link="navigateTo" to="/pages/mine/about/about"></uni-list-item>
 				<uni-list-item :show-extra-icon="true" :extra-icon="settings" :show-badge="true" showArrow title="设置"
-					:clickable="true" @click="navigateTo('/pages/mine/favours/favours')"></uni-list-item>
+					:clickable="true" @click="navigateTo('/pages/mine/setting/setting')"></uni-list-item>
 			</uni-list>
 		</view>
 	</view>

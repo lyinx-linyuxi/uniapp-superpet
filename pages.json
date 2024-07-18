@@ -112,6 +112,28 @@
 			}
 		},
 		{
+			"path" : "pages/mine/setting/setting",
+			"style" : 
+			{
+				"navigationBarTitleText" : "设置"
+			}
+		},
+		{
+			"path" : "pages/mine/setting/userinfo/userinfo",
+			"style" : 
+			{
+				"navigationBarTitleText" : "账号资料"
+			}
+		},
+		{
+			"path" : "pages/mine/setting/change_pwd/change_pwd",
+			"style" : 
+			{
+				"navigationBarTitleText" : "修改密码",
+				"navigationBarBackgroundColor": "#fff"
+			}
+		},
+		{
 			"path" : "pages/cloudpet/ask/ask",
 			"style" : 
 			{
