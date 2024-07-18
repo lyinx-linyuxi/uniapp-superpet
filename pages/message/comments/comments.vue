@@ -51,7 +51,7 @@ export default {
   methods: {
 	  getMessage(){
 		  uni.request({
-		  	url: "http://localhost:8080/admin/message/getComments/1",
+		  	url: "http://localhost:8080/admin/message/getComments/"  + this.user.userId,
 					  	// url: "http://localhost:8080/admin/message/getNewcommentsDetail/" + this.user.getProperty("userId"),
 		  	method: "GET",
 		  	success:(res) => {
