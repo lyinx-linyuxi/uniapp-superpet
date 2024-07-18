@@ -43,7 +43,7 @@ export default {
   methods: {
 	  getMessage(){
 		  uni.request({
-		  	url: "http://localhost:8080/admin/message/getNewLikes/3",
+		  	url: "http://localhost:8080/admin/message/getNewLikes/" + this.user.userId,
 					  	// url: "http://localhost:8080/admin/message/getNewlikersDetail/" + this.user.getProperty("userId"),
 		  	method: "GET",
 		  	success:(res) => {

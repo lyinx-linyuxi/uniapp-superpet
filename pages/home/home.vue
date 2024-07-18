@@ -186,7 +186,7 @@
 			},
 			likePost(post) {
 				let path = 'addPLike';
-				if (post.like === true) {
+				if (post.liked === true) {
 					path = 'deletePLike';
 				}
 				post.liked = !post.liked;
