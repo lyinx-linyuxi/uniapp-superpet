@@ -106,6 +106,7 @@
 		padding: 0px;
 		list-style: none;
 	}
+<<<<<<< HEAD
 
 	.container {
 		background-color: #FFD3D3;
@@ -173,3 +174,60 @@
 		background-color: #fff;
 	}
 </style>
+=======
+.container {
+  background-color: #FFD3D3;
+  height: 100vh;
+  padding: 15px;
+}
+.user-info {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+.avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.info {
+  flex: 1;
+}
+.name {
+  font-weight: bold;
+  font-size: 16px;
+}
+.pets {
+  color: #555;
+  font-size: 14px;
+}
+.card {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 15px;
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: #374667 3px 3px;
+}
+.card-content {
+  flex: 1;
+}
+.card-title {
+  font-size: 16px;
+  font-weight: bold;
+}
+.card-subtitle {
+  color: #888;
+  font-size: 14px;
+  margin-top: 5px;
+}
+.card-image {
+  width: 80px;
+  height: 80px;
+  margin-left: 10px;
+}
+</style>
+>>>>>>> 2fd60b8de0d4c7737712169f1c04bd15cffc1515

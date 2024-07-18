@@ -20,7 +20,7 @@
 						<uni-icons class="star-button" :type="post.followed ? 'person-filled' : 'personadd'" size="20px"
 							@click="followUser(post)"></uni-icons>
 					</view>
-					<text class="content">{{ post.text }}</text>
+					<text class="text-content">{{ post.text }}</text>
 					<image
 						:src="post.imageUrl === 'null' ? '/static/pages/index/home/images/banner4.png': post.imageUrl"
 						class="post-image"></image>
@@ -43,14 +43,14 @@
 						<uni-easyinput type="text" v-model="text" @input="inputcomments"
 							placeholder="请输入评论"></uni-easyinput>
 						<view class="action" @click="postComment(post)">
-							<uni-icons type="paperplane" size="30" color="#999"></uni-icons>
+							<uni-icons type="paperplane" size="35" color="#999"></uni-icons>
 						</view>
 					</view>
 					<view class="dispaly-comments" v-if="comments[post.postOrder]">
 						<view class="list" v-for="comment in comments[post.postOrder]" :key="comment.commentOrder">
 							<view class="comment-detail">
-								<text>{{comment.userName}}</text>
-								<text>{{comment.text}}</text>
+								<text class="comment-username">{{comment.username}} :</text>
+								<text class="comment-text">{{comment.text}}</text>
 							</view>
 						</view>
 					</view>
@@ -67,7 +67,7 @@
 						<uni-icons class="star-button" :type="post.followed ? 'person-filled' : 'personadd'" size="20px"
 							@click="followUser(post)"></uni-icons>
 					</view>
-					<text class="content">{{ post.text }}</text>
+					<text class="text-content">{{ post.text }}</text>
 					<image
 						:src="post.imageUrl === 'null' ? '/static/pages/index/home/images/banner4.png': post.imageUrl"
 						class="post-image"></image>
@@ -90,14 +90,14 @@
 						<uni-easyinput type="text" :value="text" @input="inputcomments"
 							placeholder="请输入评论"></uni-easyinput>
 						<view class="action" @click="postComment(post)">
-							<uni-icons type="paperplane" size="30" color="#999"></uni-icons>
+							<uni-icons type="paperplane" size="35" color="#999"></uni-icons>
 						</view>
 					</view>
 					<view class="dispaly-comments" v-if="comments[post.postOrder]">
 						<view class="list" v-for="comment in comments[post.postOrder]" :key="comment.commentOrder">
 							<view class="comment-detail">
-								<text>{{comment.userName}}</text>
-								<text>{{comment.text}}</text>
+								<text class="comment-username">{{comment.username}} :</text>
+								<text class="comment-text">{{comment.text}}</text>
 							</view>
 						</view>
 					</view>
@@ -125,6 +125,11 @@
 			}
 		},
 		onLoad() {
+			if(this.user.userId === -1){
+				uni.navigateTo({
+					url: "/pages/index/index"
+				})
+			}
 			console.log('fetchdata');
 			this.fetchData(this.activeTab);
 		},
@@ -211,7 +216,8 @@
 				console.log(this.text);
 			},
 			postComment(post) {
-				this.text = '';
+				console.log(this.text);
+				let that = this;
 				let path = 'addComment';
 				console.log(typeof(this.comments), this.comments);
 				uni.request({
@@ -221,20 +227,20 @@
 						hostId: post.hostId,
 						commenterId: this.user.getProperty("userId"),
 						postOrder: post.postOrder,
-						text: this.comments,
+						text: that.text,
 					},
 					header: {
 						'content-type': 'application/json'
 					},
 					success: (res) => {
-						console.log("success update like");
+						console.log("success update comment", that.text);
 						console.log(res);
 					},
 					fail: (res) => {
 						console.log("Failed to update like");
 					}
 				});
-				this.comments = "";
+				this.text = "";
 			},
 
 			fetchData(tabName) {
@@ -315,11 +321,6 @@
 </script>
 
 <style scoped lang="scss">
-	.container {
-		display: flex;
-		flex-direction: column;
-	}
-
 	.header {
 		width: 100%;
 		position: fixed;
@@ -335,23 +336,141 @@
 		}
 	}
 
+	.container {
+		display: flex;
+		flex-direction: column;
+
+		.tab-bar {
+			position: fixed;
+			top: 44px;
+			z-index: 9999;
+			height: 36px;
+			width: 100%;
+			display: flex;
+			justify-content: space-around;
+			background-color: #fff;
+			padding: 10px 0;
+		}
+
+		.content {
+			margin-top: 100px;
+			margin-bottom: 10px;
+		}
+
+		.post {
+			display: flex;
+			flex-direction: column;
+			margin-bottom: 15px;
+			padding: 10px;
+			background-color: #fff;
+			border-radius: 5px;
+			box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+			height: 100%;
+
+			.user-info {
+				display: flex;
+				align-items: center;
+				margin-bottom: 10px;
+
+				.avatar {
+					width: 40px;
+					height: 40px;
+					border-radius: 50%;
+					margin-right: 10px;
+				}
+
+				.info {
+					display: flex;
+					flex-direction: column;
+
+					.username {
+						font-weight: bold;
+						font-size: 16px;
+					}
+					
+					.time {
+						color: #888;
+						font-size: 14px;
+					}
+				}
+
+				.star-button {
+					margin-left: auto;
+					color: yellow;
+				}
+
+			}
+
+			.text-content {
+				flex: 1;
+				height: auto;
+				width: 100%;
+			}
+
+			.post-image {
+				width: 100%;
+				border-radius: 5px;
+				margin: 10px 0px;
+			}
+
+			.actions {
+				display: flex;
+				justify-content: space-between;
+
+				.action {
+					font-size: 14px;
+					color: #888;
+				}
+			}
+
+			.ipt {
+				display: flex;
+				flex-direction: row;
+				margin-top: 10rpx;
+				width: 100%;
+				height: 10;
+
+				input {
+					font-size: 10rpx;
+				}
+			}
+
+			.dispaly-comments {
+				display: flex;
+				flex-direction: column;
+				padding: 10px;
+				height: auto;
+
+				.comment-detail {
+					display: flex;
+					flex-direction: row;
+					width: 100%;
+					border: #000;
+					
+					.comment-username{
+						font-size: 12px;
+						font-weight: bold;
+						white-space: nowrap;
+						color:#537aa6;
+					}
+					
+					.comment-text{
+						margin-left: 5px;
+						font-size: 12px;
+					}
+				}
+			}
+
+		}
+	}
+
 	.add-post-icon {
 		position: fixed;
 		top: 9.5px;
 		right: 5px;
 	}
 
-	.tab-bar {
-		position: fixed;
-		top: 44px;
-		z-index: 9999;
-		height: 36px;
-		width: 100%;
-		display: flex;
-		justify-content: space-around;
-		background-color: #fff;
-		padding: 10px 0;
-	}
+
 
 	.tab-bar view {
 		padding: 10px;
@@ -363,93 +482,5 @@
 		border-bottom: 2px solid #FF69B4;
 	}
 
-	.content {
-		margin-top: 100px;
-		flex: 1;
-		height: auto;
-		width: 100%;
-	}
 
-	.post {
-		margin-bottom: 15px;
-		padding: 10px;
-		background-color: #fff;
-		border-radius: 5px;
-		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-		height: 100%;
-	}
-
-	.user-info {
-		display: flex;
-		align-items: center;
-		margin-bottom: 10px;
-	}
-
-	.avatar {
-		width: 40px;
-		height: 40px;
-		border-radius: 50%;
-		margin-right: 10px;
-	}
-
-	.info {
-		display: flex;
-		flex-direction: column;
-	}
-
-	.username {
-		font-weight: bold;
-		font-size: 16px;
-	}
-
-	.time {
-		color: #888;
-		font-size: 14px;
-	}
-
-	.star-button {
-		margin-left: auto;
-		color: yellow;
-	}
-
-
-	.content {
-		margin-bottom: 10px;
-	}
-
-	.post-image {
-		width: 100%;
-		border-radius: 5px;
-		margin: 10px 0px;
-	}
-
-	.actions {
-		display: flex;
-		justify-content: space-between;
-	}
-
-	.action {
-		font-size: 14px;
-		color: #888;
-	}
-
-	.ipt {
-		display: flex;
-		flex-direction: row;
-		margin-top: 10rpx;
-		width: 100%;
-		height: 10;
-
-		input {
-			font-size: 10rpx;
-		}
-
-	}
-
-	.comment-detail {
-		display: flex;
-		flex-direction: row;
-		width: 100%;
-		height: 10px;
-	}
 </style>

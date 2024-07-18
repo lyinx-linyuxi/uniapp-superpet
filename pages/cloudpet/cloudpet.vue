@@ -46,6 +46,7 @@
     align-items: center;
     padding: 20px;
 	background-color: #fff5d9;
+	height: calc(100vh - 134px);
   }
   .image-container {
     width: 100%;
@@ -55,8 +56,8 @@
   }
   .gif-image {
     width: 100%;
-    max-width: 500px;
-    height: 350px;
+    max-width: 400px;
+    height: 330px;
   }
   .button-container {
     display: flex;

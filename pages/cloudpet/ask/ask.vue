@@ -10,9 +10,9 @@
 				<!-- 内容 -->
 				<div class="ai-chat-content-box init-box">
 					<div class="ai-chat-title">宠物专家</div>
-					<div class="ai-chat-text">作为一位经验丰富的宠物专家，我深谙宠物养成之道。</div>
+					<div class="ai-chat-text">作为一位经验丰富的宠物专家 我深谙宠物养成之道</div>
 					<div class="ai-chat-text">
-						无论你在养育心爱宠物的过程中遇到任何难题，我都将为你提供科学、实用的指导和建议，助你的宠物健康成长。
+						无论你在养育心爱宠物的过程中遇到任何难题，  \n我都将为你提供科学、实用的指导和建议，助你的宠物健康成长
 					</div>
 				</div>
 			</li>
@@ -33,7 +33,8 @@
 				</div>
 				<!-- AI回复内容 -->
 				<div class="ai-chat-content-box" :class="chatItem.role + '-box'" v-if="chatItem.role === 'assistant'">
-					AI 回复内容{{index}}
+					<!-- AI 回复内容{{index}} -->
+					宠物专家：
 					<zero-markdown-view :markdown="chatItem.content"></zero-markdown-view>
 					<!-- 加载图表 -->
 					<div class="loading-icon-box" v-if="loadingIndex === index">
@@ -65,7 +66,7 @@
 							{{ TEXT.length }} / {{ maxCharCount }}
 						</span>
 						<span>
-							<button type="primary" @click="sendToSpark()" :disabled="sendBtnDisabled">
+							<button class="sendbtn" @click="sendToSpark()" :disabled="sendBtnDisabled">
 								发送
 							</button>
 						</span>
@@ -392,6 +393,7 @@
 			// 会话头像
 			.ai-chat-avatar {
 				margin-right: 12px;
+				border-radius: 50%;
 			}
 
 			// 会话内容盒子
@@ -416,6 +418,7 @@
 							transform: translate(0, 0) rotate(360deg);
 						}
 					}
+					
 				}
 
 				// 会话列表初始化盒子
@@ -423,19 +426,19 @@
 					width: 100%;
 					background: #eff7ff;
 					border-radius: 10px;
-					background-image: url("https://ydcqoss.ydcode.cn/static/officialhome/ai-chat-init-bg.png");
+					background-image: url("https://s2.loli.net/2024/07/18/H2YaolqWvJetAQb.jpg");//https://ydcqoss.ydcode.cn/static/officialhome/ai-chat-init-bg.png
 					background-size: cover;
 					background-repeat: no-repeat;
 
 					.ai-chat-title {
 						font-size: 20px;
-						color: #005fdb;
+						color: #fff;
 						margin-bottom: 5px;
 					}
 
 					.ai-chat-text {
-						font-size: 12px;
-						color: #666666;
+						font-size: 14px;
+						color: #000;
 						line-height: 1.8;
 					}
 				}
@@ -445,12 +448,18 @@
 					padding-left: 0;
 					padding-top: 0;
 					line-height: 2;
+					border-radius: 10px;
+					// border: #fcbcce 1px solid;
+					// background:#fcbcce ;
+					padding: 5px;
+					width:100%;
+					
 				}
 
 				//ai会话项
 				&.assistant-box {
 					width: 100%;
-					background: #eff7ff;
+					background: #fffae8;
 					border-radius: 10px;
 				}
 			}
@@ -464,7 +473,8 @@
 				// 重新回答
 				.re-reply-btn {
 					font-size: 14px;
-					color: #2984ff;
+					font-weight: bold;
+					color: #f09802;
 
 					&.disabled {
 						color: #ccc;
@@ -495,7 +505,7 @@
 			z-index: 1;
 
 			.ai-chat-form-box {
-				border: 1px solid #526ef9;
+				border: 1px solid #f09802;
 				border-radius: 10px;
 				position: relative;
 			}
@@ -592,6 +602,10 @@
 	// 	color: #666666;
 	// 	line-height: 1.8;
 	// }
+	.sendbtn{
+		margin-top: 10px;
+		background-color: #f09802;
+	}
 	uni-page-body {
 		min-height: 100% !important;
 		height: auto !important;

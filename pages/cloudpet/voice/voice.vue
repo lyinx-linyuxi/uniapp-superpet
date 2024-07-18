@@ -1,9 +1,23 @@
 <template>
+<<<<<<< HEAD
   <view>
     <view>浏览器录音听写：<button @click="controlRecording">{{ buttonText }}</button></view>
     <view>音频文件听写(16kHz, s16le, pcm)：<input type="file" @change="handleFileChange" /></view>
     <view id="result">{{ resultText }}</view>
   </view>
+=======
+	<view class="content">
+		<image class="logo" src="/static/logo.png"></image>
+		<button @click="voiceBegain">讯飞语音识别</button>
+		<uni-icons type="mic-filled" size="50" color="#999"></uni-icons>
+		<view v-if="words1">
+			这是searchValue：{{words1}}
+		</view>
+		<view v-if="words2">
+			这是searchText：{{words2}}
+		</view>
+	</view>
+>>>>>>> 2fd60b8de0d4c7737712169f1c04bd15cffc1515
 </template>
 
 <script>
