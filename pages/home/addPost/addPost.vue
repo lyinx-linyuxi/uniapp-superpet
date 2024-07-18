@@ -81,6 +81,7 @@
 						console.log(res);
 					}
 				});
+				uni.navigateBack();
 			}
 		}
 	}

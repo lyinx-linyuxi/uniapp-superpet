@@ -59,7 +59,7 @@
 			<view v-if="activeTab === 'circle'">
 				<view class="post" v-for="(post, index) in posts" :key="index">
 					<view class="user-info">
-						<image :src="post.avatar" class="avatar"></image>
+						<image :src="post.headshotUrl" class="avatar"></image>
 						<view class="info">
 							<text class="username">{{ post.userName }}</text>
 							<text class="time">{{ post.postTime }}</text>
