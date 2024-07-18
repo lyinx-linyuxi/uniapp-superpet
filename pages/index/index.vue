@@ -129,6 +129,7 @@
 		background-color: aquamarine;
 		background: url("https://www.galaxyclub.cn/Upload/IMAGES/15/0615/38af439784544e95b7c64cad64a14157_650x650.jpg") no-repeat;
 		background-size: cover;
+		align-items: center;
 	}
 
 	.topBox {

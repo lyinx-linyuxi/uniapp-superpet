@@ -9,15 +9,22 @@
 			</navigator>
 		</view>
 		<view class="section top-section">
-			<view class="pet-info">
-				<view class="info">
-					<text class="name">{{ pet.name }} ({{ pet.breed }})\n</text>
-					<text class="detail">年龄：{{pet.age}}\n</text>
-					<text class="detail">体重：{{pet.weigh}}\n</text>
-					<text class="detail">爱好：{{pet.habit}}</text>
-				</view>
-				<image src="../../static/pages/index/home/images/greenpet.jpg" class="avatar"></image>
-			</view>
+			<ul>
+				<li class="list" v-for="card in cards" :key="card.id">
+					<view class="card">
+						<view class="pet-info">
+							<view class="info">
+								<text class="name" space="emsp">{{ card.petName }} ： {{ card.description }}\n</text>
+								<text class="detail" space="emsp">品种：{{card.species}}\n</text>
+								<text class="detail" space="emsp">性别：{{card.gender}} 体重：{{card.weight}}kg
+									绝育情况：{{card.sterilized}}\n</text>
+								<text class="detail" space="emsp">出生日期：{{card.birthDate}}\n</text>
+								<text class="detail" space="emsp">到家日期：{{card.homeDate}}</text>
+							</view>
+						</view>
+					</view>
+				</li>
+			</ul>
 		</view>
 		<view class="section middle-section">
 			<view class="tab-bar">
@@ -70,18 +77,14 @@
 </template>
 
 <script>
+	import {
+		currentUser
+	} from '../../global/userinfo';
 	export default {
 
 		data() {
 			return {
-				pet: {
-					avatar: '/static/pages/index/home/greenpet.jpg',
-					name: '旺财',
-					breed: '柯基',
-					age: '4岁3个月',
-					weigh: '100斤',
-					habit: '爱吃多拉'
-				},
+				user: currentUser,
 				posts: [{
 						date: '8月14日',
 						title: '体内驱虫',
@@ -97,8 +100,12 @@
 						liked: false
 					},
 					// 添加更多帖子
-				]
+				],
+				cards: [],
 			}
+		},
+		created() {
+			this.getMessage();
 		},
 		computed: {
 			photoCount() {
@@ -130,12 +137,39 @@
 			},
 			togglePopup() {
 				this.$refs.popup.open();
+			},
+			getMessage() {
+				uni.request({
+					url: "http://localhost:8080/admin/petcard/queryPetCardList/"+ this.user.getProperty("cardId") ,
+					// url: "http://localhost:8080/admin/message/getNewFollowersDetail/" + this.user.getProperty("userId"),
+					method: "GET",
+					success: (res) => {
+						console.log("success", res.data.data)
+						if (res.statusCode == 200) {
+
+							this.cards = res.data.data;
+						} else {
+							console.log("here", res.data);
+							this.handleFetchError();
+						}
+					},
+					fail: () => {
+						this.handleFetchError();
+					}
+				});
+			},
+			handleFetchError() {
+				this.followers = [{}]
 			}
 		}
 	}
 </script>
 
 <style scoped>
+	ul {
+		padding: 0px;
+		list-style: none;
+	}
 	.container {
 		display: flex;
 		flex-direction: column;
@@ -146,7 +180,7 @@
 		width: 100%;
 		position: fixed;
 		top: 0px;
-		z-index: 9999;
+		z-index: 999;
 		background-color: #FFD3D3;
 		height: 60px;
 		display: flex;
@@ -181,14 +215,14 @@
 	}
 
 	.pet-info {
-		display: flex;
-		justify-content: center;
-		align-items: flex-start;
 		background-color: #fff;
-		padding: 15px;
 		border-radius: 10px;
-		width: 350px;
-		height: 100px;
+		padding: 15px;
+		margin: 10px;
+		width: 1000px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
 	}
 
 	.info {
@@ -218,8 +252,8 @@
 		background-color: #fff;
 		padding: 10px 0;
 		position: fixed;
-		top: 220px;
-		z-index: 9999;
+		top: 250px;
+		z-index: 999;
 	}
 
 	.tab-bar {

@@ -1,7 +1,7 @@
 // 用户类
 class User {
 	constructor(name, age, email) {
-		this.userId = -1;
+		this.userId = 13;
 		this.username = 'default';
 		this.password = '';
 		this.email = email;
@@ -9,7 +9,7 @@ class User {
 		this.headshotUrl = '/static/pages/index/home/images/1.png';
 		this.petNum = 1;
 		this.gender = 'female';
-		this.card = null;
+		this.cardId = 0;
 	}
 
 	getProperty(property){
